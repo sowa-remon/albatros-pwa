@@ -1,0 +1,92 @@
+@font-face {
+  font-family: "commissioner";
+  src: url("../fonts/Commissioner.ttf");
+}
+@font-face {
+  font-family: "fugaz";
+  src: url("../fonts/FugazOne-Regular.ttf");
+}
+.landing {
+  display: grid;
+  margin: 0;
+  background-image: repeating-linear-gradient(270deg, #00AAE2, #2E3192);
+  background-size: 200%, 180%;
+  animation: gradiente-animation 12s ease infinite;
+  -webkit-animation: gradiente-animation 12s ease infinite;
+  -moz-animation: gradiente-animation 12s ease infinite;
+}
+
+.rep-patron {
+  margin: 0;
+  background-image: url(../images/patron-cuadrados.svg);
+  background-repeat: repeat;
+}
+
+@keyframes gradiente-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.navbar-landing ul {
+  margin: 0;
+  padding: 0 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-item {
+  display: block;
+  text-decoration: none;
+  align-items: center;
+}
+
+.icon-s {
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+}
+
+.btn-naranja {
+  background-color: #EF8122;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 4px #aac5ee;
+}
+
+.titulo {
+  font-family: "fugaz";
+  font-weight: 100;
+}
+
+.parrafo {
+  font-family: "commissioner";
+  line-height: 2;
+}
+
+.blanco {
+  color: #F8FBFF;
+}
+
+#primera-seccion {
+  padding: 0 2em;
+}
+
+@media (min-width: 320px) {
+  .navbar-landing {
+    background-color: #F8FBFF;
+    padding: 1em;
+  }
+}/*# sourceMappingURL=main.css.map */

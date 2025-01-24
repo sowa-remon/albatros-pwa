@@ -1,0 +1,36 @@
+// * Paleta de colores
+$marino: #2E3192;
+$celeste: #00AAE2;
+$naranja: #EF8122;
+$amarillo: #FAE906;
+$blanco: #F8FBFF;
+$oscuro: #1D1E1E;
+
+// * Tipografías
+@font-face {
+    font-family: 'commissioner';
+    src: url('../fonts/Commissioner.ttf');
+}
+
+@font-face {
+    font-family: 'fugaz';
+    src: url('../fonts/FugazOne-Regular.ttf');
+}
+
+@mixin centrado{
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin sombra{
+    box-shadow: 0 4px 4px #aac5ee;
+}
+
+@mixin icon-s{
+    width: 40px;
+    height: 40px;
+}
+
+@mixin texto-blanco{
+    color: $blanco;
+}
