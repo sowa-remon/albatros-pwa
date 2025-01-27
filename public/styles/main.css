@@ -192,7 +192,7 @@
   list-style: none;
   width: 100%;
   margin: 0 2rem;
-  padding: 1rem;
+  padding: 0 1rem;
 }
 
 .carousel {
@@ -221,7 +221,6 @@
   flex: 0 0 100%;
   width: 100%;
   background-color: rgba(0, 170, 226, 0.5);
-  counter-increment: item;
 }
 
 .carousel__slide:before {
@@ -283,11 +282,14 @@
 }
 
 .cajita-nivel {
+  margin-top: 1rem;
   padding: 0 2rem;
-  border: solid;
+  border: solid 3px;
+  border-color: rgb(var(--color));
   border-radius: 100px;
   justify-content: baseline;
   align-items: center;
+  background-color: rgba(var(--color), 0.5);
 }
 
 footer {
