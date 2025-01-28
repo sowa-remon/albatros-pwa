@@ -90,7 +90,7 @@
     list-style: none;
     width: 100%;
     margin: 0 2rem;
-    padding: 0 1rem;
+    padding: 1rem;
   }
   
   .carousel {
@@ -120,7 +120,6 @@
     width: 100%;
     background-color: rgba($color: $celeste, $alpha: .5);
   }
-  
   
   .carousel__slide:before {
     position: absolute;
