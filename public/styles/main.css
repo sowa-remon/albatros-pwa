@@ -63,6 +63,10 @@ body {
   min-width: 400px;
 }
 
+img {
+  aspect-ratio: z;
+}
+
 .navbar-landing ul {
   margin: 0;
   padding: 0 1em;

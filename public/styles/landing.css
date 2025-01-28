@@ -217,6 +217,7 @@
 }
 
 .img-nivel {
+  aspect-ratio: 1/1;
   margin: 0 0 1rem 0;
   height: auto;
   width: 80%;
