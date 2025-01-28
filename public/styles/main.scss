@@ -1,21 +1,8 @@
-// * Variables de color y fuentes
+// * Variables de color, tipografías y animaciones
 @import 'variables';
 
-.landing{
-    font-family: 'commissioner';
-    display: grid;
-    margin: 0;
-    background-image: repeating-linear-gradient(270deg, $celeste, $marino);
-    background-size: 200%, 180%;
-    animation: gradiente-animation 12s ease infinite;
-    -webkit-animation: gradiente-animation 12s ease infinite;
-    -moz-animation: gradiente-animation 12s ease infinite;
-}
-
-.rep-patron{
-    margin: 0;
-    background-image: url(../images/patron-cuadrados.svg);
-    background-repeat: repeat;
+body{
+  min-width: 400px;
 }
 
 // Navbar general
@@ -26,6 +13,11 @@
     flex-direction: row;
     justify-content: space-between; 
     align-items: center;
+}
+
+.navbar-landing{
+  background-color: $blanco;
+  padding: 1em;
 }
 
 .navbar-item{
@@ -57,13 +49,22 @@
 .titulo{
     font-family: 'fugaz';
     font-weight: 100;
+    font-size: clamp(2rem, 6vw, 5rem);
+    margin: 0;
+    align-self: center;
 }
 
 .parrafo{
     font-weight: 500;
     line-height: 2;
+    font-size: clamp(1rem, 3vw, 5rem);
+    text-align: start;
+    margin-left: .5rem;
 }
-
+.parrafo-regular{
+  font-size: clamp(1rem, 3vw, 5rem);
+  text-align: start;
+}
 
 .blanco{
     color: $blanco;
@@ -76,181 +77,6 @@
 .marino{
     color: $marino;
 }
-
-// * Secciones
-#primera-seccion, #segunda-seccion, #tercera-seccion{
-    padding: 0 2em 2em 2em;
-}
-
-
-.link-redes{
-    font-family: 'commissioner';
-    display: flex;
-    align-content: center;
-    margin-bottom: 1em;
-}
-
-.titulo-icono{
-    font-family: 'commissioner';
-    display: flex;
-    align-content: center;
-}
-
-#mision, #vision, #valores{
-    border-left: solid 5px $naranja;
-    margin-bottom: 2em;
-}
-
-.nivel-item {
-    border-radius: 10px;
-    border: solid 3px $marino;
-    position: relative;
-    -webkit-transform: preserve-3d;
-    -ms-transform: preserve-3d;
-    transform: preserve-3d;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-  }
-  
-  .cover {
-    border-radius: 10px;
-    top: 0;
-    position: absolute;
-    background-color: #0699D7;
-    cursor: pointer;
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .nivel-item:hover .cover {
-    border-radius: 10px;
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
-    -webkit-transform: rotatey(-90deg);
-    -ms-transform: rotatey(-90deg);
-    transform: rotatey(-90deg);
-  }
-  
-
-  #carousel__slide1, #carousel__slide2, #carousel__slide3, #carousel__slide4, #carousel__slide5 {
-    list-style: none;
-    width: 100%;
-    margin: 0 2rem;
-    padding: 0 1rem;
-  }
-  
-  .carousel {
-    width: 100%;
-    height: 60vh;
-    position: relative;
-    filter: drop-shadow(0 0 10px #0003);
-    perspective: 100px;
-  }
-  
-  .carousel__viewport {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    overflow-x: scroll;
-    counter-reset: item;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-  }
-  
-  .carousel__slide {
-    position: relative;
-    flex: 0 0 100%;
-    width: 100%;
-    background-color: rgba($color: $celeste, $alpha: .5);
-  }
-  
-  
-  .carousel__slide:before {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate3d(-50%,-40%,70px);
-    color: #0699D7;
-    font-size: 2em;
-  }
-  
-  .carousel__snapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    scroll-snap-align: center;
-  }
-  
-  @media (prefers-reduced-motion: reduce) {
-    .carousel__snapper {
-      animation-name: none;
-    }
-  }
-
-  .carousel__navigation {
-    position: absolute;
-    right: 0;
-    bottom: -20px;
-    left: 0;
-    text-align: center;
-  }
-  
-  .carousel__navigation-list,
-  .carousel__navigation-item {
-    display: inline-block;
-    margin: 0 .5rem;
-    padding: 0;
-  }
-  
-  .carousel__navigation-button {
-    display: inline-block;
-    width: .8rem;
-    height: .8rem;
-    background-color: $celeste;
-    background-clip: content-box;
-    border: solid 1px $marino ;
-    border-radius: 50%;
-    font-size: 0;
-    transition: transform 0.1s;
-  }
-  
-.img-nivel{
-    margin: 0 0 1rem 0;
-    height: auto;
-    width: 80%;
-    border: solid 5px $naranja;
-    border-radius: 100%;
-}
-
-.cajita-nivel{
-    margin-top: 1rem;
-    padding: 0 2rem;
-    border: solid 3px;
-    border-color: rgb(var(--color));
-    border-radius: 100px;
-    justify-content: baseline;
-    align-items: center;
-    background-color: rgba($color: var(--color), $alpha: .5);
-}
-
 
 footer{
     background-color: $blanco;
@@ -265,15 +91,10 @@ footer{
 
 // * Tamaño mínimo para celulares
 @media (min-width: 320px) {
-    .navbar-landing{
-        background-color: $blanco;
-        padding: 1em;
-    }
 
 }
 
 // * Tamaño mínimo para tablets/laptops en modo landscape
 @media (min-width: 960px){
-
 }
 
