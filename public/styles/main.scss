@@ -12,7 +12,7 @@ img{
 // Navbar general
 .navbar-landing ul{
     margin: 0;
-    padding: 0 1em;
+    padding: 0 .5em;
     display: flex;
     flex-direction: row;
     justify-content: space-between; 
@@ -21,7 +21,14 @@ img{
 
 .navbar-landing{
   background-color: $blanco;
-  padding: 1em;
+  padding: .5em;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.navbar-landing #links-menu{
+    display: none;
 }
 
 .navbar-item{
@@ -38,12 +45,30 @@ img{
 
 .btn-naranja{
     background-color: $naranja;
+    font-family: 'commissioner';
+    font-weight: 500;
+    text-decoration: none;
+    color: $blanco;
     padding: 15px;
     border: none;
     border-radius: 10px;
     display: flex;
+    font-size: clamp(1rem, 3vw, 5rem);
     @include centrado;
     @include sombra;
+    transition:0.1s;
+}
+
+.btn-naranja:hover{
+    background-color: $celeste;
+    transform: scale(.95) rotate(-1deg);
+    transition: .5s;
+}
+
+.btn-naranja:active{
+    background-color: $marino;
+    transform: scale(0.90);
+    transition: 0.5s;
 }
 
 .centrar-v{
@@ -95,6 +120,25 @@ footer{
 
 // * Tamaño mínimo para celulares
 @media (min-width: 320px) {
+    #links-menu{
+        position: relative;
+        background-color: $blanco;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    #links-menu a{
+        text-decoration: none;
+        color: $naranja;
+        font-weight: 500;
+        display:block;
+        padding: 1rem .5rem;
+    }
+    #links-menu a:hover{
+        color: $blanco;
+        background-color: $naranja;
+        transition: .5s;
+    }
 
 }
 

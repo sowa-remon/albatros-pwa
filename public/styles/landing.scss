@@ -2,6 +2,7 @@
 @import 'variables';
 
 .landing{
+  min-width: 400px;
     font-family: 'commissioner';
     display: grid;
     margin: 0;
@@ -20,8 +21,7 @@
 
 // * Secciones
 #primera-seccion, #segunda-seccion, #tercera-seccion, #cuarta-seccion, #quinta-seccion{
-    padding: 0 2em 2em 2em;
-    margin-bottom: 2vh;
+    padding: 9vh 2em 0 2em;
 }
 
 .link-redes{
@@ -95,7 +95,7 @@
   
   .carousel {
     width: 100%;
-    height: 60vh;
+    height: 65vh;
     position: relative;
     filter: drop-shadow(0 0 10px #0003);
     perspective: 100px;

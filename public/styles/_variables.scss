@@ -26,7 +26,7 @@ $rosa: #F523CE;
 }
 
 @mixin sombra{
-    box-shadow: 0 4px 4px #aac5ee;
+    box-shadow: 0 4px 4px rgba(46, 49,146,.5);
 }
 
 @mixin icon-s{
@@ -43,7 +43,7 @@ $rosa: #F523CE;
       background-position: 0% 50%;
     }
     50% {
-      background-position: 100% 50%;
+      background-position: 50% 50%;
     }
     100% {
       background-position: 0% 50%;

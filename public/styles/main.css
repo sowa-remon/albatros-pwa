@@ -11,7 +11,7 @@
     background-position: 0% 50%;
   }
   50% {
-    background-position: 100% 50%;
+    background-position: 50% 50%;
   }
   100% {
     background-position: 0% 50%;
@@ -69,7 +69,7 @@ img {
 
 .navbar-landing ul {
   margin: 0;
-  padding: 0 1em;
+  padding: 0 0.5em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -78,7 +78,14 @@ img {
 
 .navbar-landing {
   background-color: #F8FBFF;
-  padding: 1em;
+  padding: 0.5em;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.navbar-landing #links-menu {
+  display: none;
 }
 
 .navbar-item {
@@ -96,13 +103,31 @@ img {
 
 .btn-naranja {
   background-color: #EF8122;
+  font-family: "commissioner";
+  font-weight: 500;
+  text-decoration: none;
+  color: #F8FBFF;
   padding: 15px;
   border: none;
   border-radius: 10px;
   display: flex;
+  font-size: clamp(1rem, 3vw, 5rem);
   justify-content: center;
   align-items: center;
-  box-shadow: 0 4px 4px #aac5ee;
+  box-shadow: 0 4px 4px rgba(46, 49, 146, 0.5);
+  transition: 0.1s;
+}
+
+.btn-naranja:hover {
+  background-color: #00AAE2;
+  transform: scale(0.95) rotate(-1deg);
+  transition: 0.5s;
+}
+
+.btn-naranja:active {
+  background-color: #2E3192;
+  transform: scale(0.9);
+  transition: 0.5s;
 }
 
 .centrar-v {
@@ -151,4 +176,26 @@ footer {
   display: flex;
   justify-content: center;
   align-content: center;
+}
+
+@media (min-width: 320px) {
+  #links-menu {
+    position: relative;
+    background-color: #F8FBFF;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  #links-menu a {
+    text-decoration: none;
+    color: #EF8122;
+    font-weight: 500;
+    display: block;
+    padding: 1rem 0.5rem;
+  }
+  #links-menu a:hover {
+    color: #F8FBFF;
+    background-color: #EF8122;
+    transition: 0.5s;
+  }
 }/*# sourceMappingURL=main.css.map */
