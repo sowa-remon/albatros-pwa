@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página oficial del Centro Acuático Albatros en Tequisquiapan, Qro., México.">
+    <title>Albatros: Centro Acuático de Natación en Tequisquiapan</title>
+    <link rel="manifest" href="./js/pwa.webmanifest">
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/landing.css">
+</head>
+<body class="landing" id="landing">
+    
+    <div class="rep-patron">
+        <!-- Barra de navegación --> 
+        <nav class="navbar-landing">
+            <ul>
+                <li class="navbar-item" id="bars-menu">     
+                    <a href="javascript:void(0);" onclick="desplegarMenu()">
+                        <svg width="40" viewBox="0 0 54 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.333313 16.6667H40.3333V23.3333H0.333313V16.6667ZM0.333313 0H53.6666V6.66667H0.333313V0ZM0.333313 40H24.45V33.3333H0.333313V40Z" fill="#EF8122"/>
+                        </svg>
+                    </a>
+                </li>
+                <li class="navbar-item" id="logo-menu"><img src="./images/logo.png" alt="Albatros Logo" width="100" loading="lazy"></li>
+                <li class="navbar-item" id="login-menu">
+                    <button class="btn-naranja" aria-label="Botón de inicio de sesión">
+                        <svg width="25" viewBox="0 0 39 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.75 27.0833L29.1667 18.75L18.75 10.4167V16.6667H0V20.8333H18.75V27.0833Z" fill="#F8FBFF"/>
+                            <path d="M33.3333 0H14.5833C12.2854 0 10.4167 1.86875 10.4167 4.16667V12.5H14.5833V4.16667H33.3333V33.3333H14.5833V25H10.4167V33.3333C10.4167 35.6312 12.2854 37.5 14.5833 37.5H33.3333C35.6313 37.5 37.5 35.6312 37.5 33.3333V4.16667C37.5 1.86875 35.6313 0 33.3333 0Z" fill="#F8FBFF"/>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+            <div id="links-menu" onclick="cerrarMenu()">
+                <a href="index.html">Inicio</a>
+                <a href="index.html#tercera-seccion">Niveles Técnicos</a>
+                <a href="index.html#cuarta-seccion">Preguntas</a>
+                <a href="index.html#quinta-seccion">Ubicación</a>
+                <a href="#contacto">Contáctanos</a>
+              </div>
+        </nav>
+            <h1 class="titulo blanco" style="margin:2rem 2rem 0 2rem">Acerca de Nosotros</h1>
+            <section id="segunda-seccion">
+                <div id="mision">
+                     <div class="titulo-icono">
+                        <svg width="65" height="70" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M65.75 66C65.75 66 77.6667 54.1667 81.7083 50C94.5 37.5 88.125 11.7501 88.125 11.7501C88.125 11.7501 62.5 5.37505 50 18.1667C40.25 27.6667 33.9167 34.2501 33.9167 34.2501C33.9167 34.2501 17.9167 30.9167 8.33333 40.5001L59.375 91.6667C68.9583 81.9584 65.75 66 65.75 66ZM59.5 28.5001C60.2739 27.7253 61.193 27.1106 62.2047 26.6912C63.2163 26.2719 64.3007 26.056 65.3958 26.056C66.491 26.056 67.5754 26.2719 68.587 26.6912C69.5987 27.1106 70.5177 27.7253 71.2917 28.5001C72.4562 29.6659 73.2489 31.1507 73.5697 32.767C73.8905 34.3832 73.7249 36.0583 73.0939 37.5805C72.4629 39.1027 71.3948 40.4036 70.0246 41.3189C68.6544 42.2342 67.0436 42.7227 65.3958 42.7227C63.7481 42.7227 62.1373 42.2342 60.767 41.3189C59.3968 40.4036 58.3287 39.1027 57.6977 37.5805C57.0667 36.0583 56.9012 34.3832 57.2219 32.767C57.5427 31.1507 58.3355 29.6659 59.5 28.5001ZM12.5 87.5C20.2128 87.28 27.5965 84.3265 33.3333 79.1667L20.8333 66.6667C12.5 70.8334 12.5 87.5 12.5 87.5Z" fill="#EF8122"/>
+                        </svg>
+                        <h2 class="encabezado blanco" style="margin-left: .5em;">Misión</h2>
+                    </div>
+                    <p class="parrafo blanco" style="margin: 0 1em 1em 1em;">Contribuir por medio del deporte a la formación integral de nuestros alumnos al mismo tiempo de desarrollar sus expectativas acuáticas.</p>
+                </div>
+                <div id="vision">
+                    <div class="titulo-icono">
+                        <svg width="65" height="70" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M37.5 83.3333H62.5V91.6666H37.5V83.3333ZM70.4417 57.1333C74.7333 52.1083 79.1667 46.9124 79.1667 37.4999C79.1667 21.4208 66.0792 8.33325 50 8.33325C33.9208 8.33325 20.8333 21.4208 20.8333 37.4999C20.8333 47.0208 25.2792 52.1999 29.5875 57.2083C31.0792 58.9499 32.625 60.7541 34.1042 62.8291C34.7042 63.6874 35.6875 66.9791 36.5667 70.8333H33.2667V79.1666H66.7333V70.8333H63.4417C64.3292 66.9708 65.3167 63.6708 65.9125 62.8124C67.3792 60.7166 68.9375 58.8958 70.4417 57.1333Z" fill="#EF8122"/>
+                        </svg>
+                       <h2 class="encabezado blanco" style="margin-left: .5em;">Visión</h2>
+                    </div>
+                   <p class="parrafo blanco" style="margin: 0 1em 1em 1em;">Consolidarnos como la mejor escuela de natación con un alto nivel de enseñanza y competitividad promoviendo la cultura del deporte.</p>
+               </div>            
+               <div id="valores" style="margin-bottom: 0;">
+                <div class="titulo-icono">
+                    <svg width="65" height="70" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M68.5208 12.5H31.4792C30.0417 12.5 28.7042 13.2417 27.9417 14.4583L13.5417 37.5H86.4583L72.0583 14.4583C71.6825 13.8593 71.1609 13.3654 70.5422 13.0229C69.9235 12.6804 69.228 12.5005 68.5208 12.5ZM46.9167 88.275C47.3072 88.7047 47.7832 89.048 48.3142 89.2829C48.8452 89.5178 49.4194 89.6391 50 89.6391C50.5806 89.6391 51.1548 89.5178 51.6858 89.2829C52.2168 89.048 52.6928 88.7047 53.0833 88.275L91.6667 45.8333H8.33333L46.9167 88.275Z" fill="#EF8122"/>
+                    </svg>
+                   <h2 class="encabezado blanco" style="margin-left: .5em;">Valores</h2>
+                </div>
+                    <div style="display: flex;">
+                        <ul class="parrafo blanco" style="margin-top: 0;">
+                            <li>Lealtad</li>
+                            <li>Honestidad</li>
+                            <li>Trabajo en equipo</li>
+                            <li>Integridad</li>
+                            <li>Compromiso</li>
+                        </ul>
+                        <ul class="parrafo blanco" style="margin-top: 0";>
+                            <li>Constancia</li>
+                            <li>Deseo</li>
+                            <li>Decisión</li>
+                            <li>Desarrollo</li>
+                            <li>Dedicación</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+        <section>
+            <h1 class="titulo blanco" style="margin:2rem 2rem 0 2rem">Conoce a nuestro equipo</h1>
+            <div class="grid-3">
+                <div class="tarjeta-equipo">
+                    <img src="./images/equipo/director_antonio.webp" alt="Foto del director del centro acuático">
+                    <div>
+                        <p class="titulo-equipo" style="margin: .5rem;">Director Antonio Martínez</p>
+                        <hr>
+                        <p style="padding:0 1rem 1rem 1rem; ">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat dolorum itaque accusamus. Atque consectetur nobis ut reiciendis impedit odio. Cupiditate, deleniti reiciendis eos optio eveniet eius libero eum repudiandae ullam?</p>
+                    </div>
+                </div>            
+                <div class="tarjeta-equipo">
+                    <img src="./images/equipo/" alt="Foto de asistente de dirección">
+                    <div>
+                        <p class="titulo-equipo" style="margin: .5rem;">Asistente de dirección Alejandra Martínez</p>
+                        <hr>
+                        <p style="padding:0 1rem 1rem 1rem; ">La natación ha sido siempre parte de mi vida, inicié clases a muy temprana edad, entrene, competi y empecé a dar clases de natación a los 17 años, mientras estudiaba la universidad.
+                            Soy Lic. En Derecho y en los últimos 2 años me he enfocado en tomar cursos de enseñanza especializada en la pedagogía y técnica de la natación para seguir aplicando en nuestros programas, me encanta ver el desarrollo de nuestros alumnos!!</p>
+                    </div>
+                </div>            
+                <div class="tarjeta-equipo">
+                    <img src="./images/equipo/coordinadora_maria.webp" alt="Foto de coordinadora">
+                    <div>
+                        <p class="titulo-equipo" style="margin: .5rem;">Coordinadora María Yarita</p>
+                        <hr>
+                        <p style="padding:0 1rem 1rem 1rem; ">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat dolorum itaque accusamus. Atque consectetur nobis ut reiciendis impedit odio. Cupiditate, deleniti reiciendis eos optio eveniet eius libero eum repudiandae ullam?</p>
+                    </div>
+                </div>   
+            </div>
+            <h2 class="titulo blanco" style="margin:2rem 2rem 0 2rem">Nuestros maestros</h2>
+            <div class="grid-3">
+                <div class="tarjeta-equipo">
+                    <img src="./images/equipo/mtro_adriana.webp" alt="Foto de maestra Adriana">
+                    <div>
+                        <p class="titulo-equipo" style="margin: .5rem;">Maestra Adriana Hernández</p>
+                        <hr>
+                        <p style="padding:0 1rem 1rem 1rem; ">Instructora de natación con 22 años  de experiencia. Soy responsable y dedicada. <br><br>
+                            - Mi especialidad son clases a bebés, preescolares, adolescentes y adultos. <br>
+                            - Mi satisfacción más grande es ver los logros de mis alumnos, que aprendan a perder el miedo a nadar y que disfruten sus clases.</p>
+                    </div>
+                </div>            
+                <div class="tarjeta-equipo">
+                    <img src="./images/equipo/mtro_jasael.webp" alt="Foto de maestro Jasael Millán">
+                    <div>
+                        <p class="titulo-equipo" style="margin: .5rem;">Maestro Jasael Millán</p>
+                        <hr>
+                        <p style="padding:0 1rem 1rem 1rem; ">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat dolorum itaque accusamus. Atque consectetur nobis ut reiciendis impedit odio. Cupiditate, deleniti reiciendis eos optio eveniet eius libero eum repudiandae ullam?</p>
+                    </div>
+                </div>            
+                <div class="tarjeta-equipo">
+                    <img src="./images/equipo/mtro_franco.webp" alt="Foto de maestro Franco Díaz">
+                    <div>
+                        <p class="titulo-equipo" style="margin: .5rem;">Maestro Franco Díaz</p>
+                        <hr>
+                        <p style="padding:0 1rem 1rem 1rem; ">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat dolorum itaque accusamus. Atque consectetur nobis ut reiciendis impedit odio. Cupiditate, deleniti reiciendis eos optio eveniet eius libero eum repudiandae ullam?</p>
+                    </div>
+                </div>                  
+                <div class="tarjeta-equipo">
+                    <img src="./images/equipo/mtro_luis.webp" alt="Foto de maestro Luis Cruz">
+                    <div>
+                        <p class="titulo-equipo" style="margin: .5rem;">Maestro Luis Cruz</p>
+                        <hr>
+                        <p style="padding:0 1rem 1rem 1rem; ">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat dolorum itaque accusamus. Atque consectetur nobis ut reiciendis impedit odio. Cupiditate, deleniti reiciendis eos optio eveniet eius libero eum repudiandae ullam?</p>
+                    </div>
+                </div>
+                <div class="tarjeta-equipo">
+                    <img src="./images/equipo/mtro_luis.webp" alt="Foto de maestra Karla">
+                    <div>
+                        <p class="titulo-equipo" style="margin: .5rem;">Maestra Karla Rodríguez</p>
+                        <hr>
+                        <p style="padding:0 1rem 1rem 1rem; ">Maestra de natación con 5 años de experiencia trabajando con bebés, niños y adultos. <br><br>
+                            Mi enseñanza se basa en la metodología pedagógica que me permite evaluar habilidades básicas y de los 4 estilos de natación, de acuerdo al programa técnico de Albatros. <br><br>
+                            Como profesional en psicología deportiva, capacitada en el <b>área infantil</b>, mi objetivo es potencializar sus capacidades cognitivas, psicomotoras y socio-afectivas dentro del agua permitiéndoles un mayor aprendizaje en su clase, acompañado del juego y diversión.</p>
+                    </div>
+                </div>                
+                <div class="tarjeta-equipo">
+                    <img src="./images/equipo/mtro_luis.webp" alt="Foto de maestro Armando">
+                    <div>
+                        <p class="titulo-equipo" style="margin: .5rem;">Maestro Armando David</p>
+                        <hr>
+                        <p style="padding:0 1rem 1rem 1rem; ">Soy un apasionado de la natación y el deporte, comprometido con enseñar a adultos a disfrutar del agua mientras mejoran su técnica y condición física. <br><br> Mi objetivo es brindar clases dinámicas y versátiles en un ambiente motivador, ayudando a cada alumno a alcanzar sus metas dentro y fuera de la piscina. <br><br> ¡Aprender a nadar nunca fue tan emocionante!</p>
+                    </div>
+                </div>                 
+                <div class="tarjeta-equipo">
+                    <img src="./images/equipo/mtro_luis.webp" alt="Foto de maestra Jessica">
+                    <div>
+                        <p class="titulo-equipo" style="margin: .5rem;">Maestra Jessica Salinas</p>
+                        <hr>
+                        <p style="padding:0 1rem 1rem 1rem; ">Licenciatura en Innovación y Educación Pedagógica en la Universidad Pedagógica Nacional UPN. <br>
+                            <br>
+                            - Certificación como educador acuático <br>
+                            - Certificación de Baby-acuatic <br>
+                            - Certificación de instructor de Aquafitness <br>
+                            - Diploma congreso acuático Aquafitness <br>
+                            - Diploma actualización para educador acuático Diploma formación de  Método Lenoarmi (España) <br>
+                            - Taller en el medio acuático para patología neurológica en adultos</p>
+                    </div>
+                </div>                    
+                <div class="tarjeta-equipo">
+                    <img src="./images/equipo/mtro_luis.webp" alt="Foto de maestro Maximiliano">
+                    <div>
+                        <p class="titulo-equipo" style="margin: .5rem;">Maestro Maximiliano Altamirano</p>
+                        <hr>
+                        <p style="padding:0 1rem 1rem 1rem; ">Estudiante en la Licenciatura Relaciones Internacionales en la Universidad del Valle de México (UVM) <br><br>
+                            - Nadador desde hace 10 años <br>
+                            - Finalista Nacional Curso Largo 2019 <br>
+                            - Constancia en Ejercicios de Rehabilitación Acuática para Lumbares <br>
+                            - Constancia en Terapia Acuática para Lesión de
+                            Columna <br>
+                            - Constancia en ACUAYOGA <br>
+                            - Constancia en Webinar Autismo y medio acuático</p>
+                    </div>
+                </div>                  
+                <div class="tarjeta-equipo">
+                    <img src="./images/equipo/mtro_luis.webp" alt="Foto de maestro Yael">
+                    <div>
+                        <p class="titulo-equipo" style="margin: .5rem;">Maestro Yael</p>
+                        <hr>
+                        <p style="padding:0 1rem 1rem 1rem; ">Me gusta la alegría que te contagian los niños y tengo mucha  paciencia con ellos. <br> <br>
+                            El deporte es algo que me apasiona mucho y que llevo en la sangre desde los 5 años de edad. <br> <br>
+                            Amo mis clases de natacion y explotar la "píldora" mágica que hay en cada alumno para lograr lo máximo.</p>
+                    </div>
+                </div>   
+                <div class="tarjeta-equipo">
+                    <img src="./images/equipo/mtro_luis.webp" alt="Foto de maestra Sofía">
+                    <div>
+                        <p class="titulo-equipo" style="margin: .5rem;">Maestra Sofía Martínez Garcia</p>
+                        <hr>
+                        <p style="padding:0 1rem 1rem 1rem; ">Tengo 26 años soy egresada de la Licenciatuta de Fisioterapia actualmente me dedico a ejercer mi carrera en un consultorio propio  al igual que dar clases de natación ya que siempre le he tenido amor a este deporte, fui nadadora de alto rendimiento durante 7 años representando al estado de Queretaro en competencias como nacionales y 2 Olimpiadas Nacionales. <br><br>
+
+                            Me gusta transmitir mis conocimientos como nadadora a mis alumnos y ver cómo con esfuerzo y disciplina van consiguiendo mejor desempeño en la natación</p>
+                    </div>
+                </div>    
+            </div>
+        </section>
+    </div>
+    
+</body>
+        
+<script src="./js/pwa.js"></script>
+<script>
+    var menu = document.getElementById("links-menu");
+        var pageWidth = document.getElementById("landing").offsetWidth;
+    function desplegarMenu(){
+        if (menu.style.display === "block") {
+            menu.style.display = "none";
+        } else {
+        menu.style.display = "block";
+        }
+    }
+    function cerrarMenu(){
+        if(pageWidth<=959) {
+            menu.style.display = "none";
+        }
+    }
+</script>
+</div>
+
+<footer>
+<div id="logo-footer">
+    <img src="./images/logo.png" alt="Albatros Logo Footer">    
+</div>
+<h3 class="parrafo naranja" style="margin-top: 0;"><b>Contacto</b></h3>
+<address id="contacto" class="container">
+    <a class="link-redes naranja">
+        <svg class="icon-s" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M52.3677 20.7624C52.3425 18.869 51.988 16.9943 51.3202 15.2224C50.741 13.7278 49.8565 12.3704 48.7231 11.237C47.5897 10.1035 46.2323 9.21902 44.7377 8.63989C42.9885 7.98329 41.1406 7.62825 39.2727 7.58989C36.8677 7.48239 36.1052 7.45239 30.0002 7.45239C23.8952 7.45239 23.1127 7.45239 20.7252 7.58989C18.8581 7.62853 17.011 7.98356 15.2627 8.63989C13.7678 9.21862 12.4102 10.103 11.2768 11.2365C10.1433 12.3699 9.2589 13.7275 8.68018 15.2224C8.02225 16.9702 7.66798 18.8177 7.63268 20.6849C7.52518 23.0924 7.49268 23.8549 7.49268 29.9599C7.49268 36.0649 7.49268 36.8449 7.63268 39.2349C7.67018 41.1049 8.02268 42.9499 8.68018 44.7024C9.25987 46.1968 10.1449 47.5538 11.2788 48.6868C12.4126 49.8198 13.7703 50.7038 15.2652 51.2824C17.0088 51.9654 18.8561 52.3458 20.7277 52.4074C23.1352 52.5149 23.8977 52.5474 30.0027 52.5474C36.1077 52.5474 36.8902 52.5474 39.2777 52.4074C41.1456 52.3706 42.9936 52.0164 44.7427 51.3599C46.2369 50.7801 47.5939 49.8953 48.7273 48.762C49.8606 47.6287 50.7454 46.2716 51.3252 44.7774C51.9827 43.0274 52.3352 41.1824 52.3727 39.3099C52.4802 36.9049 52.5127 36.1424 52.5127 30.0349C52.5077 23.9299 52.5077 23.1549 52.3677 20.7624ZM29.9852 41.5049C23.6002 41.5049 18.4277 36.3324 18.4277 29.9474C18.4277 23.5624 23.6002 18.3899 29.9852 18.3899C33.0504 18.3899 35.9901 19.6076 38.1576 21.775C40.325 23.9425 41.5427 26.8822 41.5427 29.9474C41.5427 33.0126 40.325 35.9523 38.1576 38.1198C35.9901 40.2872 33.0504 41.5049 29.9852 41.5049ZM42.0027 20.6574C41.6487 20.6577 41.2981 20.5882 40.971 20.4529C40.6438 20.3176 40.3466 20.1191 40.0963 19.8688C39.846 19.6185 39.6475 19.3212 39.5122 18.9941C39.3768 18.667 39.3073 18.3164 39.3077 17.9624C39.3077 17.6086 39.3774 17.2584 39.5127 16.9315C39.6481 16.6047 39.8465 16.3078 40.0967 16.0576C40.3468 15.8075 40.6438 15.6091 40.9706 15.4737C41.2974 15.3383 41.6477 15.2686 42.0014 15.2686C42.3552 15.2686 42.7055 15.3383 43.0323 15.4737C43.3591 15.6091 43.6561 15.8075 43.9062 16.0576C44.1563 16.3078 44.3548 16.6047 44.4901 16.9315C44.6255 17.2584 44.6952 17.6086 44.6952 17.9624C44.6952 19.4524 43.4902 20.6574 42.0027 20.6574Z" fill="#EF8122"/>
+            <path d="M29.985 37.4549C34.1313 37.4549 37.4925 34.0937 37.4925 29.9474C37.4925 25.8012 34.1313 22.4399 29.985 22.4399C25.8388 22.4399 22.4775 25.8012 22.4775 29.9474C22.4775 34.0937 25.8388 37.4549 29.985 37.4549Z" fill="#EF8122"/>
+            </svg>
+        <span style="align-self: center;">@albatrosnatacion</span>
+    </a>            
+    <a class="link-redes naranja">
+        <svg class="icon-s" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30.0024 5.00488C16.1974 5.00488 5.00488 16.1974 5.00488 30.0024C5.00488 42.4774 14.1449 52.8174 26.0974 54.6999V37.2299H19.7474V30.0024H26.0974V24.4949C26.0974 18.2249 29.8299 14.7674 35.5374 14.7674C38.2724 14.7674 41.1374 15.2549 41.1374 15.2549V21.4024H37.9774C34.8774 21.4024 33.9074 23.3324 33.9074 25.3099V29.9974H40.8349L39.7274 37.2249H33.9074V54.6949C45.8599 52.8224 54.9999 42.4799 54.9999 30.0024C54.9999 16.1974 43.8074 5.00488 30.0024 5.00488Z" fill="#EF8122"/>
+        </svg>
+        <span style="align-self: center;">Albatros Natación S.C. Tequisquiapan</span>
+    </a>            
+    <a class="link-redes naranja">
+        <svg class="icon-s" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M51.2177 42.8501L41.0552 33.6101C40.5748 33.1735 39.9436 32.9406 39.2947 32.9607C38.6459 32.9807 38.0302 33.2522 37.5777 33.7176L31.5952 39.8701C30.1552 39.5951 27.2602 38.6926 24.2802 35.7201C21.3002 32.7376 20.3977 29.8351 20.1302 28.4051L26.2777 22.4201C26.7437 21.9679 27.0156 21.3522 27.0356 20.7031C27.0557 20.0541 26.8224 19.4227 26.3852 18.9426L17.1477 8.78261C16.7103 8.301 16.1024 8.00887 15.4531 7.96826C14.8038 7.92765 14.1642 8.14175 13.6702 8.56511L8.24522 13.2176C7.81299 13.6514 7.55502 14.2287 7.52022 14.8401C7.48272 15.4651 6.76772 30.2701 18.2477 41.7551C28.2627 51.7676 40.8077 52.5001 44.2627 52.5001C44.7677 52.5001 45.0777 52.4851 45.1602 52.4801C45.7715 52.4459 46.3485 52.1868 46.7802 51.7526L51.4302 46.3251C51.8552 45.8327 52.0709 45.1936 52.0312 44.5444C51.9915 43.8951 51.6996 43.2871 51.2177 42.8501Z" fill="#EF8122"/>
+        </svg>
+        <span style="align-self: center;">+52 414 273 6127</span>
+    </a>            
+    <a class="link-redes naranja">
+        <svg class="icon-s" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M46.0075 14.0826C43.9284 11.9898 41.4547 10.3304 38.7297 9.20044C36.0046 8.07053 33.0825 7.49257 30.1325 7.50007C17.7625 7.50007 7.6925 17.5676 7.6875 29.9426C7.6875 33.8976 8.72 37.7576 10.6825 41.1626L7.5 52.7901L19.3975 49.6676C22.6885 51.4591 26.3755 52.3984 30.1225 52.4001H30.1325C42.5 52.4001 52.57 42.3326 52.575 29.9576C52.5835 27.0088 52.0075 24.0876 50.8802 21.3627C49.7529 18.6379 48.0968 16.1635 46.0075 14.0826ZM30.1325 48.6126H30.125C26.7838 48.6129 23.5041 47.714 20.63 46.0101L19.95 45.6051L12.89 47.4576L14.7725 40.5751L14.33 39.8701C12.462 36.8961 11.4731 33.4545 11.4775 29.9426C11.4825 19.6576 19.85 11.2901 30.14 11.2901C32.5906 11.2846 35.018 11.7653 37.2816 12.7042C39.5453 13.6431 41.6002 15.0217 43.3275 16.7601C45.0641 18.4902 46.4405 20.5473 47.3772 22.8126C48.314 25.0778 48.7924 27.5063 48.785 29.9576C48.78 40.2426 40.4125 48.6126 30.1325 48.6126ZM40.365 34.6401C39.8025 34.3576 37.0475 33.0026 36.5325 32.8151C36.02 32.6276 35.6475 32.5351 35.2725 33.0951C34.8975 33.6551 33.8225 34.9176 33.495 35.2926C33.1675 35.6676 32.84 35.7126 32.28 35.4326C31.72 35.1526 29.9125 34.5601 27.77 32.6501C26.1025 31.1626 24.9775 29.3276 24.65 28.7651C24.3225 28.2026 24.615 27.9001 24.8975 27.6201C25.15 27.3701 25.4575 26.9651 25.7375 26.6376C26.0175 26.3101 26.11 26.0776 26.2975 25.7026C26.485 25.3276 26.3925 25.0001 26.25 24.7201C26.11 24.4376 24.9875 21.6776 24.52 20.5551C24.0675 19.4676 23.605 19.6126 23.26 19.5976C22.9027 19.583 22.5451 19.5763 22.1875 19.5776C21.9031 19.5848 21.6233 19.6507 21.3657 19.7712C21.108 19.8916 20.8779 20.064 20.69 20.2776C20.175 20.8401 18.7275 22.1951 18.7275 24.9551C18.7275 27.7151 20.7375 30.3826 21.0175 30.7576C21.2975 31.1326 24.9725 36.7951 30.5975 39.2251C31.9375 39.8026 32.9825 40.1476 33.795 40.4076C35.1375 40.8351 36.36 40.7726 37.3275 40.6301C38.405 40.4701 40.645 39.2751 41.1125 37.9651C41.58 36.6551 41.58 35.5326 41.44 35.2976C41.3 35.0626 40.9225 34.9201 40.365 34.6401Z" fill="#EF8122"/>
+        </svg>
+        <span style="align-self: center;">+52 427 166 911</span>
+    </a>
+    <a class="link-redes naranja">
+        <svg class="icon-s" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50.5 10H14.5C13.3065 10 12.1619 10.5268 11.318 11.4645C10.4741 12.4021 10 13.6739 10 15V45C10 46.3261 10.4741 47.5979 11.318 48.5355C12.1619 49.4732 13.3065 50 14.5 50H50.5C51.6935 50 52.8381 49.4732 53.682 48.5355C54.5259 47.5979 55 46.3261 55 45V15C55 13.6739 54.5259 12.4021 53.682 11.4645C52.8381 10.5268 51.6935 10 50.5 10ZM50.5 21.75L32.5 35.085L14.5 21.75V15.7425L32.5 29.075L50.5 15.7425V21.75Z" fill="#EF8122"/>
+        </svg>
+        <span style="align-self: center;">natacion_albatros7@hotmail.com</span>
+    </a>
+</address>
+<p class="parrafo marino" style="text-align: center;"><b>© Albatros Natación 2025</b></p>
+</footer>
+</body>
+</html>

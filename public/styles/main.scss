@@ -5,9 +5,6 @@ body{
   min-width: 400px;
 }
 
-img{
-  aspect-ratio: z;
-}
 
 // Navbar general
 .navbar-landing ul{
@@ -27,14 +24,23 @@ img{
   z-index: 1;
 }
 
-.navbar-landing #links-menu{
-    display: none;
-}
-
 .navbar-item{
     display: block;
     text-decoration: none;
     align-items: center;
+}
+
+#links-menu a{
+    text-decoration: none;
+    color: $naranja;
+    font-weight: 500;
+    display:block;
+    padding: 1rem .5rem;
+}
+#links-menu a:hover{
+    color: $blanco;
+    background-color: $naranja;
+    transition: .5s;
 }
 
 .icon-s{
@@ -53,7 +59,7 @@ img{
     border: none;
     border-radius: 10px;
     display: flex;
-    font-size: clamp(1rem, 3vw, 5rem);
+    font-size: clamp(1rem, 3vw, 1.5rem);
     @include centrado;
     @include sombra;
     transition:0.1s;
@@ -78,7 +84,23 @@ img{
 .titulo{
     font-family: 'fugaz';
     font-weight: 100;
-    font-size: clamp(2rem, 6vw, 5rem);
+    font-size: clamp(2rem, 3vw, 3rem);
+    margin: 0;
+    align-self: center;
+}
+
+.encabezado{
+    font-family: 'fugaz';
+    font-weight: 100;
+    font-size: clamp(1rem, 2vw, 2rem);
+    margin: 0;
+    align-self: center;
+}
+
+.titulo-equipo{
+    font-family: 'fugaz';
+    font-weight: 100;
+    font-size: clamp(1rem, 1vw, 1rem);
     margin: 0;
     align-self: center;
 }
@@ -86,12 +108,12 @@ img{
 .parrafo{
     font-weight: 500;
     line-height: 2;
-    font-size: clamp(1rem, 3vw, 5rem);
+    font-size: clamp(1rem, 1.5vw, 2rem);
     text-align: start;
     margin-left: .5rem;
 }
 .parrafo-regular{
-  font-size: clamp(1rem, 3vw, 5rem);
+  font-size: clamp(1rem, 1.5vw, 2rem);
   text-align: start;
 }
 
@@ -107,6 +129,11 @@ img{
     color: $marino;
 }
 
+hr{
+    height: 2px;
+    background-color: $marino;
+}
+
 footer{
     background-color: $blanco;
     padding: 1rem;
@@ -118,8 +145,12 @@ footer{
     align-content: center;
 }
 
+
 // * Tamaño mínimo para celulares
-@media (min-width: 320px) {
+@media (min-width: 320px) and (max-width: 959px){
+    .navbar-landing #links-menu{
+        display: none;
+    }
     #links-menu{
         position: relative;
         background-color: $blanco;
@@ -127,22 +158,53 @@ footer{
         flex-direction: column;
         overflow: hidden;
     }
-    #links-menu a{
-        text-decoration: none;
-        color: $naranja;
-        font-weight: 500;
-        display:block;
-        padding: 1rem .5rem;
+    #svg-nadador{
+        margin: 2rem 0;
     }
-    #links-menu a:hover{
-        color: $blanco;
-        background-color: $naranja;
-        transition: .5s;
-    }
-
 }
 
 // * Tamaño mínimo para tablets/laptops en modo landscape
 @media (min-width: 960px){
+    #bars-menu{
+        display: none;
+    }
+    .nabvar-landing{
+        padding: 0;
+    }
+    .navbar-landing #links-menu{
+        display: block;        
+        top: 1vh;
+        right: 8%;
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+    }
+    .col-30{
+        width: 30%;
+    }
+    .col-60{
+        width: 60%;
+    }
+    #primera-seccion{
+        display: grid;
+        justify-content: center;
+        align-content: center;
+    }
+    #svg-nadador{
+        scale: .5;
+        margin-top: 0;
+    }
+    #mision, #vision, #valores{
+        width: 33%;
+    }
+    #segunda-seccion{
+        display: flex;
+        flex-direction: row;
+    }
+    .container{
+        display: grid;
+        grid-template-columns: auto auto;
+    }
 }
 

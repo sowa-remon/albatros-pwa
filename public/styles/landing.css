@@ -6,17 +6,6 @@
   font-family: "fugaz";
   src: url("../fonts/FugazOne-Regular.ttf");
 }
-@keyframes gradiente-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 50% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
 @keyframes tonext {
   75% {
     left: 0;
@@ -65,16 +54,21 @@
   display: grid;
   margin: 0;
   background-image: repeating-linear-gradient(270deg, #00AAE2, #2E3192);
-  background-size: 200%, 180%;
+  background-size: 200%, 200%;
   animation: gradiente-animation 12s ease infinite;
   -webkit-animation: gradiente-animation 12s ease infinite;
   -moz-animation: gradiente-animation 12s ease infinite;
 }
 
+#albatros {
+  color: #EF8122;
+  font-family: "fugaz";
+}
+
 .rep-patron {
   margin: 0;
   background-image: url(../images/patron-cuadrados.svg);
-  background-repeat: repeat;
+  background-repeat: repeat-y repeat-x;
 }
 
 #primera-seccion, #segunda-seccion, #tercera-seccion, #cuarta-seccion, #quinta-seccion {
@@ -110,20 +104,6 @@
   -ms-flex-pack: center;
 }
 
-.cover {
-  border-radius: 10px;
-  top: 0;
-  position: absolute;
-  background-color: #0699D7;
-  cursor: pointer;
-  transition: all 0.5s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-}
-
 .nivel-item:hover .cover {
   border-radius: 10px;
   transition: all 0.5s;
@@ -133,6 +113,7 @@
 #carousel__slide1, #carousel__slide2, #carousel__slide3, #carousel__slide4, #carousel__slide5 {
   list-style: none;
   width: 100%;
+  height: 90%;
   margin: 0 2rem;
   padding: 1rem;
 }
@@ -146,6 +127,7 @@
 }
 
 .carousel__viewport {
+  height: 100%;
   position: absolute;
   top: 0;
   right: 0;
@@ -162,6 +144,7 @@
   position: relative;
   flex: 0 0 100%;
   width: 100%;
+  height: 100%;
   background-color: rgba(0, 170, 226, 0.5);
 }
 
@@ -181,6 +164,14 @@
   width: 100%;
   height: 100%;
   scroll-snap-align: center;
+  border-radius: 10px;
+  background-color: #0699D7;
+  cursor: pointer;
+  transition: all 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -218,9 +209,8 @@
 
 .img-nivel {
   aspect-ratio: 1/1;
-  margin: 0 0 1rem 0;
-  height: auto;
-  width: 80%;
+  height: 50%;
+  width: auto;
   border: solid 5px #EF8122;
   border-radius: 100%;
 }
@@ -237,26 +227,132 @@
 }
 
 .pregunta-wsp {
+  box-shadow: 0 4px 4px rgba(46, 49, 146, 0.5);
   padding-right: 0.5rem;
-  width: 100%;
-  height: 10vh;
   display: flex;
   flex-direction: row;
   font-family: "commissioner";
   background-color: #F8FBFF;
+  color: #EF8122;
+  text-decoration: none;
   align-items: center;
   border: none;
   border-radius: 10px;
   margin-bottom: 2rem;
 }
 
+.pregunta-wsp:hover {
+  background-color: #2E3192;
+  color: #F8FBFF;
+  transform: scale(0.95);
+  transition: 0.5s;
+}
+
+#svg-nadador {
+  justify-self: center;
+  justify-content: center;
+}
+
+.tarjeta-equipo {
+  border-radius: 20px;
+  background-color: #F8FBFF;
+  margin: 2rem 0;
+}
+
+.tarjeta-equipo img {
+  aspect-ratio: 1/1;
+}
+
+.grid-3 {
+  justify-items: center;
+  justify-content: center;
+}
+
 @media (min-width: 960px) {
   .carousel__viewport {
+    width: 40%;
+    height: 100%;
+    justify-self: center;
+  }
+  .carousel {
+    padding: 1rem;
+  }
+  .pregunta-wsp {
+    width: 90%;
+  }
+  #carousel__slide1, #carousel__slide2, #carousel__slide3, #carousel__slide4, #carousel__slide5 {
+    width: 100%;
+  }
+  #albatros-letras {
+    align-self: center;
     width: 50%;
+  }
+  .tarjeta-equipo {
+    width: 20vw;
+    height: auto;
+  }
+  .tarjeta-equipo img {
+    width: 20vw;
+    height: 20vw;
+    aspect-ratio: 1/1;
+  }
+  .grid-3 {
+    justify-content: space-around;
+    align-self: center;
+    align-content: center;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto;
+  }
+  .landscape-none {
+    display: none;
+  }
+}
+@media (min-width: 800px) and (max-width: 1090px) {
+  .tarjeta-equipo {
+    width: 40vw;
+    height: auto;
+  }
+  .tarjeta-equipo img {
+    aspect-ratio: 1/1;
+    width: 40vw;
+    height: 40vw;
+  }
+  .grid-3 {
+    justify-content: space-around;
+    align-self: center;
+    align-content: center;
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  #albatros-letras {
+    width: 50%;
+  }
+  #svg-nadador {
+    scale: 0.5;
+    margin-top: 0;
+  }
+}
+@media (min-width: 320px) and (max-width: 959px) {
+  .small-none {
+    display: none;
+  }
+  .pregunta-wsp {
+    width: 100%;
+    height: 10vh;
+  }
+  .tarjeta-equipo {
+    width: 40vh;
+    height: auto;
+  }
+  .tarjeta-equipo img {
+    aspect-ratio: 1/1;
+    width: 40vh;
+    height: 40vh;
   }
 }
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 0;
 }
 
 /* Track */

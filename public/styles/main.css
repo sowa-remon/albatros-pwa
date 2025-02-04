@@ -6,17 +6,6 @@
   font-family: "fugaz";
   src: url("../fonts/FugazOne-Regular.ttf");
 }
-@keyframes gradiente-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 50% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
 @keyframes tonext {
   75% {
     left: 0;
@@ -63,10 +52,6 @@ body {
   min-width: 400px;
 }
 
-img {
-  aspect-ratio: z;
-}
-
 .navbar-landing ul {
   margin: 0;
   padding: 0 0.5em;
@@ -84,14 +69,24 @@ img {
   z-index: 1;
 }
 
-.navbar-landing #links-menu {
-  display: none;
-}
-
 .navbar-item {
   display: block;
   text-decoration: none;
   align-items: center;
+}
+
+#links-menu a {
+  text-decoration: none;
+  color: #EF8122;
+  font-weight: 500;
+  display: block;
+  padding: 1rem 0.5rem;
+}
+
+#links-menu a:hover {
+  color: #F8FBFF;
+  background-color: #EF8122;
+  transition: 0.5s;
 }
 
 .icon-s {
@@ -111,7 +106,7 @@ img {
   border: none;
   border-radius: 10px;
   display: flex;
-  font-size: clamp(1rem, 3vw, 5rem);
+  font-size: clamp(1rem, 3vw, 1.5rem);
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 4px rgba(46, 49, 146, 0.5);
@@ -137,7 +132,23 @@ img {
 .titulo {
   font-family: "fugaz";
   font-weight: 100;
-  font-size: clamp(2rem, 6vw, 5rem);
+  font-size: clamp(2rem, 3vw, 3rem);
+  margin: 0;
+  align-self: center;
+}
+
+.encabezado {
+  font-family: "fugaz";
+  font-weight: 100;
+  font-size: clamp(1rem, 2vw, 2rem);
+  margin: 0;
+  align-self: center;
+}
+
+.titulo-equipo {
+  font-family: "fugaz";
+  font-weight: 100;
+  font-size: clamp(1rem, 1vw, 1rem);
   margin: 0;
   align-self: center;
 }
@@ -145,13 +156,13 @@ img {
 .parrafo {
   font-weight: 500;
   line-height: 2;
-  font-size: clamp(1rem, 3vw, 5rem);
+  font-size: clamp(1rem, 1.5vw, 2rem);
   text-align: start;
   margin-left: 0.5rem;
 }
 
 .parrafo-regular {
-  font-size: clamp(1rem, 3vw, 5rem);
+  font-size: clamp(1rem, 1.5vw, 2rem);
   text-align: start;
 }
 
@@ -167,6 +178,11 @@ img {
   color: #2E3192;
 }
 
+hr {
+  height: 2px;
+  background-color: #2E3192;
+}
+
 footer {
   background-color: #F8FBFF;
   padding: 1rem;
@@ -178,7 +194,10 @@ footer {
   align-content: center;
 }
 
-@media (min-width: 320px) {
+@media (min-width: 320px) and (max-width: 959px) {
+  .navbar-landing #links-menu {
+    display: none;
+  }
   #links-menu {
     position: relative;
     background-color: #F8FBFF;
@@ -186,16 +205,50 @@ footer {
     flex-direction: column;
     overflow: hidden;
   }
-  #links-menu a {
-    text-decoration: none;
-    color: #EF8122;
-    font-weight: 500;
-    display: block;
-    padding: 1rem 0.5rem;
+  #svg-nadador {
+    margin: 2rem 0;
   }
-  #links-menu a:hover {
-    color: #F8FBFF;
-    background-color: #EF8122;
-    transition: 0.5s;
+}
+@media (min-width: 960px) {
+  #bars-menu {
+    display: none;
+  }
+  .nabvar-landing {
+    padding: 0;
+  }
+  .navbar-landing #links-menu {
+    display: block;
+    top: 1vh;
+    right: 8%;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+  }
+  .col-30 {
+    width: 30%;
+  }
+  .col-60 {
+    width: 60%;
+  }
+  #primera-seccion {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+  }
+  #svg-nadador {
+    scale: 0.5;
+    margin-top: 0;
+  }
+  #mision, #vision, #valores {
+    width: 33%;
+  }
+  #segunda-seccion {
+    display: flex;
+    flex-direction: row;
+  }
+  .container {
+    display: grid;
+    grid-template-columns: auto auto;
   }
 }/*# sourceMappingURL=main.css.map */
