@@ -282,6 +282,10 @@
   .landscape-none{
     display: none;
   }
+  #video-albatros{
+    width: 50vw; 
+    height: auto;
+  }
   
 }
 
@@ -291,6 +295,10 @@
     width: 40vw;
     height: auto;
   }    
+  #video-albatros{
+    width: 70vw; 
+    height: auto;
+  }
   .tarjeta-equipo img{
     aspect-ratio: 1/1;
     width: 40vw;
@@ -329,6 +337,10 @@
     width: 40vh;
     height: 40vh;
   } 
+  #video-albatros{
+    width: 90vw; 
+    height: auto;
+  }
 
 }
 
