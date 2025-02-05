@@ -1,14 +1,20 @@
-const express = require('express')
-const path = require('path')
-const httpPort = 1104
-const app = express()
+const bodyParser = require("body-parser");
+const express = require("express");
+const path = require("path");
+const authRoutes = require("./routes/auth");
 
-app.use(express.static(path.join(__dirname, 'public')))
+require('dotenv').config();
+const httpPort = process.env.PORT;
+const app = express();
 
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'public/index.html'))
-})
-  
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "public")));
+app.use('/auth', authRoutes);
+
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "public/index.html"));
+});
+
 app.listen(httpPort || 3000, function () {
-  console.log(`Listening on port ${httpPort}!`)
-})
+  console.log(`Listening on port ${httpPort}!`);
+});
