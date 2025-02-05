@@ -1,50 +1,48 @@
+const { firestore } = require('../firebaseAdmin');
 const express = require("express");
-const { firestore } = require('../firebaseAdmin'); // Importa firestore correctamente
 const multer = require('multer');
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const upload = multer();
 
-router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    const user = await admin.auth().getUserByEmail(username);
-    const token = await admin.auth().createCustomToken(user.uid);
-    res.status(200).send({ message: "Inicio de sesión exitoso", token });
-  } catch (error) {
-    res
-      .status(400)
-      .send({ message: "Error al iniciar sesión", error: error.message });
-  }
-});
+// * Inicio de sesión
+router.post("/login", upload.none(), async (req, res) => {
+  const { usuario, password } = req.body
 
-const saltRounds = 10;
-
-router.post("/admin/crearUsuarioAdmin", upload.none(), async (req, res) => {
-  const { username, password } = req.body;
-
-  // Verificar que el nombre de usuario y la contraseña estén presentes
-  if (!username || !password) {
-    return res
-      .status(400)
-      .send({ message: "Nombre de usuario y contraseña son requeridos" });
+  if(!usuario || !password){
+    return res.status(400).send({ message: "Nombre de usuario y contraseña son requeridos" })
   }
-  try {
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-    const userDocRef = firestore.collection("usuarios").doc();
-    await userDocRef.set({
-      username,
-      password: hashedPassword,
-      tipo: "admin",
-    });
-    res
-      .status(201)
-      .send({ message: "Usuario creado exitosamente", userId: userDocRef.id });
-  } catch (error) {
-    res
-      .status(400)
-      .send({ message: "Error al crear usuario", error: error.message });
+
+  try{
+    const snapshot = await firestore.collection("usuarios").where("usuario", "==", usuario).get()
+    if(snapshot.empty){
+      return res.status(404).send({ message: "Usuario no encontrado" })
+    }
+
+    const usuarioEncontrado = snapshot.docs[0].data()
+    const isValidPassword = await bcrypt.compare(password, usuarioEncontrado.password)
+
+    if(!isValidPassword){
+      return res.status(401).send({ message: "Contraseña incorrecta" })
+    }
+
+    // Redirigir a la página correspondiente al tipo de usuario
+    const tipoUsuario = usuarioEncontrado.tipo
+
+    if(tipoUsuario === "administrador"){
+      return res.status(200).send({ message: "Inicio de sesión exitoso", tipo: tipoUsuario, redirect: "/admin-panel" })
+    } 
+    if(tipoUsuario === "alumno"){
+      return res.status(200).send({ message: "Inicio de sesión exitoso", tipo: tipoUsuario, redirect: "/alumno-panel" })
+    } 
+    if(tipoUsuario === "maestro"){
+      return res.status(200).send({ message: "Inicio de sesión exitoso", tipo: tipoUsuario, redirect: "/maestro-panel" })
+    }
   }
-});
+
+  catch(error){
+    res.status(400).send({ message: "Error al iniciar sesión", error: error.message })
+  }
+})
 
 module.exports = router;
