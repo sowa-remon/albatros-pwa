@@ -49,29 +49,38 @@ body{
     @include icon-s;
 }
 
-.btn-naranja{
-    background-color: $naranja;
+.btn{
     font-family: 'commissioner';
     font-weight: 500;
-    text-decoration: none;
-    color: $blanco;
-    padding: 15px;
-    border: none;
+    text-decoration: none; 
     border-radius: 10px;
     display: flex;
     font-size: clamp(1rem, 3vw, 1.5rem);
     @include centrado;
     @include sombra;
     transition:0.1s;
+    padding: 15px;
 }
 
-.btn-naranja:hover{
+.btn-naranja{
+    background-color: $naranja;
+    color: $blanco;
+    border: none;
+}
+.btn-marino{
+    background-color: $marino;
+    color: $blanco;
+    border: none;
+}
+
+
+.btn-naranja:hover, .btn-marino:hover{
     background-color: $celeste;
     transform: scale(.95) rotate(-1deg);
     transition: .5s;
 }
 
-.btn-naranja:active{
+.btn-naranja:active, .btn-marino:active{
     background-color: $marino;
     transform: scale(0.90);
     transition: 0.5s;
@@ -145,6 +154,34 @@ footer{
     align-content: center;
 }
 
+input{
+    margin: .5rem 0 2rem 0;
+    border: 3px solid $naranja;
+    border-radius: 5px;
+    font-family: 'commissioner';
+    padding: .5rem;
+}
+
+#snackbar-login {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: $marino;
+    color: $blanco;
+    text-align: center;
+    border-radius: 10px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+  }
+  
+  #snackbar-login.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
 
 // * Tamaño mínimo para celulares
 @media (min-width: 320px) and (max-width: 959px){

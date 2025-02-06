@@ -48,6 +48,26 @@
     scroll-snap-align: center;
   }
 }
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
 .landing {
   min-width: 400px;
   font-family: "commissioner";
@@ -268,6 +288,20 @@
   justify-content: center;
 }
 
+#login-form {
+  margin: 3rem 0;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  font-family: "commissioner";
+  font-weight: bold;
+  color: #2E3192;
+  background-color: #F8FBFF;
+  border-radius: 30px;
+}
+
 @media (min-width: 960px) {
   .carousel__viewport {
     width: 40%;
@@ -282,6 +316,9 @@
   }
   #carousel__slide1, #carousel__slide2, #carousel__slide3, #carousel__slide4, #carousel__slide5 {
     width: 100%;
+  }
+  #login-form {
+    width: 30vw;
   }
   #albatros-letras {
     align-self: center;
@@ -313,6 +350,9 @@
   }
 }
 @media (min-width: 800px) and (max-width: 1090px) {
+  #login-form {
+    width: 40vw;
+  }
   .tarjeta-equipo {
     width: 40vw;
     height: auto;
@@ -344,6 +384,9 @@
 @media (min-width: 320px) and (max-width: 959px) {
   .small-none {
     display: none;
+  }
+  #login-form {
+    width: 50vw;
   }
   .pregunta-wsp {
     width: 100%;

@@ -48,6 +48,26 @@
     scroll-snap-align: center;
   }
 }
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
 body {
   min-width: 400px;
 }
@@ -96,14 +116,10 @@ body {
   height: 40px;
 }
 
-.btn-naranja {
-  background-color: #EF8122;
+.btn {
   font-family: "commissioner";
   font-weight: 500;
   text-decoration: none;
-  color: #F8FBFF;
-  padding: 15px;
-  border: none;
   border-radius: 10px;
   display: flex;
   font-size: clamp(1rem, 3vw, 1.5rem);
@@ -111,15 +127,28 @@ body {
   align-items: center;
   box-shadow: 0 4px 4px rgba(46, 49, 146, 0.5);
   transition: 0.1s;
+  padding: 15px;
 }
 
-.btn-naranja:hover {
+.btn-naranja {
+  background-color: #EF8122;
+  color: #F8FBFF;
+  border: none;
+}
+
+.btn-marino {
+  background-color: #2E3192;
+  color: #F8FBFF;
+  border: none;
+}
+
+.btn-naranja:hover, .btn-marino:hover {
   background-color: #00AAE2;
   transform: scale(0.95) rotate(-1deg);
   transition: 0.5s;
 }
 
-.btn-naranja:active {
+.btn-naranja:active, .btn-marino:active {
   background-color: #2E3192;
   transform: scale(0.9);
   transition: 0.5s;
@@ -192,6 +221,34 @@ footer {
   display: flex;
   justify-content: center;
   align-content: center;
+}
+
+input {
+  margin: 0.5rem 0 2rem 0;
+  border: 3px solid #EF8122;
+  border-radius: 5px;
+  font-family: "commissioner";
+  padding: 0.5rem;
+}
+
+#snackbar-login {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #2E3192;
+  color: #F8FBFF;
+  text-align: center;
+  border-radius: 10px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+}
+
+#snackbar-login.show {
+  visibility: visible;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
 @media (min-width: 320px) and (max-width: 959px) {

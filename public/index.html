@@ -24,7 +24,7 @@
                 </li>
                 <li class="navbar-item" id="logo-menu"><img src="./images/logo.png" alt="Albatros Logo" width="100" loading="lazy"></li>
                 <li class="navbar-item" id="login-menu">
-                    <button class="btn-naranja" aria-label="Botón de inicio de sesión">
+                    <button class="btn btn-naranja" aria-label="Botón de inicio de sesión" onclick="window.location.href='login.html'">
                         <svg width="25" viewBox="0 0 39 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M18.75 27.0833L29.1667 18.75L18.75 10.4167V16.6667H0V20.8333H18.75V27.0833Z" fill="#F8FBFF"/>
                             <path d="M33.3333 0H14.5833C12.2854 0 10.4167 1.86875 10.4167 4.16667V12.5H14.5833V4.16667H33.3333V33.3333H14.5833V25H10.4167V33.3333C10.4167 35.6312 12.2854 37.5 14.5833 37.5H33.3333C35.6313 37.5 37.5 35.6312 37.5 33.3333V4.16667C37.5 1.86875 35.6313 0 33.3333 0Z" fill="#F8FBFF"/>
@@ -266,25 +266,25 @@
             <iframe title="Mapa de ubicación de Albatros" style="width: 100%; height: 50vh; border-radius: 10px"  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3736.476643696811!2d-99.87749072407964!3d20.527669880999337!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d39ddf25c930b1%3A0x535beda8e5975538!2sAlbatros%20Nataci%C3%B3n%20S.C.!5e0!3m2!1ses-419!2smx!4v1738028129304!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             <p class="parrafo blanco">Vicente Suárez 12, Magdalena, CP: 76750 Tequisquiapan, Qro.</p>
         </section>
-        
-        <script src="./js/pwa.js"></script>
-        <script>
-            var menu = document.getElementById("links-menu");
-                var pageWidth = document.getElementById("landing").offsetWidth;
-            function desplegarMenu(){
-                if (menu.style.display === "block") {
-                    menu.style.display = "none";
-                } else {
-                menu.style.display = "block";
-                }
-            }
-            function cerrarMenu(){
-                if(pageWidth<=959) {
-                    menu.style.display = "none";
-                }
-            }
-        </script>
     </div>
+            
+    <script src="./js/pwa.js"></script>
+    <script>
+        var menu = document.getElementById("links-menu");
+            var pageWidth = document.getElementById("landing").offsetWidth;
+        function desplegarMenu(){
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+            menu.style.display = "block";
+            }
+        }
+        function cerrarMenu(){
+            if(pageWidth<=959) {
+                menu.style.display = "none";
+            }
+        }
+    </script>
 
     <footer>
         <div id="logo-footer">
