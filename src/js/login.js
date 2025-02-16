@@ -17,10 +17,10 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
   
     const result = await response.json();
     if (response.ok) {
-      alert('Inicio de sesión exitoso');
+      showSnackbar('Inicio de sesión exitoso');
       window.location.href = result.redirect; 
     } else {
-      alert('Error al iniciar sesión: ' + result.message);
+      showSnackbar('Error al iniciar sesión: ' + result.message);
     }
   }
   

@@ -1,0 +1,261 @@
+// * Variables de color, tipografías y animaciones
+@import "variables";
+
+body {
+  background-color: $blanco;
+  margin: 0;
+  min-width: 400px;
+  font-family: "commissioner";
+}
+
+.app-navbar ul {
+  display: flex;
+  flex-direction: row;
+  border-bottom: solid $marino;
+  align-items: center;
+  margin: 0;
+  padding: 1rem;
+  justify-content: space-between;
+  @include sombra-2;
+}
+
+.titulo-app {
+  font-size: larger;
+  font-family: "fugaz";
+}
+
+.acciones-admin {
+  justify-self: center;
+  align-content: center;
+  justify-content: center;
+  display: grid;
+}
+
+.btn-admin {
+  justify-content: space-around;
+  min-width: 300px;
+  padding: 1rem;
+  margin: 1rem;
+  background-color: $blanco;
+  border-radius: 10px;
+  font-weight: 700;
+  color: var(--color);
+  border: solid 3px var(--color);
+  @include sombra;
+}
+
+.btn-admin:hover {
+  background-color: var(--color);
+  color: $blanco;
+  cursor: pointer;
+  @include btn-animacion;
+}
+
+.btn-admin:hover svg path {
+  fill: $blanco;
+}
+
+.titulo-seccion {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  font-weight: 700;
+  color: $marino;
+}
+
+.fila-alumno {
+  margin-top: 1rem;
+  width: 100%;
+  justify-content: space-between;
+  align-content: center;
+  display: flex;
+}
+
+.ficha-alumno {
+  white-space: break-spaces;
+  padding: 0 0.5rem;
+  border: solid 3px $celeste;
+  border-radius: 5px;
+  width: 65%;
+  @include sombra-2;
+}
+
+.columna-1-2 {
+  align-content: space-around;
+  container: grid;
+  grid-template-columns: auto;
+  display: grid;
+}
+
+.btn-texto{
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 1rem;
+  background-color:$blanco;
+  border: none;
+  color: var(--color);
+}
+
+.btn-texto:hover{
+  color: $celeste;
+  cursor: pointer;
+}
+
+// * ÍCONOS
+#icon-niveles{
+  background-image: url(../images/icons/icon-niveles.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: .5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-grupo{
+  background-image: url(../images/icons/icon-grupo.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: .5rem;
+  width: 45px;
+  height: auto;
+}
+
+#barra-busqueda{
+  border: none;
+  background-color: rgba($color: #B8D2DB, $alpha: .5);
+}
+
+.modal {
+  display: none; /* Oculto por defecto */
+  position: fixed; /* Queda fijo en la pantalla */
+  z-index: 1; /* Se coloca por encima de otros elementos */
+  left: 0;
+  top: 0;
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Alto completo */
+  overflow: auto; /* Permite scroll si el contenido es largo */
+  background-color: rgb(0,0,0); /* Color de fondo */
+  background-color: rgba(0,0,0,0.4); /* Color de fondo con transparencia */
+}
+
+.modal-header{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: solid 2px $marino;
+}
+
+.close
+{ font-size: 2rem;
+  font-weight: 400;
+cursor: pointer;}
+
+.modal-content {
+  background-color: $blanco;
+  margin: 15% auto; 
+  padding: 1.5rem;
+  border: 3px solid $marino;
+  border-radius: 10px;
+  width: 50%; 
+  color: $marino;
+  font-weight: 600;
+}
+  
+.input-doble{
+  display: flex;
+}
+
+.status-inactivo{
+  color: red;
+}
+
+.status-activo{
+  color: rgb(97, 161, 0);
+}
+
+.btns-doble{
+  display: flex;
+  justify-content: space-around;
+}
+
+// * Contenido Admin
+.contenido-card{
+  border: solid 3px $marino;
+  border-radius: 10px;
+  margin: 2rem 3rem;
+}
+
+.card-encabezado{
+  border-bottom: solid 2px $marino;
+}
+
+.titulo-card{
+  color: $marino;
+  font-weight: 600;
+  text-align: center;
+}
+
+.card-cuerpo{
+  padding: 1rem;
+}
+
+.card-cuerpo textarea{
+  background-color: $blanco;
+  border: none;
+}
+
+
+@media (max-width:400px) {
+  .btns-doble{
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 810px) {
+  .input-doble{
+    flex-direction: column;
+  }
+  .columna-1-2{
+    display: grid;
+    grid-template-columns: auto;
+  }
+}
+
+// * Tamaño mínimo para celulares
+@media (min-width:500px) and  (max-width: 959px) {
+  .seccion-app {
+    padding: 1rem;
+  }
+  .acciones-admin {
+    grid-template-columns: auto;
+  }
+  .columna-1-2{
+    display: grid;
+    grid-template-columns: auto;
+  }
+  .btns-doble{
+    flex-direction: row;
+  }
+}
+
+
+// * Tamaño mínimo para tablets/laptops en modo landscape
+@media (min-width: 960px) {
+  .seccion-app {
+    padding: 1rem 4rem;
+  }
+  .columna-1-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .btns-doble{
+    justify-content: space-around;
+  }
+  .acciones-admin{
+    
+  grid-template-columns: auto auto;
+  }
+}

@@ -1,247 +1,291 @@
 // * Variables de color, tipografías y animaciones
-@import 'variables';
+@import "variables";
 
-body{
+body {
   min-width: 400px;
 }
 
-
 // Navbar general
-.navbar-landing ul{
-    margin: 0;
-    padding: 0 .5em;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between; 
-    align-items: center;
+.navbar-landing ul {
+  margin: 0;
+  padding: 0 0.5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.navbar-landing{
+.navbar-landing {
   background-color: $blanco;
-  padding: .5em;
+  padding: 0.5em;
   position: sticky;
   top: 0;
   z-index: 1;
 }
 
-.navbar-item{
-    display: block;
+.navbar-item {
+  display: block;
+  text-decoration: none;
+  align-items: center;
+}
+
+#links-menu a {
+  text-decoration: none;
+  color: $naranja;
+  font-weight: 500;
+  display: block;
+  padding: 1rem 0.5rem;
+}
+#links-menu a:hover {
+  color: $blanco;
+  background-color: $naranja;
+  transition: 0.5s;
+}
+
+.icon-s {
+  justify-content: center;
+  align-items: center;
+  @include icon-s;
+}
+
+.btn {
+  font-family: "commissioner";
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 10px;
+  display: flex;
+  font-size: clamp(1rem, 2vw, 1rem);
+  @include centrado;
+  @include sombra;
+  transition: 0.1s;
+  padding: 1rem 3rem;
+  cursor: pointer;
+}
+
+.btn:disabled{
+  cursor: not-allowed;
+  background-color: gray;
+}
+
+.btn:disabled:hover{
+  transition:none;
+  transform: none;
+  background-color: gray;
+}
+
+.btn-icon {
     text-decoration: none;
-    align-items: center;
-}
-
-#links-menu a{
-    text-decoration: none;
-    color: $naranja;
-    font-weight: 500;
-    display:block;
-    padding: 1rem .5rem;
-}
-#links-menu a:hover{
-    color: $blanco;
-    background-color: $naranja;
-    transition: .5s;
-}
-
-.icon-s{
-    justify-content: center;
-    align-items: center;
-    @include icon-s;
-}
-
-.btn{
-    font-family: 'commissioner';
-    font-weight: 500;
-    text-decoration: none; 
     border-radius: 10px;
-    display: flex;
-    font-size: clamp(1rem, 3vw, 1.5rem);
     @include centrado;
     @include sombra;
-    transition:0.1s;
-    padding: 15px;
+    transition: 0.1s;
+    min-width: 45px;
+    min-height: 45px;
+  }
+
+.btn-naranja {
+  background-color: $naranja;
+  color: $blanco;
+  border: none;
 }
 
-.btn-naranja{
-    background-color: $naranja;
-    color: $blanco;
-    border: none;
-}
-.btn-marino{
-    background-color: $marino;
-    color: $blanco;
-    border: none;
+.btn-naranja-2{
+  background-color: $blanco;
+  color: $naranja;
+  border: solid 3px $naranja;
 }
 
-
-.btn-naranja:hover, .btn-marino:hover{
-    background-color: $celeste;
-    transform: scale(.95) rotate(-1deg);
-    transition: .5s;
+.btn-marino {
+  background-color: $marino;
+  color: $blanco;
+  border: none;
 }
 
-.btn-naranja:active, .btn-marino:active{
-    background-color: $marino;
-    transform: scale(0.90);
-    transition: 0.5s;
+.btn-naranja:hover,
+.btn-marino:hover{
+  background-color: $celeste;
+  @include btn-animacion;
 }
 
-.centrar-v{
-    align-content: center;
+.btn-naranja-2:hover {
+  background-color: $naranja;
+  color: $blanco;
+  @include btn-animacion;
 }
 
-.titulo{
-    font-family: 'fugaz';
-    font-weight: 100;
-    font-size: clamp(2rem, 3vw, 3rem);
-    margin: 0;
-    align-self: center;
+.btn-naranja:active,
+.btn-marino:active {
+  background-color: $marino;
+  transform: scale(0.9);
+  transition: 0.5s;
 }
 
-.encabezado{
-    font-family: 'fugaz';
-    font-weight: 100;
-    font-size: clamp(1rem, 2vw, 2rem);
-    margin: 0;
-    align-self: center;
+.centrar-v {
+  align-content: center;
 }
 
-.titulo-equipo{
-    font-family: 'fugaz';
-    font-weight: 100;
-    font-size: clamp(1rem, 1vw, 1rem);
-    margin: 0;
-    align-self: center;
+.titulo {
+  font-family: "fugaz";
+  font-weight: 100;
+  font-size: clamp(2rem, 3vw, 3rem);
+  margin: 0;
+  align-self: center;
 }
 
-.parrafo{
-    font-weight: 500;
-    line-height: 2;
-    font-size: clamp(1rem, 1.5vw, 2rem);
-    text-align: start;
-    margin-left: .5rem;
+.encabezado {
+  font-family: "fugaz";
+  font-weight: 100;
+  font-size: clamp(1rem, 2vw, 2rem);
+  margin: 0;
+  align-self: center;
 }
-.parrafo-regular{
+
+.titulo-equipo {
+  font-family: "fugaz";
+  font-weight: 100;
+  font-size: clamp(1rem, 1vw, 1rem);
+  margin: 0;
+  align-self: center;
+}
+
+.parrafo {
+  font-weight: 500;
+  line-height: 2;
+  font-size: clamp(1rem, 1.5vw, 2rem);
+  text-align: start;
+  margin-left: 0.5rem;
+}
+.parrafo-regular {
   font-size: clamp(1rem, 1.5vw, 2rem);
   text-align: start;
 }
 
-.blanco{
-    color: $blanco;
+.blanco {
+  color: $blanco;
 }
 
-.naranja{
-    color: $naranja;
+.naranja {
+  color: $naranja;
 }
 
-.marino{
-    color: $marino;
+.marino {
+  color: $marino;
 }
 
-hr{
-    height: 2px;
-    background-color: $marino;
+hr {
+  height: 2px;
+  background-color: $marino;
 }
 
-footer{
-    background-color: $blanco;
-    padding: 1rem;
+footer {
+  background-color: $blanco;
+  padding: 1rem;
 }
 
-#logo-footer{
-    display: flex;
-    justify-content: center;
-    align-content: center;
+#logo-footer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
-input{
-    margin: .5rem 0 2rem 0;
-    border: 3px solid $naranja;
-    border-radius: 5px;
-    font-family: 'commissioner';
-    padding: .5rem;
+input, select, textarea{
+  margin: 1rem 0;
+  border: 3px solid $naranja;
+  border-radius: 5px;
+  font-family: "commissioner";
+  padding: 0.5rem;    
+  resize: none;
+  width: -moz-available;          /* WebKit-based browsers will ignore this. */
+  width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+  width: fill-available;
+}
+
+.input-doble div{
+  width: 100%;
 }
 
 #snackbar-login {
-    visibility: hidden;
-    min-width: 250px;
-    margin-left: -125px;
-    background-color: $marino;
-    color: $blanco;
-    text-align: center;
-    border-radius: 10px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    bottom: 30px;
-  }
-  
-  #snackbar-login.show {
-    visibility: visible;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  }
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: $marino;
+  color: $blanco;
+  text-align: center;
+  border-radius: 10px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+}
+
+#snackbar-login.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
 
 // * Tamaño mínimo para celulares
-@media (min-width: 320px) and (max-width: 959px){
-    .navbar-landing #links-menu{
-        display: none;
-    }
-    #links-menu{
-        position: relative;
-        background-color: $blanco;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-    }
-    #svg-nadador{
-        margin: 2rem 0;
-    }
+@media (min-width: 320px) and (max-width: 959px) {
+  .navbar-landing #links-menu {
+    display: none;
+  }
+  #links-menu {
+    position: relative;
+    background-color: $blanco;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  #svg-nadador {
+    margin: 2rem 0;
+  }
 }
 
 // * Tamaño mínimo para tablets/laptops en modo landscape
-@media (min-width: 960px){
-    #bars-menu{
-        display: none;
-    }
-    .nabvar-landing{
-        padding: 0;
-    }
-    .navbar-landing #links-menu{
-        display: block;        
-        top: 1vh;
-        right: 8%;
-        position: absolute;
-        display: flex;
-        flex-direction: row;
-        overflow: hidden;
-    }
-    .col-30{
-        width: 30%;
-    }
-    .col-60{
-        width: 60%;
-    }
-    #primera-seccion{
-        display: grid;
-        justify-content: center;
-        align-content: center;
-    }
-    #svg-nadador{
-        scale: .5;
-        margin-top: 0;
-    }
-    #mision, #vision, #valores{
-        width: 33%;
-    }
-    #segunda-seccion{
-        display: flex;
-        flex-direction: row;
-    }
-    .container{
-        display: grid;
-        grid-template-columns: auto auto;
-    }
+@media (min-width: 960px) {
+  #bars-menu {
+    display: none;
+  }
+  .nabvar-landing {
+    padding: 0;
+  }
+  .navbar-landing #links-menu {
+    display: block;
+    top: 1vh;
+    right: 8%;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+  }
+  .col-30 {
+    width: 30%;
+  }
+  .col-60 {
+    width: 60%;
+  }
+  #primera-seccion {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+  }
+  #svg-nadador {
+    scale: 0.5;
+    margin-top: 0;
+  }
+  #mision,
+  #vision,
+  #valores {
+    width: 33%;
+  }
+  #segunda-seccion {
+    display: flex;
+    flex-direction: row;
+  }
+  .container {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
 }
-

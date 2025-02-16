@@ -29,6 +29,15 @@ $rosa: #F523CE;
     box-shadow: 0 4px 4px rgba(46, 49,146,.5);
 }
 
+@mixin sombra-2{
+  box-shadow: 0 3px 3px rgba(46, 49,146,.3);
+}
+
+@mixin btn-animacion{
+  transform: scale(.95) rotate(-1deg);
+  transition: 0.5s;
+}
+
 @mixin icon-s{
     width: 40px;
     height: 40px;

@@ -1,7 +1,7 @@
-const { firestore } = require('../firebaseAdmin');
-const express = require("express");
+const { firestore } = require('./../configs/firebaseAdmin');
+const express = require('express');
 const multer = require('multer');
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
 const router = express.Router();
 const upload = multer();
 
@@ -26,11 +26,13 @@ router.post("/login", upload.none(), async (req, res) => {
       return res.status(401).send({ message: "Contraseña incorrecta" })
     }
 
+    req.session.user = usuarioEncontrado; // Establecer la sesión del usuario
+    
     // Redirigir a la página correspondiente al tipo de usuario
     const tipoUsuario = usuarioEncontrado.tipo
 
     if(tipoUsuario === "administrador"){
-      return res.status(200).send({ message: "Inicio de sesión exitoso", tipo: tipoUsuario, redirect: "/admin-panel" })
+      return res.status(200).send({ message: "Inicio de sesión exitoso", tipo: tipoUsuario, redirect: "/panel-administracion" })
     } 
     if(tipoUsuario === "alumno"){
       return res.status(200).send({ message: "Inicio de sesión exitoso", tipo: tipoUsuario, redirect: "/alumno-panel" })
@@ -43,6 +45,17 @@ router.post("/login", upload.none(), async (req, res) => {
   catch(error){
     res.status(400).send({ message: "Error al iniciar sesión", error: error.message })
   }
+})
+
+// * Cerrar sesión
+router.get("/logout", (req, res) => {
+  req.session.destroy((error) => {
+    if(error){
+      return res.status(500).send({ message: "Error al cerrar sesión" })
+    }
+    res.clearCookie("sid")
+    res.status(200).send({ message: "Sesión cerrada exitosamente" })
+  })
 })
 
 module.exports = router;

@@ -122,12 +122,35 @@ body {
   text-decoration: none;
   border-radius: 10px;
   display: flex;
-  font-size: clamp(1rem, 3vw, 1.5rem);
+  font-size: clamp(1rem, 2vw, 1rem);
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 4px rgba(46, 49, 146, 0.5);
   transition: 0.1s;
-  padding: 15px;
+  padding: 1rem 3rem;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  background-color: gray;
+}
+
+.btn:disabled:hover {
+  transition: none;
+  transform: none;
+  background-color: gray;
+}
+
+.btn-icon {
+  text-decoration: none;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 4px rgba(46, 49, 146, 0.5);
+  transition: 0.1s;
+  min-width: 45px;
+  min-height: 45px;
 }
 
 .btn-naranja {
@@ -136,19 +159,34 @@ body {
   border: none;
 }
 
+.btn-naranja-2 {
+  background-color: #F8FBFF;
+  color: #EF8122;
+  border: solid 3px #EF8122;
+}
+
 .btn-marino {
   background-color: #2E3192;
   color: #F8FBFF;
   border: none;
 }
 
-.btn-naranja:hover, .btn-marino:hover {
+.btn-naranja:hover,
+.btn-marino:hover {
   background-color: #00AAE2;
   transform: scale(0.95) rotate(-1deg);
   transition: 0.5s;
 }
 
-.btn-naranja:active, .btn-marino:active {
+.btn-naranja-2:hover {
+  background-color: #EF8122;
+  color: #F8FBFF;
+  transform: scale(0.95) rotate(-1deg);
+  transition: 0.5s;
+}
+
+.btn-naranja:active,
+.btn-marino:active {
   background-color: #2E3192;
   transform: scale(0.9);
   transition: 0.5s;
@@ -223,12 +261,20 @@ footer {
   align-content: center;
 }
 
-input {
-  margin: 0.5rem 0 2rem 0;
+input, select, textarea {
+  margin: 1rem 0;
   border: 3px solid #EF8122;
   border-radius: 5px;
   font-family: "commissioner";
   padding: 0.5rem;
+  resize: none;
+  width: -moz-available; /* WebKit-based browsers will ignore this. */
+  width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+  width: fill-available;
+}
+
+.input-doble div {
+  width: 100%;
 }
 
 #snackbar-login {
@@ -297,7 +343,9 @@ input {
     scale: 0.5;
     margin-top: 0;
   }
-  #mision, #vision, #valores {
+  #mision,
+  #vision,
+  #valores {
     width: 33%;
   }
   #segunda-seccion {

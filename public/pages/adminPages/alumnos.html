@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página oficial del Centro Acuático Albatros en Tequisquiapan, Qro., México.">
+    <title>Albatros: Alumnos</title>
+    <link rel="manifest" href="./js/pwa.webmanifest">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="shortcut icon" href="./images/icons/albatros-icon.svg" type="image/x-icon">
+</head>
+<body>
+    <nav class="app-navbar">
+        <ul>
+            <li class="navbar-item"><button class="btn-icon btn-marino" id="regresar">
+                <svg width="25" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M46.4635 16.4634L22.9302 40L46.4635 63.5367L53.5368 56.4634L37.0702 40L53.5368 23.5367L46.4635 16.4634Z" fill="#F8FBFF"/>
+                </svg>
+            </button>
+            </li>
+            <li class="navbar-item">
+                <span class="titulo-app marino">Alumnos</span>
+            </li>
+            <li class="navbar-item"><button class="btn-icon btn-naranja" id="logout">
+                <svg width="25" viewBox="2 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M32.3332 27.0832V22.9165H13.5832V16.6665L3.1665 24.9998L13.5832 33.3332V27.0832H32.3332Z" fill="#F8FBFF"/>
+                    <path d="M40.6667 6.25H21.9167C19.6188 6.25 17.75 8.11875 17.75 10.4167V18.75H21.9167V10.4167H40.6667V39.5833H21.9167V31.25H17.75V39.5833C17.75 41.8812 19.6188 43.75 21.9167 43.75H40.6667C42.9646 43.75 44.8333 41.8812 44.8333 39.5833V10.4167C44.8333 8.11875 42.9646 6.25 40.6667 6.25Z" fill="#F8FBFF"/>
+                </svg>
+            </button></li>
+        </ul>
+    </nav> 
+    <section class="seccion-app">
+        <div class="titulo-seccion grupo">
+            <div style="display:flex;justify-content: baseline;">
+                <div id="icon-grupo"></div><p>Todos los alumnos</p>
+            </div>
+            <p>Total:<span id="total-alumnos"></span></p>
+        </div>
+        <div style="display: flex; align-content: center;">
+            <input type="text" id="barra-busqueda" name="barra-busqueda" placeholder="Buscar por nombre" style="width:100%">
+            <label for="barra-busqueda">
+                <svg width="40" viewBox="0 -10 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.6668 30.0002C19.6251 29.9996 22.4982 29.0092 24.8285 27.1868L32.1552 34.5135L34.5118 32.1568L27.1852 24.8302C29.0085 22.4996 29.9995 19.6259 30.0002 16.6668C30.0002 9.31516 24.0185 3.3335 16.6668 3.3335C9.31516 3.3335 3.3335 9.31516 3.3335 16.6668C3.3335 24.0185 9.31516 30.0002 16.6668 30.0002ZM16.6668 6.66683C22.1818 6.66683 26.6668 11.1518 26.6668 16.6668C26.6668 22.1818 22.1818 26.6668 16.6668 26.6668C11.1518 26.6668 6.66683 22.1818 6.66683 16.6668C6.66683 11.1518 11.1518 6.66683 16.6668 6.66683Z" fill="#2E3192"/>
+                </svg>
+            </label>
+        </div>
+        <div id="concentrado-alumnos">
+        </div>
+        <div style="margin: 2rem 0; display: grid; justify-content: end;">
+            <button class="btn btn-naranja" onclick="openModal()">Agregar Alumno</button>
+        </div>
+
+
+  <!-- Agregar Alumno -->
+  <div id="alumno-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Registrar Alumno</h2>      
+        </div>
+    <form id="registrarAlumno">
+        <div class="input-doble">
+            <div>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div>
+                <label for="apellidos">Apellidos:</label>
+                <input type="text" id="apellidos" name="apellidos" required>      
+            </div>
+        </div>
+        <label for="fechaN">Fecha de Nacimiento:</label>
+        <input type="date" id="fechaN" name="fechaN" required>
+        <label for="antecedentes">Antecedentes de salud:</label>
+        <textarea type="text" id="antecedentes" name="antecedentes" required></textarea>
+        <label for="restrcciones">Restricciones médicas:</label>
+        <textarea type="text" id="restricciones" name="restricciones" required></textarea>
+        <label for="nivel">Nivel:</label>        
+        <select name="nivel" id="nivel">
+            <option value="Sin Asignar">No Asignar</option>
+            <option value="Rana">Rana</option>
+        </select>
+        <div class="input-doble">
+            <div>        
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" required>
+            </div>
+            <div>
+                <label for="telefono">Teléfono:</label>
+                <input type="text" id="telefono" name="telefono" required>
+            </div>
+        </div>
+        <div class="btns-doble">
+            <button class="btn btn-naranja-2" id="cancelarRegistro">Cancelar</button>
+            <button type="submit" class="btn btn-marino">Registrar</button>
+        </div>
+        </form>
+    </div>
+  
+    </section>
+    <script src="/js/alumnos.js"></script>
+</body>
+</body>
+</html>
