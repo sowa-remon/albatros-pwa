@@ -9,6 +9,7 @@ const anuncioModal = document.getElementById("anuncio-modal");
 const regresar = document.getElementById("regresar");
 const concentradoAnuncios = document.getElementById("concentrado-anuncios");
 const logout = document.getElementById("logout");
+let todosAnuncios = []
 
 regresar.addEventListener("click", () => {
   window.history.back();
@@ -33,7 +34,7 @@ async function fetchAnuncios() {
       throw new Error("Error en la solicitud: " + response.status);
     }
     anuncios = await response.json();
-    mostrarAnuncios(todosAnuncios);
+    mostrarAnuncios(anuncios);
   } catch (error) {
     console.error("Error al recuperar anuncios:", error);
   }
@@ -48,96 +49,32 @@ function mostrarAnuncios(anuncios) {
     const filaAnuncio = document.createElement("div");
     filaAnuncio.className = "fila-anuncio";
 
-    const fichaAlumno = document.createElement("div");
-    fichaAlumno.className = "ficha-alumno";
+    const fichaAnuncio = document.createElement("div");
+    fichaAnuncio.className = "ficha-anuncio";
 
-    const nombre = document.createElement("p");
-    nombre.innerHTML = `<b>Nombre:</b> <span>${alumno.nombre} ${alumno.apellidos}</span>`;
-    fichaAlumno.appendChild(nombre);
+    const titulo = document.createElement("div");
+    titulo.innerHTML = `<p><b>${anuncio.titulo}</b></p> <p>${anuncio.fechaInicio}</p>`;
+    titulo.className = "titulo-anuncio"
+    fichaAnuncio.appendChild(titulo);
 
-    const evaluacion = document.createElement("p");
-    if(alumno.evaluacion.fechaEv == '' && alumno.evaluacion.maestro == '' && alumno.evaluacion.observaciones == ''){
-      evaluacion.innerHTML = `<b>Evaluación:</b> <span>Pendiente</span>`;
-      fichaAlumno.appendChild(evaluacion);
+    filaAnuncio.appendChild(fichaAnuncio);
+
+    const contenido = document.createElement("p");
+    contenido.innerHTML = `${anuncio.contenido}`;
+    fichaAnuncio.appendChild(contenido);
+
+    const tipo = document.createElement("p")
+    if(anuncio.tipo == 'bolsa'){
+      tipo.innerHTML = "Bolsa de trabajo"
+      tipo.className = "anuncio-bolsa"
+    } else if(anuncio.tipo == 'promocion'){
+      tipo.innerHTML = "Promoción"
+      tipo.className = "anuncio-promo"
+    } else {
+      tipo.innerHTML = "General"
+      tipo.className = "anuncio-general"
     }
-    else{
-      evaluacion.innerHTML = `<b>Evaluación:</b> <span>${alumno.evaluacion.aprobado ? "Aprobado" : "Por aprobar"}</span>`;
-      fichaAlumno.appendChild(evaluacion);  
-    }
-
-    const status = document.createElement("p");
-    status.innerHTML = `<b><span>Status:</span></b>`;
-    status.appendChild(estado);
-    fichaAlumno.appendChild(status);
-
-    filaAlumno.appendChild(fichaAlumno);
-
-    const usuario = document.createElement("p");
-    usuario.innerHTML = `<b>Usuario:</b> <span>${alumno.usuario}</span>`;
-    fichaAlumno.appendChild(usuario);
-
-    const columna = document.createElement("div");
-    columna.className = "columna-1-2";
-
-    const btnVistaDetallada = document.createElement("button");
-    btnVistaDetallada.className = "btn-texto";
-    btnVistaDetallada.style.setProperty("--color", "#EF8122");
-    btnVistaDetallada.textContent = "Abrir vista detallada";
-    btnVistaDetallada.onclick = () => {
-      window.location.href = `/admin/detalle-alumno?id=${alumno.id}`;
-    };
-    columna.appendChild(btnVistaDetallada);
-
-    if (alumno.estado == true) {
-      const btnBaja = document.createElement("button");
-      btnBaja.className = "btn-texto";
-      btnBaja.style.setProperty("--color", "#2E3192");
-      btnBaja.textContent = "Dar de baja";
-      btnBaja.onclick = async () => {
-        if (confirm("¿Está seguro de que quiere dar de baja a este alumno?")) {
-          const response = await fetch(`/admin/bajaAlumno?id=${alumno.id}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ id: alumno.id }),
-          });
-          if (response.ok) {
-            alert("Alumno dado de baja exitosamente");
-            fetchAlumnos();
-          } else {
-            alert("Error al dar de baja al alumno");
-          }
-        }
-      };
-      columna.appendChild(btnBaja);
-    }
-    if (alumno.estado == false) {
-      const btnAlta = document.createElement("button");
-      btnAlta.className = "btn-texto";
-      btnAlta.style.setProperty("--color", "#2E3192");
-      btnAlta.textContent = "Dar de alta";
-      btnAlta.onclick = async () => {
-        if (confirm("¿Está seguro de que quiere dar de alta a este alumno?")) {
-          const response = await fetch(`/admin/altaAlumno?id=${alumno.id}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ id: alumno.id }),
-          });
-          if (response.ok) {
-            alert("Alumno dado de alta exitosamente");
-            fetchAlumnos();
-          } else {
-            alert("Error al dar de alta al alumno");
-          }
-        }
-      };
-      columna.appendChild(btnAlta);
-    }
-    filaAlumno.appendChild(columna);
-    concentradoAlumnos.appendChild(filaAlumno);
+    concentradoAnuncios.appendChild(filaAnuncio);
   });
 }
 
@@ -175,7 +112,7 @@ cancelarRegistro.addEventListener("click", () => {
 
 // Maneja el envío del formulario de registro de alumnos
 document
-  .getElementById("registrarAlumno")
+  .getElementById("publicarAnuncio")
   .addEventListener("submit", async (event) => {
     event.preventDefault();
     if (
@@ -185,7 +122,7 @@ document
       !antecedentes.value ||
       !restricciones.value ||
       !direccion.value ||
-      !telefono.value ||
+      !telefono.value || 
       !nivel.value
     ) {
       console("Por favor, ingrese todos los campos");
@@ -210,4 +147,4 @@ document
     }
   });
 
-fetchAlumnos();
+fetchAnuncios()

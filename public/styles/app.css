@@ -273,6 +273,17 @@ body {
   border: none;
 }
 
+.ficha-anuncio {
+  padding: 0.5rem;
+  border: solid 2px #EF8122;
+  border-radius: 10px;
+}
+
+.titulo-anuncio {
+  display: flex;
+  justify-content: space-between;
+}
+
 @media (max-width: 400px) {
   .btns-doble {
     flex-direction: column;

@@ -6,6 +6,7 @@ const multer = require('multer')
 const path = require('path')
 const authRoutes = require('./src/routes/auth')
 const adminRoutes = require('./src/routes/adminRoute')
+const { firestore } = require("./src/configs/firebaseAdmin");
 
 const httpPort = process.env.PORT
 const app = express()
@@ -43,18 +44,6 @@ function isAdmin(req, res, next) {
   }
 }
 
-// Configuración de multer para guardar archivos en una carpeta específica
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-     // El nombre del archivo será el ID del anuncio + la extensión original del archivo
-     const idAnuncio = req.body.idAnuncio;
-     cb(null, idAnuncio + path.extname(file.originalname));
-   }
-});
-
 // 
 app.use(session(sess))
 app.use(bodyParser.json())
@@ -91,8 +80,8 @@ app.get('/maestro-panel', isAuthenticated, (req, res) => {
 app.get("/lista-anuncios", async (req, res) => {
   try {
     const anunciosSnapshot = await firestore
-      .collection("anuncios")
-      .orderBy("fecha", "desc")
+      .collection("anuncios").where("activo", "==", true)
+      .orderBy("fechaInicio", "desc")
       .get();
     const anuncios = anunciosSnapshot.docs.map((doc) => doc.data());
     res.status(200).json(anuncios);

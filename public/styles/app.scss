@@ -206,6 +206,16 @@ cursor: pointer;}
   border: none;
 }
 
+.ficha-anuncio{
+  padding: .5rem;
+  border: solid 2px $naranja;
+  border-radius: 10px;
+}
+
+.titulo-anuncio{
+  display: flex;
+  justify-content: space-between;
+}
 
 @media (max-width:400px) {
   .btns-doble{

@@ -8,8 +8,21 @@ const bcrypt = require("bcrypt");
 const path = require("path");
 const router = express.Router();
 const saltRounds = 10;
-const upload = multer({ storage: storage })
 
+
+// Configuración de multer para guardar archivos en una carpeta específica
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+     // El nombre del archivo será el ID del anuncio + la extensión original del archivo
+     const idAnuncio = req.body.idAnuncio;
+     cb(null, idAnuncio + path.extname(file.originalname));
+   }
+});
+
+const upload = multer({ storage: storage })
 
 // * Rutas protegidas (creo) estáticas
 router.get("/contenido", (req, res) => {
@@ -430,5 +443,6 @@ router.post("/crearAnuncio", upload.single('imagen'), async (req, res) => {
       .send({ message: "Error al crear usuario", error: error.message });
   }
 });
+
 
 module.exports = router;

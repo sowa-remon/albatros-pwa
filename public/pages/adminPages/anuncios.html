@@ -1,96 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Página oficial del Centro Acuático Albatros en Tequisquiapan, Qro., México.">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Página oficial del Centro Acuático Albatros en Tequisquiapan, Qro., México."
+    />
     <title>Albatros: Anuncios</title>
-    <link rel="manifest" href="./js/pwa.webmanifest">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/app.css">
-    <link rel="shortcut icon" href="/icons/albatros-icon.svg" type="image/x-icon">
-</head>
-<body>
+    <link rel="manifest" href="./js/pwa.webmanifest" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/app.css" />
+    <link
+      rel="shortcut icon"
+      href="/icons/albatros-icon.svg"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
     <nav class="app-navbar">
-        <ul>
-            <li class="navbar-item"><button class="btn-icon btn-marino" id="regresar">
-                <svg width="25" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M46.4635 16.4634L22.9302 40L46.4635 63.5367L53.5368 56.4634L37.0702 40L53.5368 23.5367L46.4635 16.4634Z" fill="#F8FBFF"/>
-                </svg>
-            </button>
-            </li>
-            <li class="navbar-item">
-                <span class="titulo-app marino">Anuncios</span>
-            </li>
-            <li class="navbar-item"><button class="btn-icon btn-naranja" id="logout">
-                <svg width="25" viewBox="2 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M32.3332 27.0832V22.9165H13.5832V16.6665L3.1665 24.9998L13.5832 33.3332V27.0832H32.3332Z" fill="#F8FBFF"/>
-                    <path d="M40.6667 6.25H21.9167C19.6188 6.25 17.75 8.11875 17.75 10.4167V18.75H21.9167V10.4167H40.6667V39.5833H21.9167V31.25H17.75V39.5833C17.75 41.8812 19.6188 43.75 21.9167 43.75H40.6667C42.9646 43.75 44.8333 41.8812 44.8333 39.5833V10.4167C44.8333 8.11875 42.9646 6.25 40.6667 6.25Z" fill="#F8FBFF"/>
-                </svg>
-            </button></li>
-        </ul>
-    </nav> 
+      <ul>
+        <li class="navbar-item">
+          <button class="btn-icon btn-marino" id="regresar">
+            <svg
+              width="25"
+              viewBox="0 0 75 75"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M46.4635 16.4634L22.9302 40L46.4635 63.5367L53.5368 56.4634L37.0702 40L53.5368 23.5367L46.4635 16.4634Z"
+                fill="#F8FBFF"
+              />
+            </svg>
+          </button>
+        </li>
+        <li class="navbar-item">
+          <span class="titulo-app marino">Anuncios</span>
+        </li>
+        <li class="navbar-item">
+          <button class="btn-icon btn-naranja" id="logout">
+            <svg
+              width="25"
+              viewBox="2 0 50 50"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M32.3332 27.0832V22.9165H13.5832V16.6665L3.1665 24.9998L13.5832 33.3332V27.0832H32.3332Z"
+                fill="#F8FBFF"
+              />
+              <path
+                d="M40.6667 6.25H21.9167C19.6188 6.25 17.75 8.11875 17.75 10.4167V18.75H21.9167V10.4167H40.6667V39.5833H21.9167V31.25H17.75V39.5833C17.75 41.8812 19.6188 43.75 21.9167 43.75H40.6667C42.9646 43.75 44.8333 41.8812 44.8333 39.5833V10.4167C44.8333 8.11875 42.9646 6.25 40.6667 6.25Z"
+                fill="#F8FBFF"
+              />
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </nav>
     <section class="seccion-app">
-        <div class="titulo-seccion grupo">
-            <div style="display:flex;justify-content: baseline;">
-                <div id="icon-grupo"></div><p>Todos los anuncios</p>
-            </div>
-            <p>Total:<span id="total-anuncios"></span></p>
+      <div class="titulo-seccion grupo">
+        <div style="display: flex; justify-content: baseline">
+          <div id="icon-grupo"></div>
+          <p>Todos los anuncios</p>
         </div>
-        <div id="concentrado-anuncios">
-        </div>
-        <div style="margin: 2rem 0; display: grid; justify-content: end;">
-            <button class="btn btn-naranja" onclick="openModal()">Agregar Anuncio</button>
-        </div>
+        <p>Total:<span id="total-anuncios"></span></p>
+      </div>
+      <div id="concentrado-anuncios"></div>
+      <div style="margin: 2rem 0; display: grid; justify-content: end">
+        <button class="btn btn-naranja" onclick="openModal()">
+          Agregar Anuncio
+        </button>
+      </div>
 
-
-  <!-- Agregar Anuncio -->
-  <div id="anuncio-modal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
+      <!-- Agregar Anuncio -->
+      <div id="anuncio-modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Registrar Alumno</h2>      
-        </div>
-    <form id="publicarAnuncio" enctype="multipart/form-data">
-        <div class="input-doble">
-            <div>
-                <label for="titulo">Título del anuncio:</label>
-                <input type="text" id="titulo" name="titulo" required>
-            </div>
-            <div>
-                <label for="contenido">Contenido:</label>
-                <textarea type="text" id="contenido" name="contenido" required></textarea>      
-            </div>
-        </div>
-        <label for="imagen">Imagen (opcional)</label>
-        <input type="file" accept="image/png, image/jpg, image/jpeg" id="imagen" name="imagen">
-        <div class="input-doble">
-            <div>        
+            <h2>Publicar nuevo anuncio</h2>
+          </div>
+          <form id="publicarAnuncio" enctype="multipart/form-data">
+            <label for="titulo">Título del anuncio:</label>
+            <input type="text" id="titulo" name="titulo" required />
+            <label for="contenido">Contenido:</label>
+            <textarea
+              type="text"
+              id="contenido"
+              name="contenido"
+              required
+            ></textarea>
+            <label for="imagen">Imagen (opcional)</label>
+            <input
+              type="file"
+              accept="image/png, image/jpg, image/jpeg"
+              id="imagen"
+              name="imagen"
+            />
+            <div class="input-doble">
+              <div style="margin-right: 1rem;">
                 <label for="duracion">Duración:</label>
                 <select id="duracion" name="duracion" required>
-                    <option value="semana">1 semana</option>
-                    <option value="mes">1 mes</option>
-                    <option value="indefinido">Indefinido</option>
+                  <option value="semana">1 semana</option>
+                  <option value="mes">1 mes</option>
+                  <option value="indefinido">Indefinido</option>
                 </select>
-            </div>
-            <div>
-                <label for="tipo">Tipo de anuncio:</label>        
+              </div>
+              <div>
+                <label for="tipo">Tipo de anuncio:</label>
                 <select name="tipo" id="tipo">
-                    <option value="general">General</option>
-                    <option value="bolsa">Bolsa de trabajo</option>
-                    <option value="promocion">Promoción</option>
-                </select> 
+                  <option value="general">General</option>
+                  <option value="bolsa">Bolsa de trabajo</option>
+                  <option value="promocion">Promoción</option>
+                </select>
+              </div>
             </div>
+            <div class="btns-doble">
+              <button class="btn btn-naranja-2" id="cancelarRegistro">
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-marino">Publicar</button>
+            </div>
+          </form>
         </div>
-        <div class="btns-doble">
-            <button class="btn btn-naranja-2" id="cancelarRegistro">Cancelar</button>
-            <button type="submit" class="btn btn-marino">Publicar</button>
-        </div>
-        </form>
-    </div>
-    </div>
-  
+      </div>
     </section>
     <script src="/js/anuncios.js"></script>
-</body>
+  </body>
 </html>
