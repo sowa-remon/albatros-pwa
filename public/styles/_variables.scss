@@ -47,6 +47,12 @@ $rosa: #F523CE;
     color: $blanco;
 }
 
+@mixin tipo-anuncio{
+  font-weight: 600;
+  padding: .5rem 2rem;
+  font-size: smaller;
+  border-radius: 100px;
+}
 
   @keyframes tonext {
     75% {

@@ -88,7 +88,7 @@ function mostrarMaestros(maestros) {
     btnVistaDetallada.style.setProperty("--color", "#EF8122");
     btnVistaDetallada.textContent = "Abrir vista detallada";
     btnVistaDetallada.onclick = () => {
-      window.location.href = `/admin/detalle-alumno?id=${alumno.id}`;
+      window.location.href = `/admin/detalle-maestro?id=${maestro.id}`;
     };
     columna.appendChild(btnVistaDetallada);
 

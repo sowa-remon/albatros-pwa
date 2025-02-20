@@ -98,6 +98,8 @@ body {
 
 .btn-texto:hover{
   color: $celeste;
+  transform: scale(1.03);
+  transition: 1s;
   cursor: pointer;
 }
 
@@ -107,12 +109,21 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   margin-right: .5rem;
-  width: 45px;
+  width: 30px;
   height: auto;
 }
 
 #icon-grupo{
   background-image: url(../images/icons/icon-grupo.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: .5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-anuncio{
+  background-image: url(../images/icons/icon-anuncios.svg);
   background-repeat: no-repeat;
   background-position: center;
   margin-right: .5rem;
@@ -207,14 +218,41 @@ cursor: pointer;}
 }
 
 .ficha-anuncio{
-  padding: .5rem;
+  padding: .5rem 1rem;
   border: solid 2px $naranja;
   border-radius: 10px;
+  margin: 1rem 0;
+  @include sombra-2;
+}
+
+.ficha-anuncio:hover{
+  transform: scale(1.02);
+  transition: .8s;
+  cursor: pointer;
 }
 
 .titulo-anuncio{
+  color: $marino;
   display: flex;
   justify-content: space-between;
+}
+
+.anuncio-general{
+  background-color: $marino;
+  color: $blanco;
+  @include tipo-anuncio;
+}
+
+.anuncio-bolsa{
+  background-color: $amarillo;
+  color: $marino;
+  @include tipo-anuncio;
+}
+
+.anuncio-promo{
+  background-color: $celeste;
+  color: $blanco;
+  @include tipo-anuncio;
 }
 
 @media (max-width:400px) {

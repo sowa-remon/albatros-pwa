@@ -9,7 +9,8 @@ const anuncioModal = document.getElementById("anuncio-modal");
 const regresar = document.getElementById("regresar");
 const concentradoAnuncios = document.getElementById("concentrado-anuncios");
 const logout = document.getElementById("logout");
-let todosAnuncios = []
+const publicarAnuncio = document.getElementById("publicarAnuncio");
+let todosAnuncios = [];
 
 regresar.addEventListener("click", () => {
   window.history.back();
@@ -42,39 +43,87 @@ async function fetchAnuncios() {
 
 function mostrarAnuncios(anuncios) {
   concentradoAnuncios.innerHTML = "";
-  totalAnuncios.textContent = anuncios.length;
 
   anuncios.forEach((anuncio) => {
+    // Convertir Timestamp a Date y formatear la fecha
+    const fechaInicio = new Date(anuncio.fechaInicio._seconds * 1000);
+    const fechaFinal = new Date(anuncio.fechaFinal._seconds * 1000);
+    const opcionesFecha = { year: "numeric", month: "long", day: "numeric" };
 
-    const filaAnuncio = document.createElement("div");
-    filaAnuncio.className = "fila-anuncio";
+    const fechaInicioFormateada = fechaInicio.toLocaleDateString(
+      "es-ES",
+      opcionesFecha
+    );
+    const fechaFinalFormateada = fechaFinal.toLocaleDateString(
+      "es-ES",
+      opcionesFecha
+    );
+    const hoy = new Date();
+    
 
-    const fichaAnuncio = document.createElement("div");
-    fichaAnuncio.className = "ficha-anuncio";
+    if (hoy<=fechaFinal) {
+      const filaAnuncio = document.createElement("div");
+      filaAnuncio.className = "fila-anuncio";
 
-    const titulo = document.createElement("div");
-    titulo.innerHTML = `<p><b>${anuncio.titulo}</b></p> <p>${anuncio.fechaInicio}</p>`;
-    titulo.className = "titulo-anuncio"
-    fichaAnuncio.appendChild(titulo);
+      const fichaAnuncio = document.createElement("div");
+      fichaAnuncio.className = "ficha-anuncio";
 
-    filaAnuncio.appendChild(fichaAnuncio);
+      const titulo = document.createElement("div");
+      titulo.innerHTML = `<p><b>${anuncio.titulo}</b></p> <p>Fecha: ${fechaInicioFormateada}</p>`;
+      titulo.className = "titulo-anuncio";
+      fichaAnuncio.appendChild(titulo);
 
-    const contenido = document.createElement("p");
-    contenido.innerHTML = `${anuncio.contenido}`;
-    fichaAnuncio.appendChild(contenido);
+      filaAnuncio.appendChild(fichaAnuncio);
 
-    const tipo = document.createElement("p")
-    if(anuncio.tipo == 'bolsa'){
-      tipo.innerHTML = "Bolsa de trabajo"
-      tipo.className = "anuncio-bolsa"
-    } else if(anuncio.tipo == 'promocion'){
-      tipo.innerHTML = "Promoción"
-      tipo.className = "anuncio-promo"
-    } else {
-      tipo.innerHTML = "General"
-      tipo.className = "anuncio-general"
+      const contenido = document.createElement("p");
+      contenido.innerHTML = `${anuncio.contenido}`;
+      fichaAnuncio.appendChild(contenido);
+
+      const tipo = document.createElement("p");
+      if (anuncio.tipo == "bolsa") {
+        tipo.innerHTML = "Bolsa de trabajo";
+        tipo.className = "anuncio-bolsa";
+      } else if (anuncio.tipo == "promocion") {
+        tipo.innerHTML = "Promoción";
+        tipo.className = "anuncio-promo";
+      } else {
+        tipo.innerHTML = "General";
+        tipo.className = "anuncio-general";
+      }
+
+      const filaTipoEliminar = document.createElement("div");
+      filaTipoEliminar.style.display = "flex";
+      filaTipoEliminar.style.justifyContent = "space-between";
+      filaTipoEliminar.appendChild(tipo);
+
+      const btnEliminar = document.createElement("button");
+      btnEliminar.className = "btn-texto";
+      btnEliminar.style.setProperty("--color", "#EF8122");
+      btnEliminar.textContent = "Eliminar";
+      btnEliminar.onclick = async () => {
+        if (confirm("¿Está seguro de que quiere eliminar el anuncio?")) {
+          const response = await fetch(
+            `/admin/eliminarAnuncio?id=${anuncio.id}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ id: anuncio.id }),
+            }
+          );
+          if (response.ok) {
+            alert("Anuncio eliminado");
+            fetchAnuncios();
+          } else {
+            alert("Error al eliminar");
+          }
+        }
+      };
+      filaTipoEliminar.appendChild(btnEliminar);
+      fichaAnuncio.appendChild(filaTipoEliminar);
+      concentradoAnuncios.appendChild(filaAnuncio);
     }
-    concentradoAnuncios.appendChild(filaAnuncio);
   });
 }
 
@@ -98,53 +147,40 @@ window.onclick = function (event) {
 // Cancela el registro de un alumno
 cancelarRegistro.addEventListener("click", () => {
   if (confirm("¿Está seguro de que quiere cancelar el registro?")) {
-    nombre.value = "";
-    apellidos.value = "";
-    fechaN.value = "";
-    antecedentes.value = "";
-    restricciones.value = "";
-    direccion.value = "";
-    telefono.value = "";
-    nivel.value = "";
+    titulo.value = "";
+    contenido.value = "";
+    duracion.value = "";
+    tipo.value = "";
     closeModal();
   }
 });
 
-// Maneja el envío del formulario de registro de alumnos
-document
-  .getElementById("publicarAnuncio")
-  .addEventListener("submit", async (event) => {
-    event.preventDefault();
-    if (
-      !nombre.value ||
-      !apellidos.value ||
-      !fechaN.value ||
-      !antecedentes.value ||
-      !restricciones.value ||
-      !direccion.value ||
-      !telefono.value || 
-      !nivel.value
-    ) {
-      console("Por favor, ingrese todos los campos");
-      return;
-    } else {
-      const formData = new FormData(document.getElementById("registrarAlumno"));
+// Formulario de registro y publicación de anuncio
+publicarAnuncio.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!titulo.value || !contenido.value || !duracion.value || !tipo.value) {
+    console("Por favor, ingrese todos los campos");
+    return;
+  } else {
+    const formData = new FormData(publicarAnuncio);
 
-      // Envía los datos a tu servidor (ajusta la URL según tu configuración)
-      const response = await fetch("/admin/crearUsuarioAlumno/", {
-        method: "POST",
-        body: formData,
-      });
+    const response = await fetch("/admin/crearAnuncio/", {
+      method: "POST",
+      body: formData,
+    });
 
-      if (response.ok) {
-        alert("Alumno registrado exitosamente");
-        fetchAlumnos()
-        closeModal()
-        // Aquí puedes actualizar la lista de alumnos sin recargar la página
+    if (response.ok) {
+      alert("Anuncio publicado");
+      fetchAnuncios();
+      closeModal();    
+      titulo.value = "";
+      contenido.value = "";
+      duracion.value = "";
+      tipo.value = "";
       } else {
-        alert("Error al registrar el alumno ?");
-      }
+      alert("Error al publicar el anuncio");
     }
-  });
+  }
+});
 
-fetchAnuncios()
+fetchAnuncios();

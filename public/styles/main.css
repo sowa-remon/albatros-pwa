@@ -264,6 +264,7 @@ footer {
 input, select, textarea {
   margin: 1rem 0;
   border: 3px solid #EF8122;
+  background-color: #F8FBFF;
   border-radius: 5px;
   font-family: "commissioner";
   padding: 0.5rem;
@@ -271,6 +272,11 @@ input, select, textarea {
   width: -moz-available; /* WebKit-based browsers will ignore this. */
   width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
   width: fill-available;
+}
+
+textarea:disabled {
+  border: 3px solid rgba(239, 129, 34, 0.6);
+  color: #1D1E1E;
 }
 
 .input-doble div {

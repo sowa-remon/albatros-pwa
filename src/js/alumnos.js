@@ -205,7 +205,6 @@ cancelarRegistro.addEventListener("click", () => {
   }
 });
 
-// Maneja el envío del formulario de registro de alumnos
 document
   .getElementById("registrarAlumno")
   .addEventListener("submit", async (event) => {
@@ -225,7 +224,6 @@ document
     } else {
       const formData = new FormData(document.getElementById("registrarAlumno"));
 
-      // Envía los datos a tu servidor (ajusta la URL según tu configuración)
       const response = await fetch("/admin/crearUsuarioAlumno/", {
         method: "POST",
         body: formData,
@@ -235,7 +233,6 @@ document
         alert("Alumno registrado exitosamente");
         fetchAlumnos()
         closeModal()
-        // Aquí puedes actualizar la lista de alumnos sin recargar la página
       } else {
         alert("Error al registrar el alumno ?");
       }

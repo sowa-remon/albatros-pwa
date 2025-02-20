@@ -166,6 +166,8 @@ body {
 
 .btn-texto:hover {
   color: #00AAE2;
+  transform: scale(1.03);
+  transition: 1s;
   cursor: pointer;
 }
 
@@ -174,12 +176,21 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   margin-right: 0.5rem;
-  width: 45px;
+  width: 30px;
   height: auto;
 }
 
 #icon-grupo {
   background-image: url(../images/icons/icon-grupo.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-anuncio {
+  background-image: url(../images/icons/icon-anuncios.svg);
   background-repeat: no-repeat;
   background-position: center;
   margin-right: 0.5rem;
@@ -274,14 +285,50 @@ body {
 }
 
 .ficha-anuncio {
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   border: solid 2px #EF8122;
   border-radius: 10px;
+  margin: 1rem 0;
+  box-shadow: 0 3px 3px rgba(46, 49, 146, 0.3);
+}
+
+.ficha-anuncio:hover {
+  transform: scale(1.02);
+  transition: 0.8s;
+  cursor: pointer;
 }
 
 .titulo-anuncio {
+  color: #2E3192;
   display: flex;
   justify-content: space-between;
+}
+
+.anuncio-general {
+  background-color: #2E3192;
+  color: #F8FBFF;
+  font-weight: 600;
+  padding: 0.5rem 2rem;
+  font-size: smaller;
+  border-radius: 100px;
+}
+
+.anuncio-bolsa {
+  background-color: #FAE906;
+  color: #2E3192;
+  font-weight: 600;
+  padding: 0.5rem 2rem;
+  font-size: smaller;
+  border-radius: 100px;
+}
+
+.anuncio-promo {
+  background-color: #00AAE2;
+  color: #F8FBFF;
+  font-weight: 600;
+  padding: 0.5rem 2rem;
+  font-size: smaller;
+  border-radius: 100px;
 }
 
 @media (max-width: 400px) {

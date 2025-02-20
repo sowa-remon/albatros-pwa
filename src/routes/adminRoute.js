@@ -6,6 +6,7 @@ const express = require("express");
 const multer = require("multer");
 const bcrypt = require("bcrypt");
 const path = require("path");
+const { Timestamp } = require("firebase-admin/firestore");
 const router = express.Router();
 const saltRounds = 10;
 
@@ -13,7 +14,7 @@ const saltRounds = 10;
 // Configuración de multer para guardar archivos en una carpeta específica
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');
+    cb(null, '../uploads/');
   },
   filename: (req, file, cb) => {
      // El nombre del archivo será el ID del anuncio + la extensión original del archivo
@@ -48,6 +49,11 @@ router.get("/anuncios", (req, res) => {
 router.get("/detalle-alumno", (req, res) => {
   res.sendFile(
     path.join(__dirname, "../../public/pages/adminPages/alumno-detalles.html")
+  );
+});
+router.get("/detalle-maestro", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../../public/pages/adminPages/maestro-detalles.html")
   );
 });
 
@@ -369,6 +375,78 @@ router.post("/crearUsuarioMaestro", upload.none(), async (req, res) => {
   }
 });
 
+// Dar de baja maestro
+router.post("/bajaMaestro/:id", async (req, res) => {
+  try {
+    const maestroRef = firestore.collection("usuarios").doc(req.params.id);
+    await maestroRef.update({ estado: false });
+    res.status(200).send({ message: "Maestro dado de baja exitosamente" });
+  } catch (error) {
+    res
+      .status(400)
+      .send({ message: "Error al dar de baja al maestro", error: error.message });
+  }
+});
+
+// Dar de alta maestro
+router.post("/altaMaestro/:id", async (req, res) => {
+  try {
+    const maestroRef = firestore.collection("usuarios").doc(req.params.id);
+    await maestroRef.update({ estado: true });
+    res.status(200).send({ message: "maestro dado de alta exitosamente" });
+  } catch (error) {
+    res
+      .status(400)
+      .send({ message: "Error al dar de alta maestro", error: error.message });
+  }
+});
+// Obtener datos de un alumnno
+router.get("/maestro/:id", async (req, res) => {
+  try {
+    const maestroSnapshot = await firestore
+      .collection("usuarios")
+      .doc(req.params.id)
+      .get();
+    const maestro = maestroSnapshot.data();
+
+    if (!maestro) {
+      return res.status(404).send({ message: "Maestro no encontrado" });
+    }
+    res.status(200).json(maestro);
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Error al obtener maestro", error: error.message });
+  }
+});
+
+// Actualizar datos de un maestro
+router.put("/actualizarMaestro/:id", async (req, res) => {
+  try {
+    const maestroData = req.body;
+
+    // Verificar que los datos no estén vacíos
+    if (Object.keys(maestroData).length === 0) {
+      return res
+        .status(400)
+        .json({ message: "No se proporcionaron datos para actualizar" });
+    }
+
+    await firestore
+      .collection("usuarios")
+      .doc(req.params.id)
+      .update(maestroData);
+    res
+      .status(200)
+      .json({ message: "Detalles del maestro actualizados exitosamente" });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error al actualizar los detalles del maestro",
+      error: error.message,
+    });
+  }
+});
+
 // * Rutas get
 // Obtener lista de alumnos
 router.get("/lista-maestros", async (req, res) => {
@@ -389,58 +467,67 @@ router.get("/lista-maestros", async (req, res) => {
 
 // *** ANUNCIOS
 router.post("/crearAnuncio", upload.single('imagen'), async (req, res) => {
-  const { nombre, apellidos, fechaN, direccion, telefono } = req.body;
-  const tipo = "maestro";
-  const estado = true;
+  const { titulo, contenido, duracion, imagen, tipo } = req.body;
+  const activo = true;
   console.log(req.body);
 
-  // Verificar que el nombre de usuario y la contraseña estén presentes
-  if (!nombre || !apellidos || !fechaN || !direccion || !telefono) {
+  if (!titulo || !contenido || !duracion || !tipo) {
     return res.status(400).send({ message: "Falta algun campo" });
   }
 
   try {
-    // agregar evaluacion vacía
-    const horario = {};
+    let fechaInicio = new Date()
+    let fechaFinal;
+    let fechaInicioTS = Timestamp.fromDate(fechaInicio)
+    let fechaFinalTS;
 
-    // crear nombre de usuario y contraseña (usuario encriptado)
-    const fechaCadena = await fechaN.toString();
-    const nom =
-      (await nombre.toLowerCase().split(" ")[0].charAt(0)) +
-      nombre.toLowerCase().split(" ")[0].charAt(1);
-    const usuario =
-      (await apellidos.toLowerCase().split(" ")[0]) +
-      nom +
-      "." +
-      fechaCadena.split("-")[1] +
-      fechaCadena.split("-")[2];
-    const password = await bcrypt.hash(usuario, saltRounds);
+    if(duracion == 'semana'){
+      fechaFinal = new Date(fechaInicio);
+      fechaFinal.setDate(fechaInicio.getDate() + 7);
+      fechaFinalTS = Timestamp.fromDate(fechaFinal)
+    } else if (duracion === 'mes') {
+      fechaFinal = new Date(fechaInicio);
+      fechaFinal.setMonth(fechaInicio.getMonth() + 1);
+      fechaFinalTS = Timestamp.fromDate(fechaFinal)
+    } else if (duracion === 'indefinido') {
+      fechaFinal = ""
+    } 
 
-    const userDocRef = firestore.collection("usuarios").doc();
-    const idMaestro = userDocRef.id;
-    const usuarioMaestro = new UsuarioMaestro(
-      idMaestro,
-      nombre,
-      apellidos,
-      fechaN,
-      direccion,
-      telefono,
-      usuario,
-      password,
-      estado,
-      tipo,
-      horario
-    );
+    const anuncioRef = firestore.collection('anuncios').doc();
+    idAnuncio = anuncioRef.id;
 
-    await userDocRef.set(usuarioMaestro.toFirestore());
+    const anuncioData = { 
+      id: idAnuncio, 
+      activo: activo,
+      titulo: titulo, 
+      contenido: contenido, 
+      fechaInicio: fechaInicioTS, 
+      fechaFinal: fechaFinalTS, 
+      tipo
+    }
 
-    res
-      .status(201)
-      .send({ message: "Usuario creado exitosamente", userId: userDocRef.id });
+    if (req.file) {
+      anuncioData.imagen = `/uploads/${idAnuncio}${path.extname(req.file.originalname)}`;
+    }
+
+    await anuncioRef.set(anuncioData);
+
+    res.status(201).send({ message: 'Anuncio agregado exitosamente', anuncioId: idAnuncio });
+  } catch (error) {
+    res.status(500).send({ message: 'Error al agregar el anuncio', error: error.message });
+  }
+});
+
+// Dar de baja maestro
+router.post("/eliminarAnuncio/:id", async (req, res) => {
+  try {
+    const anuncioRef = firestore.collection("anuncios").doc(req.params.id);
+    await anuncioRef.update({ activo: false });
+    res.status(200).send({ message: "Anuncio eliminado" });
   } catch (error) {
     res
       .status(400)
-      .send({ message: "Error al crear usuario", error: error.message });
+      .send({ message: "Error al eliminar anuncio", error: error.message });
   }
 });
 
