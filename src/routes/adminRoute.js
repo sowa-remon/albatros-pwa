@@ -3,6 +3,7 @@ const UsuarioAdmin = require("../models/usuarioAdmin");
 const UsuarioMaestro = require("../models/usuarioMaestro");
 const UsuarioAlumno = require("../models/usuarioAlumno");
 const express = require("express");
+const crypto = require('crypto')
 const multer = require("multer");
 const bcrypt = require("bcrypt");
 const path = require("path");
@@ -14,12 +15,11 @@ const saltRounds = 10;
 // Configuración de multer para guardar archivos en una carpeta específica
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, '../uploads/');
+    cb(null, './src/uploads/');
   },
   filename: (req, file, cb) => {
-     // El nombre del archivo será el ID del anuncio + la extensión original del archivo
-     const idAnuncio = req.body.idAnuncio;
-     cb(null, idAnuncio + path.extname(file.originalname));
+  const randomName = crypto.randomBytes(16).toString('hex')
+   cb(null, randomName + path.extname(file.originalname));
    }
 });
 
@@ -466,68 +466,66 @@ router.get("/lista-maestros", async (req, res) => {
 });
 
 // *** ANUNCIOS
-router.post("/crearAnuncio", upload.single('imagen'), async (req, res) => {
-  const { titulo, contenido, duracion, imagen, tipo } = req.body;
+// Ruta para crear un anuncio
+router.post('/crearAnuncio', upload.single('imagen'), async (req, res) => {
+  const { titulo, contenido, duracion, tipo } = req.body;
   const activo = true;
-  console.log(req.body);
 
   if (!titulo || !contenido || !duracion || !tipo) {
-    return res.status(400).send({ message: "Falta algun campo" });
+    return res.status(400).send({ message: 'Falta algún campo' });
   }
 
   try {
-    let fechaInicio = new Date()
+    let fechaInicio = new Date();
     let fechaFinal;
-    let fechaInicioTS = Timestamp.fromDate(fechaInicio)
+    let fechaInicioTS = Timestamp.fromDate(fechaInicio);
     let fechaFinalTS;
 
-    if(duracion == 'semana'){
+    if (duracion === 'semana') {
       fechaFinal = new Date(fechaInicio);
       fechaFinal.setDate(fechaInicio.getDate() + 7);
-      fechaFinalTS = Timestamp.fromDate(fechaFinal)
+      fechaFinalTS = Timestamp.fromDate(fechaFinal);
     } else if (duracion === 'mes') {
       fechaFinal = new Date(fechaInicio);
       fechaFinal.setMonth(fechaInicio.getMonth() + 1);
-      fechaFinalTS = Timestamp.fromDate(fechaFinal)
+      fechaFinalTS = Timestamp.fromDate(fechaFinal);
     } else if (duracion === 'indefinido') {
-      fechaFinal = ""
-    } 
-
-    const anuncioRef = firestore.collection('anuncios').doc();
-    idAnuncio = anuncioRef.id;
-
-    const anuncioData = { 
-      id: idAnuncio, 
-      activo: activo,
-      titulo: titulo, 
-      contenido: contenido, 
-      fechaInicio: fechaInicioTS, 
-      fechaFinal: fechaFinalTS, 
-      tipo
+      fechaFinalTS = null;
     }
+    const anuncioRef = firestore.collection('anuncios').doc();
+    const anuncioId = anuncioRef.id
+    const anuncioData = {
+      id: anuncioId,
+      activo: activo,
+      titulo: titulo,
+      contenido: contenido,
+      fechaInicio: fechaInicioTS,
+      fechaFinal: fechaFinalTS,
+      tipo
+    };
 
     if (req.file) {
-      anuncioData.imagen = `/uploads/${idAnuncio}${path.extname(req.file.originalname)}`;
+      console.log(req.file.filename)
+      anuncioData.imagen = `/uploads/${req.file.filename}`;
     }
 
     await anuncioRef.set(anuncioData);
 
-    res.status(201).send({ message: 'Anuncio agregado exitosamente', anuncioId: idAnuncio });
+    res.status(201).send({ message: 'Anuncio agregado exitosamente', anuncioId: req.body.idAnuncio });
   } catch (error) {
-    res.status(500).send({ message: 'Error al agregar el anuncio', error: error.message });
+    res.status(500).send({ message: `Error al agregar el anuncio`, error: error.message });
   }
 });
 
 // Dar de baja maestro
-router.post("/eliminarAnuncio/:id", async (req, res) => {
+router.delete('/eliminarAnuncio/:id', async (req, res) => {
+  const { id } = req.params;
+
   try {
-    const anuncioRef = firestore.collection("anuncios").doc(req.params.id);
-    await anuncioRef.update({ activo: false });
-    res.status(200).send({ message: "Anuncio eliminado" });
+    await firestore.collection('anuncios').doc(id).delete();
+    res.status(200).send({ message: 'Anuncio eliminado exitosamente' });
   } catch (error) {
-    res
-      .status(400)
-      .send({ message: "Error al eliminar anuncio", error: error.message });
+    res.status(500).send({ message: 'Error al eliminar el anuncio', error: error.message });
   }
 });
 

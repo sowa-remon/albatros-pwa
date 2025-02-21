@@ -69,7 +69,7 @@ function mostrarAnuncios(anuncios) {
       fichaAnuncio.className = "ficha-anuncio";
 
       const titulo = document.createElement("div");
-      titulo.innerHTML = `<p><b>${anuncio.titulo}</b></p> <p>Fecha: ${fechaInicioFormateada}</p>`;
+      titulo.innerHTML = `<p><b>${anuncio.titulo}</b></p> <p><b>Publicado el:</b> ${fechaInicioFormateada}</p>`;
       titulo.className = "titulo-anuncio";
       fichaAnuncio.appendChild(titulo);
 
@@ -79,6 +79,12 @@ function mostrarAnuncios(anuncios) {
       contenido.innerHTML = `${anuncio.contenido}`;
       fichaAnuncio.appendChild(contenido);
 
+      
+      const divImagen = document.createElement("img")
+      if(anuncio.imagen){
+        divImagen.src = `${anuncio.imagen}` 
+      }
+     
       const tipo = document.createElement("p");
       if (anuncio.tipo == "bolsa") {
         tipo.innerHTML = "Bolsa de trabajo";
@@ -103,14 +109,9 @@ function mostrarAnuncios(anuncios) {
       btnEliminar.onclick = async () => {
         if (confirm("¿Está seguro de que quiere eliminar el anuncio?")) {
           const response = await fetch(
-            `/admin/eliminarAnuncio?id=${anuncio.id}`,
+            `/admin/eliminarAnuncio/${anuncio.id}`,
             {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ id: anuncio.id }),
-            }
+              method: "DELETE"}
           );
           if (response.ok) {
             alert("Anuncio eliminado");
@@ -120,6 +121,9 @@ function mostrarAnuncios(anuncios) {
           }
         }
       };
+      if(anuncio.imagen){
+        fichaAnuncio.appendChild(divImagen)
+      }
       filaTipoEliminar.appendChild(btnEliminar);
       fichaAnuncio.appendChild(filaTipoEliminar);
       concentradoAnuncios.appendChild(filaAnuncio);

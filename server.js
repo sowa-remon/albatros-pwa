@@ -51,6 +51,7 @@ app.use(express.static(path.join(__dirname, "public")))
 app.use('/js', express.static(path.join(__dirname, "src/js")))
 app.use('/css', express.static(path.join(__dirname, "public/styles")))
 app.use('/icons', express.static(path.join(__dirname, "public/images/icons")))
+app.use('/uploads', express.static(path.join(__dirname, "src/uploads")))
 
 
 // ** Rutas importadas **
