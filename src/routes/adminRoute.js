@@ -101,6 +101,8 @@ router.post("/crearUsuarioAlumno", upload.none(), async (req, res) => {
     restricciones,
     direccion,
     telefono,
+    contactoNombre,
+    contactoTelefono,
     nivel,
   } = req.body;
   const tipo = "alumno";
@@ -113,6 +115,8 @@ router.post("/crearUsuarioAlumno", upload.none(), async (req, res) => {
     !fechaN ||
     !antecedentes ||
     !restricciones ||
+    !contactoNombre || 
+    !contactoTelefono ||
     !direccion ||
     !telefono ||
     !nivel
@@ -121,10 +125,10 @@ router.post("/crearUsuarioAlumno", upload.none(), async (req, res) => {
   }
   // agregar evaluacion vacía
   const evaluacion = {
-    fechaEv: " ",
+    fechaEv: "",
     aprobado: false,
-    observaciones: " ",
-    maestro: " ",
+    observaciones: "",
+    maestro: "",
   };
 
   // crear nombre de usuario y contraseña (usuario encriptado)
@@ -139,8 +143,6 @@ router.post("/crearUsuarioAlumno", upload.none(), async (req, res) => {
     ape2 = ape[0].charAt(1);
   }
 
-  console.log(ape);
-
   const usuario =
     (await nombre.toLowerCase().split(" ")[0]) +
     ape1 +
@@ -148,9 +150,11 @@ router.post("/crearUsuarioAlumno", upload.none(), async (req, res) => {
     "." +
     fechaCadena.split("-")[2] +
     fechaCadena.split("-")[1];
-  console.log(usuario);
+  console.log("Usuario: ", usuario);
+  const usuarioNormalized = usuario.normalize('NFD').replace(/([aeio])\u0301|(u)[\u0301\u0308]/gi,"$1$2").normalize();
+  console.log("Usuario normalizado: ", usuarioNormalized);
   try {
-    const password = await bcrypt.hash(usuario, saltRounds);
+    const password = await bcrypt.hash(usuarioNormalized, saltRounds);
 
     const userDocRef = firestore.collection("usuarios").doc();
     const idAlumno = userDocRef.id;
@@ -163,6 +167,7 @@ router.post("/crearUsuarioAlumno", upload.none(), async (req, res) => {
       restricciones,
       direccion,
       telefono,
+      contactoE = {contactoNombre, contactoTelefono},
       nivel,
       usuario,
       password,

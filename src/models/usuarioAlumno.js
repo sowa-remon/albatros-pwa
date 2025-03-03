@@ -1,5 +1,5 @@
 class usuarioAlumno {
-    constructor(id, nombre, apellidos, fechaN, antecedentes, restricciones, direccion, telefono, nivel, usuario, password, estado, tipo, evaluacion ={}) {
+    constructor(id, nombre, apellidos, fechaN, antecedentes, restricciones, direccion, telefono, contactoE, nivel, usuario, password, estado, tipo, evaluacion ={}) {
         this.id = id;
         this.nombre = nombre;
         this.apellidos  = apellidos;
@@ -8,6 +8,7 @@ class usuarioAlumno {
         this.restricciones = restricciones;
         this.direccion = direccion;
         this.telefono = telefono;
+        this.contactoE = contactoE;
         this.nivel = nivel;
         this.usuario = usuario;
         this.password = password;
@@ -27,6 +28,7 @@ class usuarioAlumno {
             restricciones: this.restricciones,
             direccion: this.direccion,
             telefono: this.telefono,
+            contactoE: this.contactoE,
             nivel: this.nivel,
             usuario: this.usuario,
             password: this.password,
@@ -39,7 +41,7 @@ class usuarioAlumno {
     static fromFirestore(doc){
         const data = doc.data();
         return new usuarioAlumno(doc.id, data.nombre, data.apellidos, 
-            data.fechaN, data.antecedentes, data.direccion, data.telefono, 
+            data.fechaN, data.antecedentes, data.direccion, data.telefono, data.contactoE, 
             data.nivel, data.usuario, data.password, data.estado, data.tipo,data.evaluacion);
     }
 }

@@ -8,6 +8,8 @@ const antecedentes = document.getElementById("antecedentes");
 const restricciones = document.getElementById("restricciones");
 const direccion = document.getElementById("direccion");
 const telefono = document.getElementById("telefono");
+const contactoNombre = document.getElementById("contactoNombre");
+const contactoTelefono = document.getElementById("contactoTelefono");
 const nivel = document.getElementById("nivel");
 const estadoEvaluacion = document.getElementById("estado-evaluacion");
 const fechaEv = document.getElementById("fechaEv");
@@ -37,6 +39,8 @@ async function fetchAlumnoDetails() {
     restricciones.value = alumno.restricciones;
     direccion.value = alumno.direccion;
     telefono.value = alumno.telefono;
+    contactoNombre.value = alumno.contactoE.contactoNombre;
+    contactoTelefono.value = alumno.contactoE.contactoTelefono;
     nivel.value = alumno.nivel;
 
     estadoEvaluacion.innerHTML = alumno.evaluacion.aprobado
@@ -53,7 +57,7 @@ async function fetchAlumnoDetails() {
       aprobar.setAttribute("disabled", true);
     }
     
-    if(alumno.evaluacion.fechaEv == ' ' && alumno.evaluacion.maestro == ' ' && alumno.evaluacion.observaciones == ' '){
+    if(alumno.evaluacion.fechaEv == '' && alumno.evaluacion.maestro == '' && alumno.evaluacion.observaciones == ''){
       observaciones.setAttribute('disabled', true)
       estadoEvaluacion.innerHTML = 'Pendiente'
       aprobar.innerHTML = "Evaluación pendiente";
@@ -68,6 +72,8 @@ async function fetchAlumnoDetails() {
       restricciones: alumno.restricciones,
       direccion: alumno.direccion,
       telefono: alumno.telefono,
+      contactoNombre: alumno.contactoE.contactoNombre,
+      contactoTelefono: alumno.contactoE.contactoTelefono,
       nivel: alumno.nivel,
     };
 
@@ -80,6 +86,8 @@ async function fetchAlumnoDetails() {
         alumno.restricciones == originalValues.restricciones &&
         alumno.direccion == originalValues.direccion &&
         alumno.telefono == originalValues.telefono &&
+        alumno.contactoE.contactoNombre == originalValues.contactoNombre &&
+        alumno.contactoE.contactoTelefono == originalValues.contactoTelefono &&
         alumno.nivel == originalValues.nivel
       ) {
         return window.history.back();
@@ -93,6 +101,8 @@ async function fetchAlumnoDetails() {
         restricciones.value = originalValues.restricciones;
         direccion.value = originalValues.direccion;
         telefono.value = originalValues.telefono;
+        contactoNombre.value = originalValues.contactoNombre;
+        contactoTelefono.value = originalValues.contactoTelefono;
         nivel.value = originalValues.nivel;
 
         // Redirige a la página anterior
@@ -113,7 +123,13 @@ formDetalles.addEventListener("submit", async (event) => {
   const id = urlParams.get("id");
 
   const formData = new FormData(event.target);
-  const data = Object.fromEntries(formData.entries());
+  let data = Object.fromEntries(formData.entries());
+  data.contactoE = {
+    contactoNombre: data.contactoNombre,
+    contactoTelefono: data.contactoTelefono,
+  }; 
+  delete data.contactoNombre;
+  delete data.contactoTelefono;
 
   try {
     const response = await fetch(`/admin/actualizarAlumno/${id}`, {

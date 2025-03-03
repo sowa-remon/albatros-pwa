@@ -6,6 +6,8 @@ let antecedentes = document.getElementById("antecedentes");
 let restricciones = document.getElementById("restricciones");
 let direccion = document.getElementById("direccion");
 let telefono = document.getElementById("telefono");
+const contactoNombre = document.getElementById("contactoNombre");
+const contactoTelefono = document.getElementById("contactoTelefono");
 let nivel = document.getElementById("nivel");
 let totalAlumnos = document.getElementById("total-alumnos");
 const alumnoModal = document.getElementById("alumno-modal");
@@ -71,7 +73,7 @@ function mostrarAlumnos(alumnos) {
     fichaAlumno.appendChild(nombre);
 
     const evaluacion = document.createElement("p");
-    if(alumno.evaluacion.fechaEv == ' ' && alumno.evaluacion.maestro == ' ' && alumno.evaluacion.observaciones == ' '){
+    if(alumno.evaluacion.fechaEv == '' && alumno.evaluacion.maestro == '' && alumno.evaluacion.observaciones == ''){
       evaluacion.innerHTML = `<b>Evaluación:</b> <span>Pendiente</span>`;
       fichaAlumno.appendChild(evaluacion);
     }
@@ -202,7 +204,9 @@ cancelarRegistro.addEventListener("click", () => {
     antecedentes.value = "";
     restricciones.value = "";
     direccion.value = "";
-    telefono.value = "";
+    telefono.value = ""
+    contactoNombre.value = "";
+    contactoTelefono.value = "";
     nivel.value = "";
     closeModal();
   }
