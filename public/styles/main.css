@@ -48,6 +48,14 @@
     scroll-snap-align: center;
   }
 }
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @keyframes fadein {
   from {
     bottom: 0;
@@ -68,8 +76,58 @@
     opacity: 0;
   }
 }
+#icon-niveles {
+  background-image: url(../images/icons/icon-niveles.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 30px;
+  height: auto;
+}
+
+#icon-grupo {
+  background-image: url(../images/icons/icon-grupo.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-anuncio {
+  background-image: url(../images/icons/icon-anuncios.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-contenido {
+  background-image: url(../images/icons/icon-contenido.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
 body {
   min-width: 400px;
+}
+
+.loader {
+  border: 16px solid #f8fbff;
+  border-radius: 50%;
+  border-top: 16px solid #00aae2;
+  width: 4vh;
+  height: 4vh;
+  animation: spin 1s linear infinite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
 }
 
 .navbar-landing ul {
@@ -82,7 +140,7 @@ body {
 }
 
 .navbar-landing {
-  background-color: #F8FBFF;
+  background-color: #f8fbff;
   padding: 0.5em;
   position: sticky;
   top: 0;
@@ -97,15 +155,16 @@ body {
 
 #links-menu a {
   text-decoration: none;
-  color: #EF8122;
+  color: #ef8122;
   font-weight: 500;
   display: block;
   padding: 1rem 0.5rem;
+  transition: 0.5s;
 }
 
 #links-menu a:hover {
-  color: #F8FBFF;
-  background-color: #EF8122;
+  color: #f8fbff;
+  background-color: #ef8122;
   transition: 0.5s;
 }
 
@@ -123,12 +182,13 @@ body {
   border-radius: 10px;
   display: flex;
   font-size: clamp(1rem, 2vw, 1rem);
+  padding: 1rem 3rem;
+  cursor: pointer;
+  transform: scale(1) rotate(0);
+  transition: 0.5s;
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 4px rgba(46, 49, 146, 0.5);
-  transition: 0.1s;
-  padding: 1rem 3rem;
-  cursor: pointer;
 }
 
 .btn:disabled {
@@ -145,49 +205,51 @@ body {
 .btn-icon {
   text-decoration: none;
   border-radius: 10px;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 4px 4px rgba(46, 49, 146, 0.5);
   transition: 0.1s;
   min-width: 45px;
   min-height: 45px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 4px rgba(46, 49, 146, 0.5);
+  transform: scale(1) rotate(0);
+  transition: 0.5s;
 }
 
 .btn-naranja {
-  background-color: #EF8122;
-  color: #F8FBFF;
+  background-color: #ef8122;
+  color: #f8fbff;
   border: none;
 }
 
 .btn-naranja-2 {
-  background-color: #F8FBFF;
-  color: #EF8122;
-  border: solid 3px #EF8122;
+  background-color: #f8fbff;
+  color: #ef8122;
+  border: solid 3px #ef8122;
 }
 
 .btn-marino {
-  background-color: #2E3192;
-  color: #F8FBFF;
+  background-color: #2e3192;
+  color: #f8fbff;
   border: none;
 }
 
 .btn-naranja:hover,
 .btn-marino:hover {
-  background-color: #00AAE2;
+  background-color: #00aae2;
   transform: scale(0.95) rotate(-1deg);
   transition: 0.5s;
 }
 
 .btn-naranja-2:hover {
-  background-color: #EF8122;
-  color: #F8FBFF;
+  background-color: #ef8122;
+  color: #f8fbff;
   transform: scale(0.95) rotate(-1deg);
   transition: 0.5s;
 }
 
 .btn-naranja:active,
 .btn-marino:active {
-  background-color: #2E3192;
+  background-color: #2e3192;
   transform: scale(0.9);
   transition: 0.5s;
 }
@@ -234,24 +296,24 @@ body {
 }
 
 .blanco {
-  color: #F8FBFF;
+  color: #f8fbff;
 }
 
 .naranja {
-  color: #EF8122;
+  color: #ef8122;
 }
 
 .marino {
-  color: #2E3192;
+  color: #2e3192;
 }
 
 hr {
   height: 2px;
-  background-color: #2E3192;
+  background-color: #2e3192;
 }
 
 footer {
-  background-color: #F8FBFF;
+  background-color: #f8fbff;
   padding: 1rem;
 }
 
@@ -261,10 +323,12 @@ footer {
   align-content: center;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   margin: 1rem 0;
-  border: 3px solid #EF8122;
-  background-color: #F8FBFF;
+  border: 3px solid #ef8122;
+  background-color: #f8fbff;
   border-radius: 5px;
   font-family: "commissioner";
   padding: 0.5rem;
@@ -274,9 +338,13 @@ input, select, textarea {
   width: fill-available;
 }
 
+textarea {
+  min-height: 50px;
+}
+
 textarea:disabled {
   border: 3px solid rgba(239, 129, 34, 0.6);
-  color: #1D1E1E;
+  color: #1d1e1e;
 }
 
 .input-doble div {
@@ -287,8 +355,8 @@ textarea:disabled {
   visibility: hidden;
   min-width: 250px;
   margin-left: -125px;
-  background-color: #2E3192;
-  color: #F8FBFF;
+  background-color: #2e3192;
+  color: #f8fbff;
   text-align: center;
   border-radius: 10px;
   padding: 16px;
@@ -309,7 +377,7 @@ textarea:disabled {
   }
   #links-menu {
     position: relative;
-    background-color: #F8FBFF;
+    background-color: #f8fbff;
     display: flex;
     flex-direction: column;
     overflow: hidden;

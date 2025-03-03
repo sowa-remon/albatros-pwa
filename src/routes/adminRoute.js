@@ -3,7 +3,7 @@ const UsuarioAdmin = require("../models/usuarioAdmin");
 const UsuarioMaestro = require("../models/usuarioMaestro");
 const UsuarioAlumno = require("../models/usuarioAlumno");
 const express = require("express");
-const crypto = require('crypto')
+const crypto = require("crypto");
 const multer = require("multer");
 const bcrypt = require("bcrypt");
 const path = require("path");
@@ -11,19 +11,18 @@ const { Timestamp } = require("firebase-admin/firestore");
 const router = express.Router();
 const saltRounds = 10;
 
-
 // Configuración de multer para guardar archivos en una carpeta específica
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './src/uploads/');
+    cb(null, "./src/uploads/");
   },
   filename: (req, file, cb) => {
-  const randomName = crypto.randomBytes(16).toString('hex')
-   cb(null, randomName + path.extname(file.originalname));
-   }
+    const randomName = crypto.randomBytes(16).toString("hex");
+    cb(null, randomName + path.extname(file.originalname));
+  },
 });
 
-const upload = multer({ storage: storage })
+const upload = multer({ storage: storage });
 
 // * Rutas protegidas (creo) estáticas
 router.get("/contenido", (req, res) => {
@@ -54,6 +53,11 @@ router.get("/detalle-alumno", (req, res) => {
 router.get("/detalle-maestro", (req, res) => {
   res.sendFile(
     path.join(__dirname, "../../public/pages/adminPages/maestro-detalles.html")
+  );
+});
+router.get("/detalle-anuncio", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../../public/pages/adminPages/anuncio-detalles.html")
   );
 });
 
@@ -144,7 +148,7 @@ router.post("/crearUsuarioAlumno", upload.none(), async (req, res) => {
     "." +
     fechaCadena.split("-")[2] +
     fechaCadena.split("-")[1];
-  console.log(usuario)
+  console.log(usuario);
   try {
     const password = await bcrypt.hash(usuario, saltRounds);
 
@@ -235,9 +239,14 @@ router.put("/actualizarAlumno/:id", async (req, res) => {
 router.post("/publicarEvaluacion/:id", async (req, res) => {
   try {
     const { id } = req.params;
+    const { observaciones } = req.body;
     const alumnoRef = firestore.collection("usuarios").doc(id);
+    if(alumnoRef.evaluacion.aprobado == true){
+      res.status(200).send({ message: "La evaluación ya ha sido publicada" });
+    }
     await alumnoRef.update({ "evaluacion.aprobado": true });
-    res.status(200).send({ message: "Alumno dado de alta exitosamente" });
+    await alumnoRef.update({ "evaluacion.observaciones": observaciones });
+    res.status(200).send({ message: "Evaluación publicada exitosamente" });
   } catch (error) {
     res
       .status(400)
@@ -297,12 +306,10 @@ router.post("/actualizarContenido/:id", async (req, res) => {
 
     res.status(200).json({ message: "Contenido actualizado exitosamente" });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Error al actualizar el contenido",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Error al actualizar el contenido",
+      error: error.message,
+    });
   }
 });
 
@@ -333,6 +340,7 @@ router.post("/crearUsuarioMaestro", upload.none(), async (req, res) => {
   try {
     // agregar evaluacion vacía
     const horario = {};
+    const curriculum = '';
 
     // crear nombre de usuario y contraseña (usuario encriptado)
     const fechaCadena = await fechaN.toString();
@@ -360,7 +368,8 @@ router.post("/crearUsuarioMaestro", upload.none(), async (req, res) => {
       password,
       estado,
       tipo,
-      horario
+      horario,
+      curriculum
     );
 
     await userDocRef.set(usuarioMaestro.toFirestore());
@@ -384,7 +393,10 @@ router.post("/bajaMaestro/:id", async (req, res) => {
   } catch (error) {
     res
       .status(400)
-      .send({ message: "Error al dar de baja al maestro", error: error.message });
+      .send({
+        message: "Error al dar de baja al maestro",
+        error: error.message,
+      });
   }
 });
 
@@ -467,12 +479,12 @@ router.get("/lista-maestros", async (req, res) => {
 
 // *** ANUNCIOS
 // Ruta para crear un anuncio
-router.post('/crearAnuncio', upload.single('imagen'), async (req, res) => {
+router.post("/crearAnuncio", upload.single("imagen"), async (req, res) => {
   const { titulo, contenido, duracion, tipo } = req.body;
   const activo = true;
 
   if (!titulo || !contenido || !duracion || !tipo) {
-    return res.status(400).send({ message: 'Falta algún campo' });
+    return res.status(400).send({ message: "Falta algún campo" });
   }
 
   try {
@@ -481,19 +493,19 @@ router.post('/crearAnuncio', upload.single('imagen'), async (req, res) => {
     let fechaInicioTS = Timestamp.fromDate(fechaInicio);
     let fechaFinalTS;
 
-    if (duracion === 'semana') {
+    if (duracion === "semana") {
       fechaFinal = new Date(fechaInicio);
       fechaFinal.setDate(fechaInicio.getDate() + 7);
       fechaFinalTS = Timestamp.fromDate(fechaFinal);
-    } else if (duracion === 'mes') {
+    } else if (duracion === "mes") {
       fechaFinal = new Date(fechaInicio);
       fechaFinal.setMonth(fechaInicio.getMonth() + 1);
       fechaFinalTS = Timestamp.fromDate(fechaFinal);
-    } else if (duracion === 'indefinido') {
+    } else if (duracion === "indefinido") {
       fechaFinalTS = null;
     }
-    const anuncioRef = firestore.collection('anuncios').doc();
-    const anuncioId = anuncioRef.id
+    const anuncioRef = firestore.collection("anuncios").doc();
+    const anuncioId = anuncioRef.id;
     const anuncioData = {
       id: anuncioId,
       activo: activo,
@@ -501,33 +513,61 @@ router.post('/crearAnuncio', upload.single('imagen'), async (req, res) => {
       contenido: contenido,
       fechaInicio: fechaInicioTS,
       fechaFinal: fechaFinalTS,
-      tipo
+      tipo,
     };
 
     if (req.file) {
-      console.log(req.file.filename)
+      console.log(req.file.filename);
       anuncioData.imagen = `/uploads/${req.file.filename}`;
     }
 
     await anuncioRef.set(anuncioData);
 
-    res.status(201).send({ message: 'Anuncio agregado exitosamente', anuncioId: req.body.idAnuncio });
+    res
+      .status(201)
+      .send({
+        message: "Anuncio agregado exitosamente",
+        anuncioId: req.body.idAnuncio,
+      });
   } catch (error) {
-    res.status(500).send({ message: `Error al agregar el anuncio`, error: error.message });
+    res
+      .status(500)
+      .send({ message: `Error al agregar el anuncio`, error: error.message });
   }
 });
 
 // Dar de baja maestro
-router.delete('/eliminarAnuncio/:id', async (req, res) => {
+router.delete("/eliminarAnuncio/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    await firestore.collection('anuncios').doc(id).delete();
-    res.status(200).send({ message: 'Anuncio eliminado exitosamente' });
+    await firestore.collection("anuncios").doc(id).delete();
+    res.status(200).send({ message: "Anuncio eliminado exitosamente" });
   } catch (error) {
-    res.status(500).send({ message: 'Error al eliminar el anuncio', error: error.message });
+    res
+      .status(500)
+      .send({ message: "Error al eliminar el anuncio", error: error.message });
   }
 });
 
+// Obtener datos de un alumnno
+router.get("/anuncio/:id", async (req, res) => {
+  try {
+    const anuncioSnapshot = await firestore
+      .collection("anuncios")
+      .doc(req.params.id)
+      .get();
+    const anuncio = anuncioSnapshot.data();
+
+    if (!anuncio) {
+      return res.status(404).send({ message: "Anuncio no encontrado" });
+    }
+    res.status(200).json(anuncio);
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Error al obtener anuncio", error: error.message });
+  }
+});
 
 module.exports = router;

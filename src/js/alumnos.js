@@ -71,7 +71,7 @@ function mostrarAlumnos(alumnos) {
     fichaAlumno.appendChild(nombre);
 
     const evaluacion = document.createElement("p");
-    if(alumno.evaluacion.fechaEv == '' && alumno.evaluacion.maestro == '' && alumno.evaluacion.observaciones == ''){
+    if(alumno.evaluacion.fechaEv == ' ' && alumno.evaluacion.maestro == ' ' && alumno.evaluacion.observaciones == ' '){
       evaluacion.innerHTML = `<b>Evaluación:</b> <span>Pendiente</span>`;
       fichaAlumno.appendChild(evaluacion);
     }
@@ -98,6 +98,9 @@ function mostrarAlumnos(alumnos) {
     btnVistaDetallada.className = "btn-texto";
     btnVistaDetallada.style.setProperty("--color", "#EF8122");
     btnVistaDetallada.textContent = "Abrir vista detallada";
+    if (alumno.estado == false) {
+      btnVistaDetallada.setAttribute('disabled', true)
+    }
     btnVistaDetallada.onclick = () => {
       window.location.href = `/admin/detalle-alumno?id=${alumno.id}`;
     };
@@ -110,7 +113,7 @@ function mostrarAlumnos(alumnos) {
       btnBaja.textContent = "Dar de baja";
       btnBaja.onclick = async () => {
         if (confirm("¿Está seguro de que quiere dar de baja a este alumno?")) {
-          const response = await fetch(`/admin/bajaAlumno?id=${alumno.id}`, {
+          const response = await fetch(`/admin/bajaAlumno/${alumno.id}`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -134,7 +137,7 @@ function mostrarAlumnos(alumnos) {
       btnAlta.textContent = "Dar de alta";
       btnAlta.onclick = async () => {
         if (confirm("¿Está seguro de que quiere dar de alta a este alumno?")) {
-          const response = await fetch(`/admin/altaAlumno?id=${alumno.id}`, {
+          const response = await fetch(`/admin/altaAlumno/${alumno.id}`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

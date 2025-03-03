@@ -9,8 +9,8 @@ const maestroModal = document.getElementById("maestro-modal");
 const regresar = document.getElementById("regresar");
 const concentradoMaestros = document.getElementById("concentrado-maestros");
 const logout = document.getElementById("logout");
-const barraBusqueda = document.getElementById('barra-busqueda');
-const registrarMaestro = document.getElementById('registrarMaestro')
+const barraBusqueda = document.getElementById("barra-busqueda");
+const registrarMaestro = document.getElementById("registrarMaestro");
 let todosMaestros = [];
 
 // TODO: Cambiar a un archivo el boton de regresar y logout para reutilizar código
@@ -86,6 +86,9 @@ function mostrarMaestros(maestros) {
     const btnVistaDetallada = document.createElement("button");
     btnVistaDetallada.className = "btn-texto";
     btnVistaDetallada.style.setProperty("--color", "#EF8122");
+    if (maestro.estado == false) {
+      btnVistaDetallada.setAttribute("disabled", true);
+    }
     btnVistaDetallada.textContent = "Abrir vista detallada";
     btnVistaDetallada.onclick = () => {
       window.location.href = `/admin/detalle-maestro?id=${maestro.id}`;
@@ -98,8 +101,8 @@ function mostrarMaestros(maestros) {
       btnBaja.style.setProperty("--color", "#2E3192");
       btnBaja.textContent = "Dar de baja";
       btnBaja.onclick = async () => {
-        if (confirm("¿Está seguro de que quiere dar de baja a este alumno?")) {
-          const response = await fetch(`/admin/bajaMaestro?id=${maestro.id}`, {
+        if (confirm("¿Está seguro de que quiere dar de baja a este maestro?")) {
+          const response = await fetch(`/admin/bajaMaestro/${maestro.id}`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -107,10 +110,10 @@ function mostrarMaestros(maestros) {
             body: JSON.stringify({ id: maestro.id }),
           });
           if (response.ok) {
-            alert("Alumno dado de baja exitosamente");
+            alert("Maestro dado de baja exitosamente");
             fetchMaestros();
           } else {
-            alert("Error al dar de baja al alumno");
+            alert("Error al dar de baja al maestro");
           }
         }
       };
@@ -123,7 +126,7 @@ function mostrarMaestros(maestros) {
       btnAlta.textContent = "Dar de alta";
       btnAlta.onclick = async () => {
         if (confirm("¿Está seguro de que quiere dar de alta a este maestro?")) {
-          const response = await fetch(`/admin/altaMaestro?id=${alumno.id}`, {
+          const response = await fetch(`/admin/altaMaestro/${maestro.id}`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -132,9 +135,9 @@ function mostrarMaestros(maestros) {
           });
           if (response.ok) {
             alert("Maestro dado de alta exitosamente");
-            fetchAlumnos();
+            fetchMaestros();
           } else {
-            alert("Error al dar de alta al alumno");
+            alert("Error al dar de alta al maestro");
           }
         }
       };
@@ -192,34 +195,34 @@ cancelarRegistro.addEventListener("click", () => {
 });
 
 // Maneja el envío del formulario de registro de alumnos
-  registrarMaestro.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    if (
-      !nombre.value ||
-      !apellidos.value ||
-      !fechaN.value ||
-      !direccion.value ||
-      !telefono.value
-    ) {
-      console.log("Por favor, ingrese todos los campos");
-      return;
-    } else {
-      const formData = new FormData(registrarMaestro);
-      // Envía los datos a tu servidor (ajusta la URL según tu configuración)
-      const response = await fetch("/admin/crearUsuarioMaestro", {
-        method: "POST",
-        body: formData,
-      });
+registrarMaestro.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (
+    !nombre.value ||
+    !apellidos.value ||
+    !fechaN.value ||
+    !direccion.value ||
+    !telefono.value
+  ) {
+    console.log("Por favor, ingrese todos los campos");
+    return;
+  } else {
+    const formData = new FormData(registrarMaestro);
+    // Envía los datos a tu servidor (ajusta la URL según tu configuración)
+    const response = await fetch("/admin/crearUsuarioMaestro", {
+      method: "POST",
+      body: formData,
+    });
 
-      if (response.ok) {
-        alert("Alumno registrado exitosamente");
-        fetchMaestros()
-        closeModal()
-        // Aquí puedes actualizar la lista de alumnos sin recargar la página
-      } else {
-        alert("Error al registrar el maestro ?");
-      }
+    if (response.ok) {
+      alert("Maestro registrado exitosamente");
+      fetchMaestros();
+      closeModal();
+      // Aquí puedes actualizar la lista de alumnos sin recargar la página
+    } else {
+      alert("Error al registrar el maestro ?");
     }
-  });
+  }
+});
 
 fetchMaestros();

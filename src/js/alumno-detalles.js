@@ -53,7 +53,9 @@ async function fetchAlumnoDetails() {
       aprobar.setAttribute("disabled", true);
     }
     
-    if(alumno.evaluacion.fechaEv == '' && alumno.evaluacion.maestro == '' && alumno.evaluacion.observaciones == ''){
+    if(alumno.evaluacion.fechaEv == ' ' && alumno.evaluacion.maestro == ' ' && alumno.evaluacion.observaciones == ' '){
+      observaciones.setAttribute('disabled', true)
+      estadoEvaluacion.innerHTML = 'Pendiente'
       aprobar.innerHTML = "Evaluación pendiente";
       aprobar.setAttribute('disabled', true);
     }
@@ -138,16 +140,13 @@ formEvaluacion.addEventListener("submit", async (event) => {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
 
-  const formData = new FormData(event.target);
-  const data = Object.fromEntries(formData.entries());
-
   try {
     const response = await fetch(`/admin/publicarEvaluacion/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ data }),
+      body: JSON.stringify({observaciones: observaciones.value}),
     });
 
     if (response.ok) {

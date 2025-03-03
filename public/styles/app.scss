@@ -4,7 +4,7 @@
 body {
   background-color: $blanco;
   margin: 0;
-  min-width: 400px;
+  min-width: 300px;
   font-family: "commissioner";
 }
 
@@ -19,8 +19,81 @@ body {
   @include sombra-2;
 }
 
+.app-navbar-lateral {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  border-radius: 0;
+  left: 0;
+  top: 83%;
+  background-color: $blanco;
+  @include sombra-2;
+}
+
+.app-navbar-lateral ul {
+  display: flex;
+  flex-direction: column;  
+  padding: 0.5rem 0;
+  margin: 0;
+  flex-direction: row;
+  justify-content: space-evenly;
+  list-style-type: none;
+  padding: 0.5rem 0;
+  text-decoration: none;
+}
+
+.navbar-item-lateral {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: $marino;
+  font-weight: 600;
+  font-size: x-small;
+  margin: 0.5rem;
+  transform: scale(1);
+  transition: 0.5s;
+  text-decoration: none;
+}
+
+.navbar-item-lateral a {
+  text-decoration: none;
+  color: $marino;
+  margin: 0 0 0.5rem 0;
+}
+
+.navbar-item-lateral:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.navbar-item-lateral:hover a {
+  transition: 0.5s;
+  color: $celeste;
+}
+.navbar-item-lateral:hover svg path {
+  transition: 0.5s;
+  fill: $celeste;
+}
+
+.navbar-item-active,
+.navbar-item-active svg path {
+  color: $naranja;
+  fill: $naranja;
+}
+
+.navbar-item-active:hover {
+  transform: none;
+  color: $naranja;
+  cursor: default;
+}
+
+.navbar-item-active:hover svg path {
+  fill: $naranja;
+}
+
 .titulo-app {
-  font-size: larger;
+  font-size: 1.5rem;
   font-family: "fugaz";
 }
 
@@ -41,6 +114,7 @@ body {
   font-weight: 700;
   color: var(--color);
   border: solid 3px var(--color);
+  @include btn-animacion-regreso;
   @include sombra;
 }
 
@@ -60,6 +134,8 @@ body {
   width: 100%;
   justify-content: space-between;
   font-weight: 700;
+  align-items: center;
+  align-content: center;
   color: $marino;
 }
 
@@ -76,7 +152,7 @@ body {
   padding: 0 0.5rem;
   border: solid 3px $celeste;
   border-radius: 5px;
-  width: 65%;
+  width: 50%;
   @include sombra-2;
 }
 
@@ -87,53 +163,31 @@ body {
   display: grid;
 }
 
-.btn-texto{
+.btn-texto {
   font-size: 1rem;
   font-weight: 700;
   margin: 0 1rem;
-  background-color:$blanco;
+  background-color: $blanco;
   border: none;
   color: var(--color);
 }
 
-.btn-texto:hover{
+.btn-texto:hover {
   color: $celeste;
   transform: scale(1.03);
   transition: 1s;
   cursor: pointer;
 }
 
-// * ÍCONOS
-#icon-niveles{
-  background-image: url(../images/icons/icon-niveles.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  margin-right: .5rem;
-  width: 30px;
-  height: auto;
+.btn-texto:disabled, .btn-texto:disabled:hover {
+  color: gray;
+  transform: none;
+  cursor: not-allowed;
 }
 
-#icon-grupo{
-  background-image: url(../images/icons/icon-grupo.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  margin-right: .5rem;
-  width: 45px;
-  height: auto;
-}
-
-#icon-anuncio{
-  background-image: url(../images/icons/icon-anuncios.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  margin-right: .5rem;
-  width: 45px;
-  height: auto;
-}
-
-#barra-busqueda{
+#barra-busqueda {
   border: none;
-  background-color: rgba($color: #B8D2DB, $alpha: .5);
+  background-color: rgba($color: #b8d2db, $alpha: 0.5);
 }
 
 .modal {
@@ -145,11 +199,11 @@ body {
   width: 100%; /* Ancho completo */
   height: 100%; /* Alto completo */
   overflow: auto; /* Permite scroll si el contenido es largo */
-  background-color: rgb(0,0,0); /* Color de fondo */
-  background-color: rgba(0,0,0,0.4); /* Color de fondo con transparencia */
+  background-color: rgb(0, 0, 0); /* Color de fondo */
+  background-color: rgba(0, 0, 0, 0.4); /* Color de fondo con transparencia */
 }
 
-.modal-header{
+.modal-header {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
@@ -158,152 +212,282 @@ body {
   border-bottom: solid 2px $marino;
 }
 
-.close
-{ font-size: 2rem;
+.close {
+  font-size: 2rem;
   font-weight: 400;
-cursor: pointer;}
+  cursor: pointer;
+}
 
 .modal-content {
   background-color: $blanco;
-  margin: 5% auto; 
+  margin: 5% auto;
   padding: 1.5rem;
   border: 3px solid $marino;
   border-radius: 10px;
-  width: 50%; 
+  width: 50%;
   color: $marino;
   font-weight: 600;
 }
-  
-.input-doble{
+
+.input-doble {
   display: flex;
 }
 
-.status-inactivo{
+.status-inactivo {
   color: red;
 }
 
-.status-activo{
+.status-activo {
   color: rgb(97, 161, 0);
 }
 
-.btns-doble{
+.btns-doble {
   display: flex;
   justify-content: space-around;
 }
 
 // * Contenido Admin
-.contenido-card{
+.contenido-card {
   border: solid 3px $marino;
   border-radius: 10px;
-  margin: 2rem 3rem;
+  margin: 0 3rem 2rem 3rem;
 }
 
-.card-encabezado{
+.card-encabezado {
   border-bottom: solid 2px $marino;
 }
 
-.titulo-card{
+.titulo-card {
   color: $marino;
   font-weight: 600;
   text-align: center;
 }
 
-.card-cuerpo{
+.card-cuerpo {
   padding: 1rem;
 }
 
-.card-cuerpo textarea{
+.card-cuerpo textarea {
   background-color: $blanco;
   border: none;
 }
 
-.ficha-anuncio{
-  padding: .5rem 1rem;
+//*  ANUNCIOS
+
+.ficha-anuncio {
+  padding: 0.5rem 1rem;
   border: solid 2px $naranja;
   border-radius: 10px;
-  margin: 1rem 0;
+  margin: 1rem 0 1rem 0;
+  transform: scale(1);
+  transition: 0.8s;
   @include sombra-2;
 }
 
-.ficha-anuncio:hover{
+.anuncio-contenido {
+  text-wrap: wrap;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+}
+
+.ficha-anuncio:hover {
   transform: scale(1.02);
-  transition: .8s;
+  transition: 0.8s;
   cursor: pointer;
 }
 
-.titulo-anuncio{
+.titulo-anuncio {
+  font-family: "fugaz";
+  font-size: large;
   color: $marino;
   display: flex;
+  text-overflow: clip;
+  white-space: break-spaces;
+  align-items: center;
+  align-self: center;
   justify-content: space-between;
 }
 
-.anuncio-general{
+.fecha-anuncio {
+  font-size: small;
+  font-family: "commissioner";
+  text-align: end;
+}
+
+.fechas-anuncio-detalle {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px rgba(43, 41, 70, 0.217);
+}
+
+.anuncio-general {
   background-color: $marino;
   color: $blanco;
   @include tipo-anuncio;
 }
 
-.anuncio-bolsa{
+.anuncio-bolsa {
   background-color: $amarillo;
   color: $marino;
   @include tipo-anuncio;
 }
 
-.anuncio-promo{
+.anuncio-promo {
   background-color: $celeste;
   color: $blanco;
   @include tipo-anuncio;
 }
 
-@media (max-width:400px) {
-  .btns-doble{
+#titulo-anuncio {
+  white-space: break-spaces;
+  margin-right: 2rem;
+  padding: 0;
+}
+
+#detalle-anuncio {
+  justify-content: center;
+}
+
+.texto-gris {
+  font-size: small;
+  color: #474c4e;
+}
+
+.imagen-anuncio {
+  height: 50vh;
+  width: 50vh;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 5px;
+  @include sombra-2;
+}
+
+.imagen-anuncio-hover {
+  opacity: 0;
+  background-color: #135eb465;
+  width: 50vh;
+  height: 50vh;
+  transition: 0.5s ease;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  border-radius: 5px;
+  justify-items: center;
+  align-content: center;
+  cursor: pointer;
+}
+
+#contenedor-imagen-anuncio {
+  border: solid 1px $celeste;
+  border-radius: 5px;
+  position: relative;
+  width: 50vh;
+  height: 50vh;
+}
+
+#contenedor-imagen-anuncio:hover .imagen-anuncio-hover {
+  opacity: 1;
+  transition: 0.5s ease;
+}
+
+@media (max-width: 400px) {
+  .btns-doble {
     flex-direction: column;
   }
 }
 
 @media (max-width: 810px) {
-  .input-doble{
+  .input-doble {
     flex-direction: column;
   }
-  .columna-1-2{
+  .columna-1-2 {
     display: grid;
     grid-template-columns: auto;
+  }
+  .fecha-anuncio {
+    text-align: left;
+  }
+  .fechas-anuncio-detalle {
+    display: flex;
+    flex-direction: column;
+  }
+  .titulo-anuncio {
+    flex-direction: column;
+    align-items: baseline;
+  }
+  #titulo-anuncio {
+    text-align: start;
+    align-self: baseline;
+  }
+  .anuncio-promo,
+  .anuncio-bolsa,
+  .anuncio-general {
+    align-self: baseline;
+    margin-top: 0;
+  }
+  .titulo-app {
+    font-size: 1rem;
+  }
+  .titulo-seccion-anuncios {
+    flex-direction: column;
+  }
+  .btns-doble {
+    flex-direction: column-reverse;
   }
 }
 
 // * Tamaño mínimo para celulares
-@media (min-width:500px) and  (max-width: 959px) {
+@media (min-width: 500px) and (max-width: 959px) {
   .seccion-app {
     padding: 1rem;
   }
   .acciones-admin {
     grid-template-columns: auto;
   }
-  .columna-1-2{
+  .columna-1-2 {
     display: grid;
     grid-template-columns: auto;
   }
-  .btns-doble{
-    flex-direction: row;
+  .navbar-item-lateral {
+    margin: 0 1rem;
   }
 }
-
 
 // * Tamaño mínimo para tablets/laptops en modo landscape
 @media (min-width: 960px) {
   .seccion-app {
-    padding: 1rem 4rem;
+    padding: 1rem 8rem;
   }
   .columna-1-2 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
-  .btns-doble{
+  .btns-doble {
     justify-content: space-around;
   }
-  .acciones-admin{
-    
-  grid-template-columns: auto auto;
+  .acciones-admin {
+    grid-template-columns: auto auto;
+  }
+  .app-navbar-lateral {
+    width: auto;
+    left: 10px;
+    top: 25%;
+    background-color: $blanco;
+    border-radius: 100px;
+  }
+  .app-navbar-lateral ul {
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0.5rem 0;
+  }
+
+  .navbar-item-lateral {
+    flex-direction: column;
+    margin: 0.5rem;
   }
 }

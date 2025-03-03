@@ -48,6 +48,14 @@
     scroll-snap-align: center;
   }
 }
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @keyframes fadein {
   from {
     bottom: 0;
@@ -68,12 +76,48 @@
     opacity: 0;
   }
 }
+#icon-niveles {
+  background-image: url(../images/icons/icon-niveles.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 30px;
+  height: auto;
+}
+
+#icon-grupo {
+  background-image: url(../images/icons/icon-grupo.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-anuncio {
+  background-image: url(../images/icons/icon-anuncios.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-contenido {
+  background-image: url(../images/icons/icon-contenido.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
 .landing {
   min-width: 400px;
   font-family: "commissioner";
   display: grid;
   margin: 0;
-  background-image: repeating-linear-gradient(270deg, #00AAE2, #2E3192);
+  background-image: repeating-linear-gradient(270deg, #00aae2, #2e3192);
   background-size: 200%, 200%;
   animation: gradiente-animation 12s ease infinite;
   -webkit-animation: gradiente-animation 12s ease infinite;
@@ -81,7 +125,7 @@
 }
 
 #albatros {
-  color: #EF8122;
+  color: #ef8122;
   font-family: "fugaz";
 }
 
@@ -115,13 +159,13 @@
 #mision,
 #vision,
 #valores {
-  border-left: solid 5px #EF8122;
+  border-left: solid 5px #ef8122;
   margin-bottom: 2em;
 }
 
 .nivel-item {
   border-radius: 10px;
-  border: solid 3px #2E3192;
+  border: solid 3px #2e3192;
   position: relative;
   transform: preserve-3d;
   -webkit-box-align: center;
@@ -229,9 +273,9 @@
   display: inline-block;
   width: 0.8rem;
   height: 0.8rem;
-  background-color: #00AAE2;
+  background-color: #00aae2;
   background-clip: content-box;
-  border: solid 1px #2E3192;
+  border: solid 1px #2e3192;
   border-radius: 50%;
   font-size: 0;
   transition: transform 0.1s;
@@ -241,7 +285,7 @@
   aspect-ratio: 1/1;
   height: 50%;
   width: auto;
-  border: solid 5px #EF8122;
+  border: solid 5px #ef8122;
   border-radius: 100%;
 }
 
@@ -262,18 +306,20 @@
   display: flex;
   flex-direction: row;
   font-family: "commissioner";
-  background-color: #F8FBFF;
-  color: #EF8122;
+  background-color: #f8fbff;
+  color: #ef8122;
   text-decoration: none;
   align-items: center;
   border: none;
   border-radius: 10px;
   margin-bottom: 2rem;
+  transform: scale(1) rotate(0);
+  transition: 0.5s;
 }
 
 .pregunta-wsp:hover {
-  background-color: #2E3192;
-  color: #F8FBFF;
+  background-color: #2e3192;
+  color: #f8fbff;
   transform: scale(0.95);
   transition: 0.5s;
 }
@@ -285,7 +331,7 @@
 
 .tarjeta-equipo {
   border-radius: 20px;
-  background-color: #F8FBFF;
+  background-color: #f8fbff;
   margin: 2rem 0;
 }
 
@@ -307,8 +353,8 @@
   justify-content: space-around;
   font-family: "commissioner";
   font-weight: bold;
-  color: #2E3192;
-  background-color: #F8FBFF;
+  color: #2e3192;
+  background-color: #f8fbff;
   border-radius: 30px;
 }
 
@@ -404,7 +450,6 @@
   }
   .pregunta-wsp {
     width: 100%;
-    height: 10vh;
   }
   .tarjeta-equipo {
     width: 40vh;

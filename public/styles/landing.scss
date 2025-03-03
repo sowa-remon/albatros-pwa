@@ -218,6 +218,8 @@
   border: none;
   border-radius: 10px;
   margin-bottom: 2rem;
+  @include btn-animacion-regreso;
+
 }
 
 .pregunta-wsp:hover {
@@ -364,7 +366,6 @@
 
   .pregunta-wsp {
     width: 100%;
-    height: 10vh;
   }
   .tarjeta-equipo {
     width: 40vh;

@@ -5,6 +5,19 @@ body {
   min-width: 400px;
 }
 
+.loader {
+  border: 16px solid $blanco;
+  border-radius: 50%;
+  border-top: 16px solid $celeste;
+  width: 4vh;
+  height: 4vh;
+  animation: spin 1s linear infinite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
 // Navbar general
 .navbar-landing ul {
   margin: 0;
@@ -35,6 +48,7 @@ body {
   font-weight: 500;
   display: block;
   padding: 1rem 0.5rem;
+  transition: 0.5s;
 }
 #links-menu a:hover {
   color: $blanco;
@@ -55,33 +69,34 @@ body {
   border-radius: 10px;
   display: flex;
   font-size: clamp(1rem, 2vw, 1rem);
-  @include centrado;
-  @include sombra;
-  transition: 0.1s;
   padding: 1rem 3rem;
   cursor: pointer;
+  @include btn-animacion-regreso;
+  @include centrado;
+  @include sombra;
 }
 
-.btn:disabled{
+.btn:disabled {
   cursor: not-allowed;
   background-color: gray;
 }
 
-.btn:disabled:hover{
-  transition:none;
+.btn:disabled:hover {
+  transition: none;
   transform: none;
   background-color: gray;
 }
 
 .btn-icon {
-    text-decoration: none;
-    border-radius: 10px;
-    @include centrado;
-    @include sombra;
-    transition: 0.1s;
-    min-width: 45px;
-    min-height: 45px;
-  }
+  text-decoration: none;
+  border-radius: 10px;
+  transition: 0.1s;
+  min-width: 45px;
+  min-height: 45px;
+  @include centrado;
+  @include sombra;
+  @include btn-animacion-regreso;
+}
 
 .btn-naranja {
   background-color: $naranja;
@@ -89,7 +104,7 @@ body {
   border: none;
 }
 
-.btn-naranja-2{
+.btn-naranja-2 {
   background-color: $blanco;
   color: $naranja;
   border: solid 3px $naranja;
@@ -102,7 +117,7 @@ body {
 }
 
 .btn-naranja:hover,
-.btn-marino:hover{
+.btn-marino:hover {
   background-color: $celeste;
   @include btn-animacion;
 }
@@ -188,25 +203,31 @@ footer {
   align-content: center;
 }
 
-input, select, textarea{
+input,
+select,
+textarea {
   margin: 1rem 0;
   border: 3px solid $naranja;
   background-color: $blanco;
   border-radius: 5px;
   font-family: "commissioner";
-  padding: 0.5rem;    
+  padding: 0.5rem;
   resize: none;
-  width: -moz-available;          /* WebKit-based browsers will ignore this. */
-  width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+  width: -moz-available; /* WebKit-based browsers will ignore this. */
+  width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
   width: fill-available;
 }
 
-textarea:disabled{
+textarea {
+  min-height: 50px;
+}
+
+textarea:disabled {
   border: 3px solid rgba($color: $naranja, $alpha: 0.6);
   color: $oscuro;
 }
 
-.input-doble div{
+.input-doble div {
   width: 100%;
 }
 
@@ -230,7 +251,6 @@ textarea:disabled{
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
-
 
 // * Tamaño mínimo para celulares
 @media (min-width: 320px) and (max-width: 959px) {

@@ -1,5 +1,5 @@
 class usuarioMaestro {
-    constructor(id, nombre, apellidos, fechaN, direccion, telefono, usuario, password, estado, tipo, horario ={}) {
+    constructor(id, nombre, apellidos, fechaN, direccion, telefono, usuario, password, estado, tipo, horario ={}, curriculum) {
         this.id = id;
         this.nombre = nombre;
         this.apellidos  = apellidos;
@@ -11,6 +11,7 @@ class usuarioMaestro {
         this.estado = estado;
         this.tipo = tipo;
         this.horario = horario;
+        this.curriculum = curriculum
     }
     
     // Método para transformar un documento de Firestore en un objeto de la clase
@@ -26,7 +27,8 @@ class usuarioMaestro {
             password: this.password,
             estado: this.estado,
             tipo: this.tipo,
-            horario: this.horario
+            horario: this.horario,
+            curriculum: this.curriculum
         }
     }
 
@@ -34,7 +36,7 @@ class usuarioMaestro {
         const data = doc.data();
         return new usuarioAlumno(doc.id, data.nombre, data.apellidos, 
             data.fechaN, data.direccion, data.telefono, 
-         data.usuario, data.password, data.estado, data.tipo,data.horario);
+         data.usuario, data.password, data.estado, data.tipo,data.horario, data.curriculum);
     }
 }
 

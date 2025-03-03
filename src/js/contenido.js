@@ -2,7 +2,6 @@ const regresar = document.getElementById("regresar");
 const logout = document.getElementById("logout");
 const listaContenidos = document.getElementById('lista-contenido-pedagogico')
 
-
 regresar.addEventListener("click", () => {
   window.history.back();
 });
@@ -52,7 +51,7 @@ function mostrarContenidos(contenidos){
         const cardCuerpo = document.createElement('div')
         cardCuerpo.className= 'card-cuerpo'
         let inputContenido = document.createElement('textarea')
-        inputContenido.setAttribute("rows", "4")
+        inputContenido.setAttribute("rows", "7")
         inputContenido.setAttribute('disabled', true)
         inputContenido.value=contenido.objetivos
         cardCuerpo.appendChild(inputContenido)
@@ -63,10 +62,12 @@ function mostrarContenidos(contenidos){
         const cancelar = document.createElement('button')
         cancelar.textContent = 'Cancelar'
         cancelar.className = 'btn btn-naranja'
+        cancelar.style.marginTop = '1rem'
         cancelar.style.display = 'none'
         const guardar = document.createElement('button')
         guardar.textContent = 'Guardar cambios'
         guardar.className = 'btn btn-marino'
+        guardar.style.marginTop = '1rem'
         guardar.style.display = 'none' 
         
         editar.onclick = () => {
@@ -78,6 +79,7 @@ function mostrarContenidos(contenidos){
         }
 
         cancelar.onclick = () => {
+            inputContenido.value = contenido.objetivos
             inputContenido.setAttribute('disabled', true)
             cancelar.style.display = 'none'
             guardar.style.display = 'none'

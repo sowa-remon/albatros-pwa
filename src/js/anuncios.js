@@ -46,22 +46,22 @@ function mostrarAnuncios(anuncios) {
 
   anuncios.forEach((anuncio) => {
     // Convertir Timestamp a Date y formatear la fecha
+    
     const fechaInicio = new Date(anuncio.fechaInicio._seconds * 1000);
-    const fechaFinal = new Date(anuncio.fechaFinal._seconds * 1000);
+    let fechaFinal;
+    if(anuncio.fechaFinal){
+       fechaFinal = new Date(anuncio.fechaFinal._seconds * 1000);
+    }
     const opcionesFecha = { year: "numeric", month: "long", day: "numeric" };
 
     const fechaInicioFormateada = fechaInicio.toLocaleDateString(
       "es-ES",
       opcionesFecha
     );
-    const fechaFinalFormateada = fechaFinal.toLocaleDateString(
-      "es-ES",
-      opcionesFecha
-    );
     const hoy = new Date();
     
 
-    if (hoy<=fechaFinal) {
+    if (hoy<=fechaFinal || anuncio.fechaFinal == null) {
       const filaAnuncio = document.createElement("div");
       filaAnuncio.className = "fila-anuncio";
 
@@ -69,7 +69,7 @@ function mostrarAnuncios(anuncios) {
       fichaAnuncio.className = "ficha-anuncio";
 
       const titulo = document.createElement("div");
-      titulo.innerHTML = `<p><b>${anuncio.titulo}</b></p> <p><b>Publicado el:</b> ${fechaInicioFormateada}</p>`;
+      titulo.innerHTML = `<p>${anuncio.titulo}</p> <p class="fecha-anuncio"><b> Publicado el: <br></b> ${fechaInicioFormateada}</p>`;
       titulo.className = "titulo-anuncio";
       fichaAnuncio.appendChild(titulo);
 
@@ -77,10 +77,13 @@ function mostrarAnuncios(anuncios) {
 
       const contenido = document.createElement("p");
       contenido.innerHTML = `${anuncio.contenido}`;
+      contenido.className = 'anuncio-contenido'
       fichaAnuncio.appendChild(contenido);
 
       
       const divImagen = document.createElement("img")
+      divImagen.style.height = "10vh"
+      divImagen.style.borderRadius = '5px'
       if(anuncio.imagen){
         divImagen.src = `${anuncio.imagen}` 
       }
@@ -105,6 +108,8 @@ function mostrarAnuncios(anuncios) {
       const btnEliminar = document.createElement("button");
       btnEliminar.className = "btn-texto";
       btnEliminar.style.setProperty("--color", "#EF8122");
+      btnEliminar.style.marginBottom = '4rem'
+      btnEliminar.style.alignSelf = 'end'
       btnEliminar.textContent = "Eliminar";
       btnEliminar.onclick = async () => {
         if (confirm("¿Está seguro de que quiere eliminar el anuncio?")) {
@@ -122,11 +127,15 @@ function mostrarAnuncios(anuncios) {
         }
       };
       if(anuncio.imagen){
-        fichaAnuncio.appendChild(divImagen)
+        filaTipoEliminar.appendChild(divImagen)
       }
-      filaTipoEliminar.appendChild(btnEliminar);
       fichaAnuncio.appendChild(filaTipoEliminar);
-      concentradoAnuncios.appendChild(filaAnuncio);
+      
+      fichaAnuncio.onclick = () => {
+        window.location.href = `/admin/detalle-anuncio?id=${anuncio.id}`;
+      }
+      concentradoAnuncios.appendChild(filaAnuncio)
+      concentradoAnuncios.appendChild(btnEliminar)
     }
   });
 }
@@ -141,6 +150,14 @@ function closeModal() {
   anuncioModal.style.display = "none";
 }
 
+function limpiarCampos() {
+  titulo.value = ''
+  contenido.value = ''
+  duracion.value = ''
+  tipo.value = ''
+  imagen.value = ''
+}
+
 // Cierra el modal cuando el usuario hace clic fuera de él
 window.onclick = function (event) {
   if (event.target === anuncioModal) {
@@ -151,10 +168,7 @@ window.onclick = function (event) {
 // Cancela el registro de un alumno
 cancelarRegistro.addEventListener("click", () => {
   if (confirm("¿Está seguro de que quiere cancelar el registro?")) {
-    titulo.value = "";
-    contenido.value = "";
-    duracion.value = "";
-    tipo.value = "";
+    limpiarCampos()
     closeModal();
   }
 });
@@ -175,12 +189,9 @@ publicarAnuncio.addEventListener("submit", async (event) => {
 
     if (response.ok) {
       alert("Anuncio publicado");
-      fetchAnuncios();
-      closeModal();    
-      titulo.value = "";
-      contenido.value = "";
-      duracion.value = "";
-      tipo.value = "";
+      limpiarCampos()
+      fetchAnuncios()
+      closeModal() 
       } else {
       alert("Error al publicar el anuncio");
     }
