@@ -7,6 +7,7 @@ const crypto = require("crypto");
 const multer = require("multer");
 const bcrypt = require("bcrypt");
 const path = require("path");
+const fs = require("fs");
 const { Timestamp } = require("firebase-admin/firestore");
 const router = express.Router();
 const saltRounds = 10;
@@ -24,7 +25,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// * Rutas protegidas (creo) estáticas
+// * Rutas protegidas estáticas
 router.get("/contenido", (req, res) => {
   res.sendFile(
     path.join(__dirname, "../../public/pages/adminPages/contenido.html")
@@ -378,7 +379,7 @@ router.post("/crearUsuarioMaestro", upload.none(), async (req, res) => {
       fechaN,
       direccion,
       telefono,
-      usuario = usuarioNormalized,
+      (usuario = usuarioNormalized),
       password,
       estado,
       tipo,
@@ -546,12 +547,31 @@ router.post("/crearAnuncio", upload.single("imagen"), async (req, res) => {
   }
 });
 
-// Dar de baja maestro
+// Eliminar anuncio
 router.delete("/eliminarAnuncio/:id", async (req, res) => {
   const { id } = req.params;
-
   try {
-    await firestore.collection("anuncios").doc(id).delete();
+    const anuncioRef = firestore.collection("anuncios").doc(id);
+    const anuncioDoc = await anuncioRef.get();
+    if (!anuncioDoc.exists) {
+      return res.status(404).send({ message: "Anuncio no encontrado" });
+    }
+
+    const anuncio = anuncioDoc.data();
+    if (anuncio.imagen) {
+      const imagenPath = "./src" + anuncio.imagen;
+      fs.unlink(imagenPath, (err) => {
+        if (err && err.code == "ENOENT") {
+          console.info("El archivo no existe, no se eliminará.");
+        } else if (err) {
+          console.error("Error al intentar eliminar el archivo");
+        } else {
+          console.info("Archivo eliminado");
+        }
+      });
+    }
+
+    await anuncioRef.delete();
     res.status(200).send({ message: "Anuncio eliminado exitosamente" });
   } catch (error) {
     res

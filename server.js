@@ -6,6 +6,7 @@ const multer = require('multer')
 const path = require('path')
 const authRoutes = require('./src/routes/auth')
 const adminRoutes = require('./src/routes/adminRoute')
+const maestroRoutes = require('./src/routes/maestroRoutes')
 const { firestore } = require("./src/configs/firebaseAdmin");
 
 const httpPort = process.env.PORT
@@ -44,6 +45,16 @@ function isAdmin(req, res, next) {
   }
 }
 
+// middleware para verificar si es maestro
+function isMaestro(req, res, next) {
+  if (req.session.user && req.session.user.tipo === 'maestro') {
+    next()
+  } else {
+    res.status(403).json({ message: 'No autorizado' }); 
+ 
+  }
+}
+
 // 
 app.use(session(sess))
 app.use(bodyParser.json())
@@ -57,6 +68,7 @@ app.use('/uploads', express.static(path.join(__dirname, "src/uploads")))
 // ** Rutas importadas **
 app.use('/auth', authRoutes);
 app.use('/admin', isAdmin, adminRoutes);
+app.use('/maestro', isMaestro, maestroRoutes);
 
 // * Rutas personalizadas
 app.get("/", function (req, res) {
@@ -65,14 +77,14 @@ app.get("/", function (req, res) {
 app.get("/no-autorizado", function (req, res) {
   res.sendFile(path.join(__dirname, "public/no-autorizado.html"))
 })
-app.get('/panel-administracion', isAuthenticated, (req, res) => {
+app.get('/panel-administracion', isAdmin, (req, res) => {
     res.sendFile(path.join(__dirname, 'public/pages/adminPages/admin-panel.html'))
 })
 app.get('/alumno-panel', isAuthenticated, (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/pages/alumno/alumno-panel.html'))
+  res.sendFile(path.join(__dirname, 'public/pages/alumnoPages/alumno-panel.html'))
 })
-app.get('/maestro-panel', isAuthenticated, (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/pages/maestro/maestro-panel.html'))
+app.get('/maestro-panel', isMaestro, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/pages/maestroPages/maestro-panel.html'))
 })
 
 
@@ -92,9 +104,6 @@ app.get("/lista-anuncios", async (req, res) => {
       .send({ message: "Error al obtener los anuncios", error: error.message });
   }
 });
-
-
-
 
 app.listen(httpPort || 3000, function () {
   console.log(`Listening on port ${httpPort}!`)
