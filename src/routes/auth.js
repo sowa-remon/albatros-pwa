@@ -20,6 +20,11 @@ router.post("/login", upload.none(), async (req, res) => {
     }
 
     const usuarioEncontrado = snapshot.docs[0].data()
+    
+    if(usuarioEncontrado.estado === false){
+      return res.status(401).send({ message: "Este usuario está inactivo" })
+    }
+    
     const isValidPassword = await bcrypt.compare(password, usuarioEncontrado.password)
 
     if(!isValidPassword){

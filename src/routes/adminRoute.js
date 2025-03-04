@@ -115,7 +115,7 @@ router.post("/crearUsuarioAlumno", upload.none(), async (req, res) => {
     !fechaN ||
     !antecedentes ||
     !restricciones ||
-    !contactoNombre || 
+    !contactoNombre ||
     !contactoTelefono ||
     !direccion ||
     !telefono ||
@@ -151,7 +151,10 @@ router.post("/crearUsuarioAlumno", upload.none(), async (req, res) => {
     fechaCadena.split("-")[2] +
     fechaCadena.split("-")[1];
   console.log("Usuario: ", usuario);
-  const usuarioNormalized = usuario.normalize('NFD').replace(/([aeio])\u0301|(u)[\u0301\u0308]/gi,"$1$2").normalize();
+  const usuarioNormalized = usuario
+    .normalize("NFD")
+    .replace(/([aeio])\u0301|(u)[\u0301\u0308]/gi, "$1$2")
+    .normalize();
   console.log("Usuario normalizado: ", usuarioNormalized);
   try {
     const password = await bcrypt.hash(usuarioNormalized, saltRounds);
@@ -167,9 +170,9 @@ router.post("/crearUsuarioAlumno", upload.none(), async (req, res) => {
       restricciones,
       direccion,
       telefono,
-      contactoE = {contactoNombre, contactoTelefono},
+      (contactoE = { contactoNombre, contactoTelefono }),
       nivel,
-      usuario,
+      (usuario = usuarioNormalized),
       password,
       estado,
       tipo,
@@ -246,7 +249,7 @@ router.post("/publicarEvaluacion/:id", async (req, res) => {
     const { id } = req.params;
     const { observaciones } = req.body;
     const alumnoRef = firestore.collection("usuarios").doc(id);
-    if(alumnoRef.evaluacion.aprobado == true){
+    if (alumnoRef.evaluacion.aprobado == true) {
       res.status(200).send({ message: "La evaluación ya ha sido publicada" });
     }
     await alumnoRef.update({ "evaluacion.aprobado": true });
@@ -345,7 +348,7 @@ router.post("/crearUsuarioMaestro", upload.none(), async (req, res) => {
   try {
     // agregar evaluacion vacía
     const horario = {};
-    const curriculum = '';
+    const curriculum = "";
 
     // crear nombre de usuario y contraseña (usuario encriptado)
     const fechaCadena = await fechaN.toString();
@@ -358,7 +361,13 @@ router.post("/crearUsuarioMaestro", upload.none(), async (req, res) => {
       "." +
       fechaCadena.split("-")[1] +
       fechaCadena.split("-")[2];
-    const password = await bcrypt.hash(usuario, saltRounds);
+
+    const usuarioNormalized = usuario
+      .normalize("NFD")
+      .replace(/([aeio])\u0301|(u)[\u0301\u0308]/gi, "$1$2")
+      .normalize();
+
+    const password = await bcrypt.hash(usuarioNormalized, saltRounds);
 
     const userDocRef = firestore.collection("usuarios").doc();
     const idMaestro = userDocRef.id;
@@ -369,7 +378,7 @@ router.post("/crearUsuarioMaestro", upload.none(), async (req, res) => {
       fechaN,
       direccion,
       telefono,
-      usuario,
+      usuario = usuarioNormalized,
       password,
       estado,
       tipo,
@@ -396,12 +405,10 @@ router.post("/bajaMaestro/:id", async (req, res) => {
     await maestroRef.update({ estado: false });
     res.status(200).send({ message: "Maestro dado de baja exitosamente" });
   } catch (error) {
-    res
-      .status(400)
-      .send({
-        message: "Error al dar de baja al maestro",
-        error: error.message,
-      });
+    res.status(400).send({
+      message: "Error al dar de baja al maestro",
+      error: error.message,
+    });
   }
 });
 
@@ -528,12 +535,10 @@ router.post("/crearAnuncio", upload.single("imagen"), async (req, res) => {
 
     await anuncioRef.set(anuncioData);
 
-    res
-      .status(201)
-      .send({
-        message: "Anuncio agregado exitosamente",
-        anuncioId: req.body.idAnuncio,
-      });
+    res.status(201).send({
+      message: "Anuncio agregado exitosamente",
+      anuncioId: req.body.idAnuncio,
+    });
   } catch (error) {
     res
       .status(500)
