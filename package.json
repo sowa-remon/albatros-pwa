@@ -4,13 +4,22 @@
   "description": "PWA para Centro Acuático Albatros para el seguimiento de los alumnos",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "server-debug": "nodemon --inspect server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "firebase": "^11.2.0",
+    "firebase-admin": "^13.0.2",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.9"
   }
 }

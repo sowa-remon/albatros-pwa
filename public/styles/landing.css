@@ -1,0 +1,485 @@
+@font-face {
+  font-family: "commissioner";
+  src: url("../fonts/Commissioner.ttf");
+}
+@font-face {
+  font-family: "fugaz";
+  src: url("../fonts/FugazOne-Regular.ttf");
+}
+@keyframes tonext {
+  75% {
+    left: 0;
+  }
+  95% {
+    left: 100%;
+  }
+  98% {
+    left: 100%;
+  }
+  99% {
+    left: 0;
+  }
+}
+@keyframes tostart {
+  75% {
+    left: 0;
+  }
+  95% {
+    left: -300%;
+  }
+  98% {
+    left: -300%;
+  }
+  99% {
+    left: 0;
+  }
+}
+@keyframes snap {
+  96% {
+    scroll-snap-align: center;
+  }
+  97% {
+    scroll-snap-align: none;
+  }
+  99% {
+    scroll-snap-align: none;
+  }
+  100% {
+    scroll-snap-align: center;
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+#icon-niveles {
+  background-image: url(../images/icons/icon-niveles.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 30px;
+  height: auto;
+}
+
+#icon-grupo {
+  background-image: url(../images/icons/icon-grupo.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-anuncio {
+  background-image: url(../images/icons/icon-anuncios.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-contenido {
+  background-image: url(../images/icons/icon-contenido.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+.landing {
+  min-width: 400px;
+  font-family: "commissioner";
+  display: grid;
+  margin: 0;
+  background-image: repeating-linear-gradient(270deg, #00aae2, #2e3192);
+  background-size: 200%, 200%;
+  animation: gradiente-animation 12s ease infinite;
+  -webkit-animation: gradiente-animation 12s ease infinite;
+  -moz-animation: gradiente-animation 12s ease infinite;
+}
+
+#albatros {
+  color: #ef8122;
+  font-family: "fugaz";
+}
+
+.rep-patron {
+  margin: 0;
+  background-image: url(../images/patron-cuadrados.svg);
+  background-repeat: repeat-y repeat-x;
+}
+
+#primera-seccion,
+#segunda-seccion,
+#tercera-seccion,
+#cuarta-seccion,
+#quinta-seccion {
+  padding: 9vh 2em 0 2em;
+}
+
+.link-redes {
+  font-family: "commissioner";
+  display: flex;
+  align-content: center;
+  margin-bottom: 1em;
+}
+
+.titulo-icono {
+  font-family: "commissioner";
+  display: flex;
+  align-content: center;
+}
+
+#mision,
+#vision,
+#valores {
+  border-left: solid 5px #ef8122;
+  margin-bottom: 2em;
+}
+
+.nivel-item {
+  border-radius: 10px;
+  border: solid 3px #2e3192;
+  position: relative;
+  transform: preserve-3d;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+}
+
+.nivel-item:hover .cover {
+  border-radius: 10px;
+  transition: all 0.5s;
+  transform: rotatey(-90deg);
+}
+
+#carousel__slide1,
+#carousel__slide2,
+#carousel__slide3,
+#carousel__slide4,
+#carousel__slide5 {
+  list-style: none;
+  width: 100%;
+  height: 90%;
+  margin: 0 2rem;
+  padding: 1rem;
+}
+
+.carousel {
+  width: 100%;
+  height: 65vh;
+  position: relative;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.2));
+  perspective: 100px;
+}
+
+.carousel__viewport {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  overflow-x: scroll;
+  counter-reset: item;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel__slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 170, 226, 0.5);
+}
+
+.carousel__slide:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -40%, 70px);
+  color: #0699d7;
+  font-size: 2em;
+}
+
+.carousel__snapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  scroll-snap-align: center;
+  border-radius: 10px;
+  background-color: #0699d7;
+  cursor: pointer;
+  transition: all 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel__snapper {
+    animation-name: none;
+  }
+}
+.carousel__navigation {
+  position: absolute;
+  right: 0;
+  bottom: -2rem;
+  left: 0;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.carousel__navigation-list,
+.carousel__navigation-item {
+  display: inline-block;
+  margin: 0 0.5rem;
+  padding: 0;
+}
+
+.carousel__navigation-button {
+  display: inline-block;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: #00aae2;
+  background-clip: content-box;
+  border: solid 1px #2e3192;
+  border-radius: 50%;
+  font-size: 0;
+  transition: transform 0.1s;
+}
+
+.img-nivel {
+  aspect-ratio: 1/1;
+  height: 50%;
+  width: auto;
+  border: solid 5px #ef8122;
+  border-radius: 100%;
+}
+
+.cajita-nivel {
+  margin-top: 1rem;
+  padding: 0 2rem;
+  border: solid 3px;
+  border-color: rgb(var(--color));
+  border-radius: 100px;
+  justify-content: baseline;
+  align-items: center;
+  background-color: rgba(var(--color), 0.5);
+}
+
+.pregunta-wsp {
+  box-shadow: 0 4px 4px rgba(46, 49, 146, 0.5);
+  padding-right: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  font-family: "commissioner";
+  background-color: #f8fbff;
+  color: #ef8122;
+  text-decoration: none;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  transform: scale(1) rotate(0);
+  transition: 0.5s;
+}
+
+.pregunta-wsp:hover {
+  background-color: #2e3192;
+  color: #f8fbff;
+  transform: scale(0.95);
+  transition: 0.5s;
+}
+
+#svg-nadador {
+  justify-self: center;
+  justify-content: center;
+}
+
+.tarjeta-equipo {
+  border-radius: 20px;
+  background-color: #f8fbff;
+  margin: 2rem 0;
+}
+
+.tarjeta-equipo img {
+  aspect-ratio: 1/1;
+}
+
+.grid-3 {
+  justify-items: center;
+  justify-content: center;
+}
+
+#login-form {
+  margin: 3rem 0;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  font-family: "commissioner";
+  font-weight: bold;
+  color: #2e3192;
+  background-color: #f8fbff;
+  border-radius: 30px;
+}
+
+@media (min-width: 960px) {
+  .carousel__viewport {
+    width: 40%;
+    height: 100%;
+    justify-self: center;
+  }
+  .carousel {
+    padding: 1rem;
+  }
+  .pregunta-wsp {
+    width: 90%;
+  }
+  #carousel__slide1,
+  #carousel__slide2,
+  #carousel__slide3,
+  #carousel__slide4,
+  #carousel__slide5 {
+    width: 100%;
+  }
+  #login-form {
+    width: 30vw;
+  }
+  #albatros-letras {
+    align-self: center;
+    width: 50%;
+  }
+  .tarjeta-equipo {
+    width: 20vw;
+    height: auto;
+  }
+  .tarjeta-equipo img {
+    width: 20vw;
+    height: 20vw;
+    aspect-ratio: 1/1;
+  }
+  .grid-3 {
+    justify-content: space-around;
+    align-self: center;
+    align-content: center;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto;
+  }
+  .landscape-none {
+    display: none;
+  }
+  #video-albatros {
+    width: 50vw;
+    height: auto;
+  }
+}
+@media (min-width: 800px) and (max-width: 1090px) {
+  #login-form {
+    width: 40vw;
+  }
+  .tarjeta-equipo {
+    width: 40vw;
+    height: auto;
+  }
+  #video-albatros {
+    width: 70vw;
+    height: auto;
+  }
+  .tarjeta-equipo img {
+    aspect-ratio: 1/1;
+    width: 40vw;
+    height: 40vw;
+  }
+  .grid-3 {
+    justify-content: space-around;
+    align-self: center;
+    align-content: center;
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  #albatros-letras {
+    width: 50%;
+  }
+  #svg-nadador {
+    scale: 0.5;
+    margin-top: 0;
+  }
+}
+@media (min-width: 320px) and (max-width: 959px) {
+  .small-none {
+    display: none;
+  }
+  #login-form {
+    width: 50vw;
+  }
+  .pregunta-wsp {
+    width: 100%;
+  }
+  .tarjeta-equipo {
+    width: 40vh;
+    height: auto;
+  }
+  .tarjeta-equipo img {
+    aspect-ratio: 1/1;
+    width: 40vh;
+    height: 40vh;
+  }
+  #video-albatros {
+    width: 90vw;
+    height: auto;
+  }
+}
+::-webkit-scrollbar {
+  width: 0;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: none;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: none;
+}/*# sourceMappingURL=landing.css.map */

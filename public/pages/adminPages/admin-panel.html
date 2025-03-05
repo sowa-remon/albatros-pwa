@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Página oficial del Centro Acuático Albatros en Tequisquiapan, Qro., México."
+    />
+    <title>Albatros: Centro Acuático de Natación en Tequisquiapan</title>
+    <link rel="manifest" href="./js/pwa.webmanifest" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/app.css" />
+    <link
+      rel="shortcut icon"
+      href="/icons/albatros-icon.svg"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <nav class="app-navbar">
+      <ul>
+        <li class="navbar-item" id="logo-menu">
+          <img
+            src="./images/logo.png"
+            alt="Albatros Logo"
+            width="50"
+            loading="lazy"
+          />
+        </li>
+        <li class="navbar-item">
+          <span class="titulo-app marino">Panel de administración</span>
+        </li>
+        <li class="navbar-item">
+          <button class="btn-icon btn-naranja" id="logout">
+            <svg
+              width="25"
+              viewBox="2 0 50 50"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M32.3332 27.0832V22.9165H13.5832V16.6665L3.1665 24.9998L13.5832 33.3332V27.0832H32.3332Z"
+                fill="#F8FBFF"
+              />
+              <path
+                d="M40.6667 6.25H21.9167C19.6188 6.25 17.75 8.11875 17.75 10.4167V18.75H21.9167V10.4167H40.6667V39.5833H21.9167V31.25H17.75V39.5833C17.75 41.8812 19.6188 43.75 21.9167 43.75H40.6667C42.9646 43.75 44.8333 41.8812 44.8333 39.5833V10.4167C44.8333 8.11875 42.9646 6.25 40.6667 6.25Z"
+                fill="#F8FBFF"
+              />
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <section class="acciones-admin">
+      <button
+        class="btn-admin"
+        style="--color: #2e3192"
+        aria-label="Botón de contenido pedagógico"
+        onclick="window.location.href='/admin/contenido'"
+      >
+        <svg
+          width="50"
+          height="50"
+          viewBox="-6 -10 80 80"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M66.5 0H42C39.4085 0.00923948 36.9132 1.03367 35 2.87372C33.0868 1.03367 30.5915 0.00923948 28 0H3.5C2.57174 0 1.6815 0.388162 1.02513 1.07909C0.368749 1.77003 0 2.70713 0 3.68426V58.9481C0 59.9253 0.368749 60.8624 1.02513 61.5533C1.6815 62.2442 2.57174 62.6324 3.5 62.6324H23.653C25.494 62.6324 27.3 63.4208 28.602 64.7914L32.5255 68.9214C32.557 68.9546 32.599 68.9656 32.6305 68.9988C32.9315 69.2899 33.2675 69.5477 33.6595 69.7209H33.6665C34.5204 70.093 35.4796 70.093 36.3335 69.7209H36.3405C36.7325 69.5477 37.0685 69.2899 37.3695 68.9988C37.401 68.9656 37.443 68.9546 37.4745 68.9214L41.398 64.7914C42.7137 63.4145 44.4918 62.6388 46.347 62.6324H66.5C67.4283 62.6324 68.3185 62.2442 68.9749 61.5533C69.6313 60.8624 70 59.9253 70 58.9481V3.68426C70 2.70713 69.6313 1.77003 68.9749 1.07909C68.3185 0.388162 67.4283 0 66.5 0ZM23.653 55.2639H7V7.36852H28C29.932 7.36852 31.5 9.02275 31.5 11.0528V57.8023C29.1811 56.1563 26.4498 55.2728 23.653 55.2639ZM63 55.2639H46.347C43.5505 55.2639 40.803 56.1702 38.5 57.8023V11.0528C38.5 9.02275 40.068 7.36852 42 7.36852H63V55.2639Z"
+            fill="#2E3192"
+          />
+        </svg>
+        <p style="align-self: center; margin: 0">Contenido pedagógico</p>
+      </button>
+      <button
+        class="btn-admin"
+        style="--color: #ef8122"
+        aria-label="Botón de anuncios"
+        onclick="window.location.href='/admin/anuncios'"
+      >
+        <svg
+          width="50"
+          height="50"
+          viewBox="0 0 80 80"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M66.2498 10H13.7498C9.84317 10 6.6665 12.99 6.6665 16.6667V63.3333C6.6665 67.01 9.84317 70 13.7498 70H66.2498C70.1565 70 73.3332 67.01 73.3332 63.3333V16.6667C73.3332 12.99 70.1565 10 66.2498 10ZM66.2498 63.3333H13.7498C13.5598 63.3333 13.4298 63.28 13.3732 63.28C13.3498 63.28 13.3365 63.2867 13.3332 63.3067L13.2932 16.82C13.3165 16.7867 13.4665 16.6667 13.7498 16.6667H66.2498C66.5132 16.67 66.6565 16.76 66.6665 16.6933L66.7065 63.18C66.6832 63.2133 66.5332 63.3333 66.2498 63.3333Z"
+            fill="#EF8122"
+          />
+          <path
+            d="M20 23.3335H40V43.3335H20V23.3335ZM43.3333 50.0002H20V56.6668H60V50.0002H46.6667H43.3333ZM46.6667 36.6668H60V43.3335H46.6667V36.6668ZM46.6667 23.3335H60V30.0002H46.6667V23.3335Z"
+            fill="#EF8122"
+          />
+        </svg>
+        <p style="align-self: center; margin: 0">Anuncios</p>
+      </button>
+      <button
+        class="btn-admin"
+        style="--color: #2e3192"
+        aria-label="Botón de alumnos"
+        onclick="window.location.href='/admin/alumnos'"
+      >
+        <svg
+          width="50"
+          height="50"
+          viewBox="0 0 80 80"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M25 21.6665C25 29.9365 31.73 36.6665 40 36.6665C48.27 36.6665 55 29.9365 55 21.6665C55 13.3965 48.27 6.6665 40 6.6665C31.73 6.6665 25 13.3965 25 21.6665ZM66.6667 69.9998H70V66.6665C70 53.8032 59.53 43.3332 46.6667 43.3332H33.3333C20.4667 43.3332 10 53.8032 10 66.6665V69.9998H66.6667Z"
+            fill="#2E3192"
+          />
+        </svg>
+        <p style="align-self: center; margin: 0">Alumnos</p>
+      </button>
+      <button
+        class="btn-admin"
+        style="--color: #ef8122"
+        aria-label="Botón de maestros"
+        onclick="window.location.href='/admin/maestros'"
+      >
+        <svg
+          width="50"
+          height="50"
+          viewBox="0 0 80 80"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M25 21.6665C25 29.9365 31.73 36.6665 40 36.6665C48.27 36.6665 55 29.9365 55 21.6665C55 13.3965 48.27 6.6665 40 6.6665C31.73 6.6665 25 13.3965 25 21.6665ZM66.6667 69.9998H70V66.6665C70 53.8032 59.53 43.3332 46.6667 43.3332H33.3333C20.4667 43.3332 10 53.8032 10 66.6665V69.9998H66.6667Z"
+            fill="#EF8122"
+          />
+        </svg>
+        <p style="align-self: center; margin: 0">Maestros</p>
+      </button>
+    </section>
+  </body>
+  <script src="/js/script.js"></script>
+</html>

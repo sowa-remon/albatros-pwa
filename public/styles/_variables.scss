@@ -1,0 +1,205 @@
+// * Paleta de colores
+$marino: #2e3192;
+$celeste: #00aae2;
+$naranja: #ef8122;
+$amarillo: #fae906;
+$blanco: #f8fbff;
+$oscuro: #1d1e1e;
+$morado: #7028dd;
+$rosa: #f523ce;
+
+// * Tipografías
+@font-face {
+  font-family: "commissioner";
+  src: url("../fonts/Commissioner.ttf");
+}
+
+@font-face {
+  font-family: "fugaz";
+  src: url("../fonts/FugazOne-Regular.ttf");
+}
+
+@mixin centrado {
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin sombra {
+  box-shadow: 0 4px 4px rgba(46, 49, 146, 0.5);
+}
+
+@mixin sombra-2 {
+  box-shadow: 0 3px 3px rgba(46, 49, 146, 0.3);
+}
+
+@mixin btn-animacion {
+  transform: scale(0.95) rotate(-1deg);
+  transition: 0.5s;
+}
+
+@mixin btn-animacion-regreso {
+  transform: scale(1) rotate(0);
+  transition: 0.5s;
+}
+
+@mixin icon-s {
+  width: 40px;
+  height: 40px;
+}
+
+@mixin texto-blanco {
+  color: $blanco;
+}
+
+@mixin tipo-anuncio {
+  font-weight: 600;
+  padding: 0.5rem 2rem;
+  font-size: smaller;
+  border-radius: 100px;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+@keyframes tonext {
+  75% {
+    left: 0;
+  }
+  95% {
+    left: 100%;
+  }
+  98% {
+    left: 100%;
+  }
+  99% {
+    left: 0;
+  }
+}
+
+@keyframes tostart {
+  75% {
+    left: 0;
+  }
+  95% {
+    left: -300%;
+  }
+  98% {
+    left: -300%;
+  }
+  99% {
+    left: 0;
+  }
+}
+
+@keyframes snap {
+  96% {
+    scroll-snap-align: center;
+  }
+  97% {
+    scroll-snap-align: none;
+  }
+  99% {
+    scroll-snap-align: none;
+  }
+  100% {
+    scroll-snap-align: center;
+  }
+}
+
+@-webkit-keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+// * ÍCONOS
+#icon-niveles {
+  background-image: url(../images/icons/icon-niveles.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 30px;
+  height: auto;
+}
+
+#icon-grupo {
+  background-image: url(../images/icons/icon-grupo.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-anuncio {
+  background-image: url(../images/icons/icon-anuncios.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-contenido {
+  background-image: url(../images/icons/icon-contenido.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
