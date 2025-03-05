@@ -1,4 +1,3 @@
-const regresar = document.getElementById("regresar");
 const formDetalles = document.getElementById("form-detalle-maestro");
 const nombre = document.getElementById("nombre");
 const apellidos = document.getElementById("apellidos");
@@ -6,10 +5,6 @@ const fechaN = document.getElementById("fechaN");
 const curriculum = document.getElementById("curriculum");
 const direccion = document.getElementById("direccion");
 const telefono = document.getElementById("telefono");
-
-regresar.addEventListener("click", () => {
-  window.history.back();
-});
 
 async function fetchMaestroDetalles() {
   const urlParams = new URLSearchParams(window.location.search);

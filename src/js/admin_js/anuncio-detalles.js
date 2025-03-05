@@ -1,4 +1,3 @@
-const regresar = document.getElementById("regresar");
 const titulo = document.getElementById("titulo-anuncio");
 const contenido = document.getElementById("contenido");
 const tipo = document.getElementById("tipo");
@@ -9,10 +8,6 @@ const contenedorImagen = document.getElementById("contenedor-imagen-anuncio");
 const modalImagen = document.getElementById('modal-imagen')
 const imagenModal = document.getElementById('imagen-modal')
 const btnAbrir = document.getElementById('abrir-imagen')
-
-regresar.addEventListener("click", () => {
-  window.history.back();
-});
 
 async function fetchAnuncioDetalles() {
   const urlParams = new URLSearchParams(window.location.search);

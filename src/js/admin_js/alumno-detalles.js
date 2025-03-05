@@ -1,6 +1,5 @@
-const regresar = document.getElementById("regresar");
-const formDetalles = document.getElementById("form-detalle-alumno");
 const formEvaluacion = document.getElementById("form-evaluacion-alumno");
+const formDetalles = document.getElementById("form-detalle-alumno");
 const nombre = document.getElementById("nombre");
 const apellidos = document.getElementById("apellidos");
 const fechaN = document.getElementById("fechaN");
@@ -16,10 +15,6 @@ const fechaEv = document.getElementById("fechaEv");
 const maestro = document.getElementById("maestro");
 const observaciones = document.getElementById("observaciones");
 const aprobar = document.getElementById("aprobar");
-
-regresar.addEventListener("click", () => {
-  window.history.back();
-});
 
 async function fetchAlumnoDetails() {
   const urlParams = new URLSearchParams(window.location.search);

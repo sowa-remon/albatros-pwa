@@ -11,27 +11,9 @@ const contactoTelefono = document.getElementById("contactoTelefono");
 let nivel = document.getElementById("nivel");
 let totalAlumnos = document.getElementById("total-alumnos");
 const alumnoModal = document.getElementById("alumno-modal");
-const regresar = document.getElementById("regresar");
 const concentradoAlumnos = document.getElementById("concentrado-alumnos");
-const logout = document.getElementById("logout");
 const barraBusqueda = document.getElementById('barra-busqueda');
 let todosAlumnos = [];
-
-regresar.addEventListener("click", () => {
-  window.history.back();
-});
-
-logout.addEventListener("click", async () => {
-  if (confirm("¿Está seguro de que quiere cerrar sesión?")) {
-    const response = await fetch("/auth/logout");
-    if (response.ok) {
-      alert("Sesión cerrada exitosamente");
-      window.location.href = "/";
-    } else {
-      alert("Error al cerrar sesión");
-    }
-  }
-});
 
 async function fetchAlumnos() {
   try {

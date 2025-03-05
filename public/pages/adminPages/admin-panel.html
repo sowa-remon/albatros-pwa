@@ -139,19 +139,5 @@
       </button>
     </section>
   </body>
-  <script>
-    const logout = document.getElementById("logout");
-
-    logout.addEventListener("click", async () => {
-      if (confirm("¿Está seguro de que quiere cerrar sesión?")) {
-        const response = await fetch("/auth/logout");
-        if (response.ok) {
-          alert("Sesión cerrada exitosamente");
-          window.location.href = "/";
-        } else {
-          alert("Error al cerrar sesión");
-        }
-      }
-    });
-  </script>
+  <script src="/js/script.js"></script>
 </html>

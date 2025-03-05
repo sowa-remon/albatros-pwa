@@ -1,34 +1,16 @@
+const concentradoMaestros = document.getElementById("concentrado-maestros");
 const cancelarRegistro = document.getElementById("cancelarRegistro");
-const nombre = document.getElementById("nombre");
+const registrarMaestro = document.getElementById("registrarMaestro");
+const totalMaestros = document.getElementById("total-maestros");
+const barraBusqueda = document.getElementById("barra-busqueda");
+const maestroModal = document.getElementById("maestro-modal");
 const apellidos = document.getElementById("apellidos");
 const direccion = document.getElementById("direccion");
-const fechaN = document.getElementById("fechaN");
 const telefono = document.getElementById("telefono");
-const totalMaestros = document.getElementById("total-maestros");
-const maestroModal = document.getElementById("maestro-modal");
-const regresar = document.getElementById("regresar");
-const concentradoMaestros = document.getElementById("concentrado-maestros");
-const logout = document.getElementById("logout");
-const barraBusqueda = document.getElementById("barra-busqueda");
-const registrarMaestro = document.getElementById("registrarMaestro");
+const nombre = document.getElementById("nombre");
+const fechaN = document.getElementById("fechaN");
+
 let todosMaestros = [];
-
-// TODO: Cambiar a un archivo el boton de regresar y logout para reutilizar código
-regresar.addEventListener("click", () => {
-  window.history.back();
-});
-
-logout.addEventListener("click", async () => {
-  if (confirm("¿Está seguro de que quiere cerrar sesión?")) {
-    const response = await fetch("/auth/logout");
-    if (response.ok) {
-      alert("Sesión cerrada exitosamente");
-      window.location.href = "/";
-    } else {
-      alert("Error al cerrar sesión");
-    }
-  }
-});
 
 async function fetchMaestros() {
   try {

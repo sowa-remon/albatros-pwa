@@ -6,27 +6,9 @@ let duracion = document.getElementById("duracion");
 let tipo = document.getElementById("tipo");
 let totalAnuncios = document.getElementById("total-anuncios");
 const anuncioModal = document.getElementById("anuncio-modal");
-const regresar = document.getElementById("regresar");
 const concentradoAnuncios = document.getElementById("concentrado-anuncios");
-const logout = document.getElementById("logout");
 const publicarAnuncio = document.getElementById("publicarAnuncio");
 let todosAnuncios = [];
-
-regresar.addEventListener("click", () => {
-  window.history.back();
-});
-
-logout.addEventListener("click", async () => {
-  if (confirm("¿Está seguro de que quiere cerrar sesión?")) {
-    const response = await fetch("/auth/logout");
-    if (response.ok) {
-      alert("Sesión cerrada exitosamente");
-      window.location.href = "/";
-    } else {
-      alert("Error al cerrar sesión");
-    }
-  }
-});
 
 async function fetchAnuncios() {
   try {
@@ -140,12 +122,10 @@ function mostrarAnuncios(anuncios) {
   });
 }
 
-// Abre el modal
 function openModal() {
   anuncioModal.style.display = "block";
 }
 
-// Cierra el modal
 function closeModal() {
   anuncioModal.style.display = "none";
 }
@@ -158,10 +138,9 @@ function limpiarCampos() {
   imagen.value = ''
 }
 
-// Cierra el modal cuando el usuario hace clic fuera de él
 window.onclick = function (event) {
   if (event.target === anuncioModal) {
-    anuncioModal.style.display = "none";
+    closeModal();
   }
 };
 
