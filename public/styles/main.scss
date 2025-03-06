@@ -93,6 +93,8 @@ body {
   transition: 0.1s;
   min-width: 45px;
   min-height: 45px;
+  max-width: 45px;
+  max-height: 45px;
   @include centrado;
   @include sombra;
   @include btn-animacion-regreso;
@@ -126,6 +128,10 @@ body {
   background-color: $naranja;
   color: $blanco;
   @include btn-animacion;
+}
+
+.btn-naranja-2:hover svg path{
+  fill: $blanco;
 }
 
 .btn-naranja:active,
@@ -170,6 +176,7 @@ body {
   text-align: start;
   margin-left: 0.5rem;
 }
+
 .parrafo-regular {
   font-size: clamp(1rem, 1.5vw, 2rem);
   text-align: start;
@@ -207,7 +214,7 @@ input,
 select,
 textarea {
   margin: 1rem 0;
-  border: 3px solid $naranja;
+  border: 2px solid $naranja;
   background-color: $blanco;
   border-radius: 5px;
   font-family: "commissioner";
@@ -222,9 +229,13 @@ textarea {
   min-height: 50px;
 }
 
-textarea:disabled {
-  border: 3px solid rgba($color: $naranja, $alpha: 0.6);
+input:disabled, select:disabled, textarea:disabled {
+  border: 2px solid rgba($color: $naranja, $alpha: 0.6);
   color: $oscuro;
+}
+
+label{
+  font-weight: 600;
 }
 
 .input-doble div {
@@ -250,6 +261,14 @@ textarea:disabled {
   visibility: visible;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+.rectangulo-azul-claro {
+  border: solid 3px $celeste;
+  padding: 1rem;
+  border-radius: 10px;
+  @include sombra-2;
+
 }
 
 // * Tamaño mínimo para celulares

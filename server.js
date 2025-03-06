@@ -83,7 +83,7 @@ app.get('/panel-administracion', isAdmin, (req, res) => {
 app.get('/alumno-panel', isAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, 'public/pages/alumnoPages/alumno-panel.html'))
 })
-app.get('/maestro-panel', isMaestro, (req, res) => {
+app.get('/maestro-inicio', isMaestro, (req, res) => {
   res.sendFile(path.join(__dirname, 'public/pages/maestroPages/maestro-panel.html'))
 })
 

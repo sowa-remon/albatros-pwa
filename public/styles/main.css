@@ -112,6 +112,15 @@
   height: auto;
 }
 
+#icon-maestro {
+  background-image: url(../images/icons/icon-maestro.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
 body {
   min-width: 400px;
 }
@@ -208,6 +217,8 @@ body {
   transition: 0.1s;
   min-width: 45px;
   min-height: 45px;
+  max-width: 45px;
+  max-height: 45px;
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 4px rgba(46, 49, 146, 0.5);
@@ -245,6 +256,10 @@ body {
   color: #f8fbff;
   transform: scale(0.95) rotate(-1deg);
   transition: 0.5s;
+}
+
+.btn-naranja-2:hover svg path {
+  fill: #f8fbff;
 }
 
 .btn-naranja:active,
@@ -327,7 +342,7 @@ input,
 select,
 textarea {
   margin: 1rem 0;
-  border: 3px solid #ef8122;
+  border: 2px solid #ef8122;
   background-color: #f8fbff;
   border-radius: 5px;
   font-family: "commissioner";
@@ -342,9 +357,13 @@ textarea {
   min-height: 50px;
 }
 
-textarea:disabled {
-  border: 3px solid rgba(239, 129, 34, 0.6);
+input:disabled, select:disabled, textarea:disabled {
+  border: 2px solid rgba(239, 129, 34, 0.6);
   color: #1d1e1e;
+}
+
+label {
+  font-weight: 600;
 }
 
 .input-doble div {
@@ -369,6 +388,13 @@ textarea:disabled {
 #snackbar-login.show {
   visibility: visible;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+.rectangulo-azul-claro {
+  border: solid 3px #00aae2;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 3px rgba(46, 49, 146, 0.3);
 }
 
 @media (min-width: 320px) and (max-width: 959px) {
