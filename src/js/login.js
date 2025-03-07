@@ -1,10 +1,10 @@
 const usuario = document.getElementById("usuario");
 const password = document.getElementById("password");
 const loader = document.getElementById("loader");
+const regresar = document.getElementById("regresar");
+const loginForm = document.getElementById("login-form");
 
-document
-  .getElementById("login-form")
-  .addEventListener("submit", async (event) => {
+loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     loader.style.display = "block";
     if (!usuario.value || !password.value) {
@@ -37,3 +37,7 @@ function showSnackbar(message) {
     snackbar.className = snackbar.className.replace("show", "");
   }, 3000);
 }
+
+regresar.addEventListener("click", () => {
+  window.location.href = "/";
+});

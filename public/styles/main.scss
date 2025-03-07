@@ -229,6 +229,33 @@ textarea {
   min-height: 50px;
 }
 
+input[type="checkbox"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  background-color: #fff;
+  /* Not removed via appearance */
+  margin: 0 1rem 0 0;
+  display: grid;
+  place-content: center;
+  width: 10px;
+  height: 10px;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 1.2em;
+  height: 1.2em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1.2em 1.2em $naranja;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
 input:disabled, select:disabled, textarea:disabled {
   border: 2px solid rgba($color: $naranja, $alpha: 0.6);
   color: $oscuro;
@@ -263,12 +290,11 @@ label{
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
-.rectangulo-azul-claro {
-  border: solid 3px $celeste;
+.rectangulo {
+  border: solid 3px var(--color);
   padding: 1rem;
   border-radius: 10px;
   @include sombra-2;
-
 }
 
 // * Tamaño mínimo para celulares

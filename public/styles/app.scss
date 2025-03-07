@@ -32,7 +32,7 @@ body {
 
 .app-navbar-lateral ul {
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   padding: 0.5rem 0;
   margin: 0;
   flex-direction: row;
@@ -179,7 +179,8 @@ body {
   cursor: pointer;
 }
 
-.btn-texto:disabled, .btn-texto:disabled:hover {
+.btn-texto:disabled,
+.btn-texto:disabled:hover {
   color: gray;
   transform: none;
   cursor: not-allowed;
@@ -394,10 +395,26 @@ body {
   transition: 0.5s ease;
 }
 
+.fila-horario{
+  margin-bottom: 1rem;
+  padding: 1rem;
+  @include sombra-2;
+  border-radius: 10px;
+  display: grid;
+}
+
+.fila-horario input{
+  margin-right: 1rem;
+}
+
 @media (max-width: 400px) {
   .btns-doble {
     flex-direction: column;
   }
+  .fila-horario {
+    grid-template-columns: 1fr;
+  }
+  
 }
 
 @media (max-width: 810px) {
@@ -438,6 +455,9 @@ body {
   .btns-doble {
     flex-direction: column-reverse;
   }
+  .fila-horario {
+    grid-template-columns: 1fr ;
+  }
 }
 
 // * Tamaño mínimo para celulares
@@ -454,6 +474,9 @@ body {
   }
   .navbar-item-lateral {
     margin: 0 1rem;
+  }
+  .fila-horario {
+    grid-template-columns: 1fr auto auto;
   }
 }
 
@@ -490,4 +513,8 @@ body {
     flex-direction: column;
     margin: 0.5rem;
   }
+  
+.fila-horario {
+  grid-template-columns: 1fr auto auto;
+}
 }

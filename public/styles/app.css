@@ -121,6 +121,15 @@
   height: auto;
 }
 
+#icon-horario {
+  background-image: url(../images/icons/icon-horario.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
 body {
   background-color: #f8fbff;
   margin: 0;
@@ -303,7 +312,8 @@ body {
   cursor: pointer;
 }
 
-.btn-texto:disabled, .btn-texto:disabled:hover {
+.btn-texto:disabled,
+.btn-texto:disabled:hover {
   color: gray;
   transform: none;
   cursor: not-allowed;
@@ -531,9 +541,24 @@ body {
   transition: 0.5s ease;
 }
 
+.fila-horario {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  box-shadow: 0 3px 3px rgba(46, 49, 146, 0.3);
+  border-radius: 10px;
+  display: grid;
+}
+
+.fila-horario input {
+  margin-right: 1rem;
+}
+
 @media (max-width: 400px) {
   .btns-doble {
     flex-direction: column;
+  }
+  .fila-horario {
+    grid-template-columns: 1fr;
   }
 }
 @media (max-width: 810px) {
@@ -574,6 +599,9 @@ body {
   .btns-doble {
     flex-direction: column-reverse;
   }
+  .fila-horario {
+    grid-template-columns: 1fr;
+  }
 }
 @media (min-width: 500px) and (max-width: 959px) {
   .seccion-app {
@@ -588,6 +616,9 @@ body {
   }
   .navbar-item-lateral {
     margin: 0 1rem;
+  }
+  .fila-horario {
+    grid-template-columns: 1fr auto auto;
   }
 }
 @media (min-width: 960px) {
@@ -620,5 +651,8 @@ body {
   .navbar-item-lateral {
     flex-direction: column;
     margin: 0.5rem;
+  }
+  .fila-horario {
+    grid-template-columns: 1fr auto auto;
   }
 }/*# sourceMappingURL=app.css.map */

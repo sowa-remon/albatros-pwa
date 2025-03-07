@@ -67,13 +67,13 @@
     </nav>
     
     <section class="seccion-app">
-        <div class="titulo-seccion grupo">
+        <div class="titulo-seccion">
             <div style="display:flex;justify-content: baseline;">
                 <div id="icon-maestro"></div><p>Mis datos</p>
             </div>
         </div>
 
-        <div id="maestro-datos" class="rectangulo-azul-claro">
+        <div id="maestro-datos" class="rectangulo" style="--color: #00aae2">    
             <div class="input-doble">
                 <div style="margin-right: 1rem;">
                     <label for="nombre-maestro">Nombre:</label>
@@ -124,8 +124,128 @@
                         </button>
                     </div> 
                 </div>
+        </div>
+        <br>
+        <div class="titulo-seccion">
+            <div style="display:flex;justify-content: baseline;">
+                <div id="icon-horario"></div><p>Mi horario</p>
             </div>
-  
+        </div>
+        <div id="maestro-horario" class="rectangulo" style="--color: #ef8122">
+            <form action="">
+                <div class="fila-horario">
+                    <div style="display: flex; flex-direction: row; justify-content: baseline; align-items: center; margin-right:1rem;">
+                        <input type="checkbox" name="lunes" id="lunes" style="max-width: fit-content;">
+                        <label for="lunes">Lunes</label>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            <label for="hora-inicio-lunes">De: </label>
+                            <input type="time" name="hora-inicio-lunes" id="hora-inicio-lunes" style="margin-right: 1rem;">    
+                        </div>
+                        <div>
+                            <label for="hora-final-lunes">a: </label>
+                            <input type="time" name="hora-final-lunes" id="hora-final-lunes" style="margin-right: 1rem;">    
+                        </div>
+                    </div>
+                </div>  
+                <div class="fila-horario">
+                    <div style="display: flex; flex-direction: row; justify-content: baseline; align-items: center; margin-right:1rem;">
+                        <input type="checkbox" name="martes" id="martes" style="max-width: fit-content;">
+                        <label for="martes">Martes</label>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            <label for="hora-inicio-martes">De: </label>
+                            <input type="time" name="hora-inicio-martes" id="hora-inicio-martes" style="margin-right: 1rem;">    
+                        </div>
+                        <div>
+                            <label for="hora-final-martes">a: </label>
+                            <input type="time" name="hora-final-martes" id="hora-final-martes" style="margin-right: 1rem;">    
+                        </div>
+                    </div>
+                </div> 
+                <div class="fila-horario">
+                    <div style="display: flex; flex-direction: row; justify-content: baseline; align-items: center; margin-right:1rem;">
+                        <input type="checkbox" name="miercoles" id="miercoles" style="max-width: fit-content;">
+                        <label for="miercoles">Miércoles</label>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            <label for="hora-inicio-miercoles">De: </label>
+                            <input type="time" name="hora-inicio-miercoles" id="hora-inicio-miercoles" style="margin-right: 1rem;">    
+                        </div>
+                        <div>
+                            <label for="hora-final-miercoles">a: </label>
+                            <input type="time" name="hora-final-miercoles" id="hora-final-miercoles" style="margin-right: 1rem;">    
+                        </div>
+                    </div>
+                </div> 
+                <div class="fila-horario">
+                    <div style="display: flex; flex-direction: row; justify-content: baseline; align-items: center; margin-right:1rem;">
+                        <input type="checkbox" name="jueves" id="jueves" style="max-width: fit-content;">
+                        <label for="jueves">Jueves</label>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            <label for="hora-inicio-jueves">De: </label>
+                            <input type="time" name="hora-inicio-jueves" id="hora-inicio-jueves" style="margin-right: 1rem;">    
+                        </div>
+                        <div>
+                            <label for="hora-final-jueves">a: </label>
+                            <input type="time" name="hora-final-jueves" id="hora-final-jueves" style="margin-right: 1rem;">    
+                        </div>
+                    </div>
+                </div> 
+                <div class="fila-horario">
+                    <div style="display: flex; flex-direction: row; justify-content: baseline; align-items: center; margin-right:1rem;">
+                        <input type="checkbox" name="viernes" id="viernes" style="max-width: fit-content;">
+                        <label for="viernes">Viernes</label>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            <label for="hora-inicio-viernes">De: </label>
+                            <input type="time" name="hora-inicio-viernes" id="hora-inicio-viernes" style="margin-right: 1rem;">    
+                        </div>
+                        <div>
+                            <label for="hora-final-viernes">a: </label>
+                            <input type="time" name="hora-final-viernes" id="hora-final-viernes" style="margin-right: 1rem;">    
+                        </div>
+                    </div>
+                </div> 
+                <div class="fila-horario">
+                    <div style="display: flex; flex-direction: row; justify-content: baseline; align-items: center; margin-right:1rem;">
+                        <input type="checkbox" name="sabado" id="sabado" style="max-width: fit-content;">
+                        <label for="sabado">Sábado</label>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            <label for="hora-inicio-sabado">De: </label>
+                            <input type="time" name="hora-inicio-sabado" id="hora-inicio-sabado" style="margin-right: 1rem;">    
+                        </div>
+                        <div>
+                            <label for="hora-final-sabado">a: </label>
+                            <input type="time" name="hora-final-sabado" id="hora-final-sabado" style="margin-right: 1rem;">    
+                        </div>
+                    </div>
+                </div>  
+                <div style="width: 100%; justify-content: end; display: grid;">
+                    <button class="btn-icon btn-marino" id="editar-horario" type="button" style="align-self: flex-end;">
+                        <svg width="30" height="30" viewBox="-5 -8 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M23.735 2.51465L27.485 6.26465L24.6263 9.12465L20.8763 5.37465L23.735 2.51465ZM10 19.9996H13.75L22.8588 10.8909L19.1087 7.1409L10 16.2496V19.9996Z" fill="#F8FBFF"/>
+                            <path d="M23.75 23.75H10.1975C10.165 23.75 10.1313 23.7625 10.0988 23.7625C10.0575 23.7625 10.0163 23.7513 9.97375 23.75H6.25V6.25H14.8088L17.3088 3.75H6.25C4.87125 3.75 3.75 4.87 3.75 6.25V23.75C3.75 25.13 4.87125 26.25 6.25 26.25H23.75C24.413 26.25 25.0489 25.9866 25.5178 25.5178C25.9866 25.0489 26.25 24.413 26.25 23.75V12.915L23.75 15.415V23.75Z" fill="#F8FBFF"/>
+                        </svg>
+                    </button>
+                </div>
+                    <div class="btns-doble" style="display: none;" id="btns-horario">
+                                            
+                    <button type="reset" id="cancelar-horario" class="btn btn-naranja-2">Cancelar</button>
+                    <button type="submit" id="guardar-horario" class="btn btn-marino">Guardar</button>
+                
+                    </div>
+            </form>
+        </div>
+  <br><br><br><br><br><br><br><br><br>
     </section>
     <script src="/js/script.js"></script>
     <script src="/js/maestro_js/maestro-panel.js"></script>

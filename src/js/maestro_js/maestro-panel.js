@@ -8,6 +8,10 @@ const editarPass = document.getElementById("editar-password");
 const guardarPass = document.getElementById("guardar-password");
 const cancelarPass = document.getElementById("cancelar-password");
 const passwordMaestro = document.getElementById("password-maestro");
+const editarHorario = document.getElementById("editar-horario");
+const btnsHorario = document.getElementById("btns-horario");
+const guardarHorario = document.getElementById("guardar-horario");
+const cancelarHorario = document.getElementById("cancelar-horario");
 
 let dataUsuarioOriginal
 
@@ -126,6 +130,16 @@ guardarPass.addEventListener("click", async () => {
     } else{
         alert("Error al actualizar la contraseña");
     }
+ })
+
+ editarHorario.addEventListener("click", () => {
+    btnsHorario.style.display = "block"
+    editarHorario.style.display = "none"
+ })
+
+ cancelarHorario.addEventListener("click", () => {
+    btnsHorario.style.display = "none"
+    editarHorario.style.display = "block"
  })
 
 fetchPerfil()
