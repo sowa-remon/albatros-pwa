@@ -57,10 +57,12 @@ function isMaestro(req, res, next) {
 
 // 
 app.use(session(sess))
-app.use(bodyParser.json())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")))
 app.use('/js', express.static(path.join(__dirname, "src/js")))
 app.use('/css', express.static(path.join(__dirname, "public/styles")))
+app.use('/public/js', express.static(path.join(__dirname, "public/js")))
 app.use('/icons', express.static(path.join(__dirname, "public/images/icons")))
 app.use('/uploads', express.static(path.join(__dirname, "src/uploads")))
 

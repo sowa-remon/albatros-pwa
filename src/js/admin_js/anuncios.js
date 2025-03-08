@@ -102,7 +102,7 @@ function mostrarAnuncios(anuncios) {
           );
           if (response.ok) {
             alert("Anuncio eliminado");
-            fetchAnuncios();
+            fetchAnuncios()
           } else {
             alert("Error al eliminar");
           }
@@ -168,8 +168,8 @@ publicarAnuncio.addEventListener("submit", async (event) => {
 
     if (response.ok) {
       alert("Anuncio publicado");
-      limpiarCampos()
       fetchAnuncios()
+      limpiarCampos()
       closeModal() 
       } else {
       alert("Error al publicar el anuncio");

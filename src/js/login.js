@@ -41,3 +41,41 @@ function showSnackbar(message) {
 regresar.addEventListener("click", () => {
   window.location.href = "/";
 });
+
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service_worker.js', {scope: '/'})
+    .then((registration) => {
+      console.log('Service Worker registered with scope:', registration.scope);
+    })
+    .catch((error) => {
+      console.log('Service Worker registration failed:', error);
+    });
+}
+
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevenir que el navegador muestre el prompt de instalación
+  e.preventDefault();
+  // Guardar el evento para activarlo más tarde
+  deferredPrompt = e;
+  // Mostrar el botón de instalación
+  const installButton = document.getElementById('installButton');
+  installButton.style.display = 'block';
+
+  installButton.addEventListener('click', () => {
+    // Mostrar el prompt de instalación
+    deferredPrompt.prompt();
+    // Esperar la elección del usuario
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+      // Limpiar la referencia al prompt
+      deferredPrompt = null;
+    });
+  });
+});

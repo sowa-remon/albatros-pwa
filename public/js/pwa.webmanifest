@@ -1,11 +1,11 @@
 {
-    "name": "Progressive Web App para Centro Acuático Albatros",
+    "name": "Albatros App",
     "short_name": "albatros-pwa",
-    "start_url": "/login",
+    "start_url": "/login.html",
     "description": "Progressive Web App para Centro Acuático Albatros para el seguimiento de los alumnos y maestros",
     "icons": [
       {
-        "src": "./../images/splash-screen.png",
+        "src": "/icons/albatros-icon.png",
         "sizes": "512x512",
         "type": "image/png"
       }

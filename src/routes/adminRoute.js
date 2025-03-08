@@ -93,7 +93,7 @@ router.post("/crearUsuarioAdmin", upload.none(), async (req, res) => {
 
 // *** ALUMNOS ***
 // Crear usuario alumno
-router.post("/crearUsuarioAlumno", upload.none(), async (req, res) => {
+router.post("/crearUsuarioAlumno", async (req, res) => {
   const {
     nombre,
     apellidos,
@@ -171,9 +171,9 @@ router.post("/crearUsuarioAlumno", upload.none(), async (req, res) => {
       restricciones,
       direccion,
       telefono,
-      (contactoE = { contactoNombre, contactoTelefono }),
+      contactoE = { contactoNombre, contactoTelefono },
       nivel,
-      (usuario = usuarioNormalized),
+      usuarioNormalized,
       password,
       estado,
       tipo,
@@ -335,11 +335,11 @@ router.get("/lista-contenidos", async (req, res) => {
 });
 
 // *** MAESTROS
-router.post("/crearUsuarioMaestro", upload.none(), async (req, res) => {
+router.post("/crearUsuarioMaestro", async (req, res) => {
+  console.log(req.body);
   const { nombre, apellidos, fechaN, direccion, telefono } = req.body;
   const tipo = "maestro";
   const estado = true;
-  console.log(req.body);
 
   // Verificar que el nombre de usuario y la contraseña estén presentes
   if (!nombre || !apellidos || !fechaN || !direccion || !telefono) {
@@ -379,13 +379,14 @@ router.post("/crearUsuarioMaestro", upload.none(), async (req, res) => {
       fechaN,
       direccion,
       telefono,
-      (usuario = usuarioNormalized),
+      usuarioNormalized,
       password,
       estado,
       tipo,
       horario,
       curriculum
     );
+    console.log(usuarioMaestro);
 
     await userDocRef.set(usuarioMaestro.toFirestore());
 

@@ -189,18 +189,27 @@ registrarMaestro.addEventListener("submit", async (event) => {
     console.log("Por favor, ingrese todos los campos");
     return;
   } else {
-    const formData = new FormData(registrarMaestro);
-    // Envía los datos a tu servidor (ajusta la URL según tu configuración)
+    // Crear un objeto con los datos del formulario
+    const data = {
+      nombre: nombre.value,
+      apellidos: apellidos.value,
+      fechaN: fechaN.value,
+      direccion: direccion.value,
+      telefono: telefono.value,
+    };
     const response = await fetch("/admin/crearUsuarioMaestro", {
       method: "POST",
-      body: formData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+
     });
 
     if (response.ok) {
       alert("Maestro registrado exitosamente");
       fetchMaestros();
       closeModal();
-      // Aquí puedes actualizar la lista de alumnos sin recargar la página
     } else {
       alert("Error al registrar el maestro ?");
     }

@@ -211,11 +211,26 @@ document
       console("Por favor, ingrese todos los campos");
       return;
     } else {
-      const formData = new FormData(document.getElementById("registrarAlumno"));
+
+      data = {
+        nombre: nombre.value,
+        apellidos: apellidos.value,
+        fechaN: fechaN.value,
+        antecedentes: antecedentes.value,
+        restricciones: restricciones.value,
+        direccion: direccion.value,
+        telefono: telefono.value,
+        contactoNombre: contactoNombre.value,
+        contactoTelefono: contactoTelefono.value,
+        nivel: nivel.value
+      }
 
       const response = await fetch("/admin/crearUsuarioAlumno/", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
