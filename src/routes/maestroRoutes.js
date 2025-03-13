@@ -33,6 +33,9 @@ router.get("/tabla-niveles-tecnicos", (req, res) => {
 
 
 // * Rutas POST
+
+
+// * Rutas PUT
 router.put("/actualizar-curriculum", async (req, res) => {
     const { curriculum } = req.body;
     const { id } = req.session.user;
@@ -43,5 +46,18 @@ router.put("/actualizar-curriculum", async (req, res) => {
         res.status(400).send({ message: "Error al actualizar el currículum" });
     }
 })
+
+router.put("/actualizar-horario", async (req, res) => {
+   const { horario } = req.body;
+    const { id } = req.session.user;
+    try {
+        await firestore.collection("usuarios").doc(id).update({ horario });
+        res.status(200).send({ message: "Horario actualizado exitosamente" });
+    } catch (error) {
+        res.status(400).send({ message: "Error al actualizar el horario" });
+    }
+})
+
+
 
 module.exports = router;

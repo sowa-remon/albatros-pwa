@@ -397,6 +397,7 @@ body {
 
 .fila-horario{
   margin-bottom: 1rem;
+  min-width: min-content;
   padding: 1rem;
   @include sombra-2;
   border-radius: 10px;
@@ -413,6 +414,9 @@ body {
   }
   .fila-horario {
     grid-template-columns: 1fr;
+  }
+  .seccion-app {
+    padding: 1rem
   }
   
 }
@@ -458,12 +462,15 @@ body {
   .fila-horario {
     grid-template-columns: 1fr ;
   }
+  .seccion-app {
+    padding: 1rem
+  }
 }
 
 // * Tamaño mínimo para celulares
 @media (min-width: 500px) and (max-width: 959px) {
   .seccion-app {
-    padding: 1rem;
+    padding: 1rem 3rem;
   }
   .acciones-admin {
     grid-template-columns: auto;
@@ -483,7 +490,7 @@ body {
 // * Tamaño mínimo para tablets/laptops en modo landscape
 @media (min-width: 960px) {
   .seccion-app {
-    padding: 1rem 8rem;
+    padding: 1rem 12rem;
   }
   .columna-1-2 {
     display: flex;
