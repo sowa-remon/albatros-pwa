@@ -9,6 +9,15 @@ const adminRoutes = require('./src/routes/adminRoute')
 const maestroRoutes = require('./src/routes/maestroRoutes')
 const { firestore } = require("./src/configs/firebaseAdmin");
 
+const os = require('os');
+
+// RAM usada (en MB)
+console.log('Memoria utilizada (MB):', (os.totalmem() - os.freemem()) / (1024 * 1024));
+
+// CPU información
+console.log('Cores disponibles:', os.cpus().length);
+
+
 const httpPort = process.env.PORT
 const app = express()
 

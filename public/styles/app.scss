@@ -191,8 +191,18 @@ body {
   background-color: rgba($color: #b8d2db, $alpha: 0.5);
 }
 
-.modal {
+dialog {
+  position: fixed;
+  
+  overflow: auto; /* Permite scroll si el contenido es largo */
+  height: 90vh;
+}
+
+.modal{
   display: none; /* Oculto por defecto */
+}
+
+.modal {
   position: fixed; /* Queda fijo en la pantalla */
   z-index: 1; /* Se coloca por encima de otros elementos */
   left: 0;
@@ -408,6 +418,23 @@ body {
   margin-right: 1rem;
 }
 
+.fila-a-columna{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  ul{
+    padding: 0;
+    margin: 0 1rem;
+    text-overflow: ellipsis;
+    white-space: break-spaces;
+  }
+}
+
+.columna-a-fila{
+  display: flex;
+  justify-content: space-around;
+}
+
 @media (max-width: 400px) {
   .btns-doble {
     flex-direction: column;
@@ -417,8 +444,10 @@ body {
   }
   .seccion-app {
     padding: 1rem
+  }  
+  .columna-a-fila{
+    flex-direction: column;
   }
-  
 }
 
 @media (max-width: 810px) {

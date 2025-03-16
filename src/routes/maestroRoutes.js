@@ -30,10 +30,76 @@ router.get("/tabla-niveles-tecnicos", (req, res) => {
 });
 
 // * Rutas GET
+router.get("/obtener-horario", async (req, res) => {
+    const { id } = req.session.user;
+    try {
+        const usuario = await firestore.collection("usuarios").doc(id).get();
+        const horario = usuario.data().horario;
+        res.status(200).send({ horario });
+    } catch (error) {
+        res.status(400).send({ message: "Error al obtener el horario" });
+    }
+})
+
+router.get("/clases", async (req, res) => {
+  const { id } = req.session.user
+  if (!id) {
+    return res.status(400).json({ message: "UPS. El usuario no está autenticado." })
+  }
+
+  try {
+    const snapshot = await firestore.collection("clases")
+      .where("maestro.id", "==", id) 
+      .get();
+
+      if (snapshot.empty) {
+      return res.status(404).json({ message: "No se encontraron clases." });
+    }
+
+    const clases = snapshot.docs.map(doc => doc.data());
+
+    res.status(200).json({ clases }); // Devuelve las clases en el response
+  } catch (error) {
+    console.error("Error al obtener las clases:", error);
+    res.status(500).json({ message: "Error al obtener las clases." });
+  }
+});
 
 
 // * Rutas POST
+router.post("/crear-clase", async (req, res) => {
+  console.log(req.body);
+    const { nivel, horarios } = req.body;
+    const { id } = req.session.user;
 
+  if (!id) {
+    return res.status(400).send({ message: "El usuario no está autenticado." });
+  }
+    try {
+        const usuario = await firestore.collection("usuarios").doc(id).get();
+        const maestro = usuario.data();
+        
+    const claseRef = firestore.collection("clases").doc();
+    const claseId = claseRef.id;
+
+        const clase = {
+          id: claseId,
+            nivel: nivel,
+            horas: horarios,
+            maestro: {
+                id: id,
+                nombre: maestro.nombre,
+                apellidos: maestro.apellidos
+            }
+        }
+        console.log(clase);
+        
+    await claseRef.set(clase);
+        res.status(200).send({ message: "Clase creada exitosamente" });
+    } catch (error) {
+        res.status(400).send({ message: "Error al crear la clase" });
+    }
+})
 
 // * Rutas PUT
 router.put("/actualizar-curriculum", async (req, res) => {
