@@ -92,7 +92,7 @@ function mostrarAnuncios(anuncios) {
       fichaAnuncio.appendChild(filaTipoEliminar);
       
       fichaAnuncio.onclick = () => {
-        window.location.href = `/admin/detalle-anuncio?id=${anuncio.id}`;
+        window.location.href = `/detalle-anuncio?id=${anuncio.id}`;
       }
       concentradoAnuncios.appendChild(filaAnuncio)
       

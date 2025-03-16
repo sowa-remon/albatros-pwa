@@ -290,6 +290,18 @@ label{
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
+.mensaje-error{
+  color: red;
+  background-color: $blanco;
+  @include mensaje;
+}
+
+.mensaje-exito{
+  color: $blanco;
+  background-color: $marino;
+  @include mensaje;
+}
+
 .rectangulo {
   border: solid 3px var(--color);
   padding: 1rem;

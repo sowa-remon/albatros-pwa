@@ -19,6 +19,23 @@ $rosa: #f523ce;
   src: url("../fonts/FugazOne-Regular.ttf");
 }
 
+@mixin mensaje{
+  display: none; 
+  min-width: 250px;
+  margin-left: -125px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 16px;
+  position: fixed;
+  z-index: 2;
+  left: 50%;
+  bottom: 30px;
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 4s;
+  animation: fadein 0.5s, fadeout 0.5s 4s;
+  @include sombra-2;
+}
+
 @mixin centrado {
   justify-content: center;
   align-items: center;

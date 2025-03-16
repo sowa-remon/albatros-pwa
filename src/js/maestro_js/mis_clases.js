@@ -7,6 +7,9 @@ const agregarClaseBtn = document.getElementById("agregar-clase-btn");
 const nivel = document.getElementById("nivel-clase");
 const concentradoClases = document.getElementById("concentrado-mis-clases");
 
+const mensajeError = document.getElementById("mensajeError")
+const mensajeExito = document.getElementById("mensajeExito")
+
 let horario;
 
 const niveles = ["Bebé", "Cangrejo", "Caballito de  mar", "Estrella de mar", 
@@ -32,15 +35,23 @@ const programas = {
 };
 
 // ! mensaje de error 
-function mostrarMensaje(mensaje) {
-  const mensajeDiv = document.getElementById("mensaje"); // Asegúrate de tener este elemento en tu HTML
-  mensajeDiv.textContent = mensaje;
-  mensajeDiv.style.display = "block";
+function mostrarError(mensaje) {
+  mensajeError.textContent = mensaje;
+  mensajeError.style.display = "block";
 
-  // Oculta el mensaje después de unos segundos (opcional)
   setTimeout(() => {
-    mensajeDiv.style.display = "none";
-  }, 5000);
+    mensajeError.style.display = "none";
+  }, 4500);
+}
+
+// * mensaje de éxito 
+function mostrarExito(mensaje) {
+  mensajeExito.textContent = mensaje;
+  mensajeExito.style.display = "block";
+
+  setTimeout(() => {
+    mensajeExito.style.display = "none";
+  }, 4500);
 }
 
 // funciones simples
@@ -52,7 +63,9 @@ function cerrarModal() {
   dialogAgregarClase.style.display = "none";
 }
 
-function limpiarCampos() {}
+function limpiarCampos() {
+  nivel.value = ""
+}
 
 
 // ** FETCHES
@@ -113,7 +126,7 @@ function validarClase(horarioMaestro, clases, dia, nivel, horaInicio) {
   const horaFin = calcularHoraFin(horaInicio, duracion);
 
   if (!validarDentroDeHorario(horarioMaestro, dia, horaInicio, horaFin)) {
-    console.error("La clase está fuera del horario permitido por el maestro.");
+    mostrarError("La clase está fuera del horario permitido por el maestro.");
     return false;
   }
 
@@ -130,7 +143,6 @@ function generarInputsHorarios(horario) {
   container.innerHTML = ""; // Limpiar contenedor
 
   Object.keys(horario).forEach((dia) => {
-    console.log(dia);
     const { horaInicio, horaFin } = horario[dia];
 
     // Verificar que ambos horarios sean válidos
@@ -214,6 +226,7 @@ function mostrarClases(clases) {
     fichaClase.style.setProperty("--color", "#2e3192")
     fichaClase.style.marginBottom = "2rem"
     fichaClase.innerHTML =  `<b>Nivel:</b> ${niveles[clase.nivel-1]}`
+    
 
     const hr = document.createElement("hr")
     
@@ -277,25 +290,25 @@ function mostrarClases(clases) {
 // Abre el diálogo para agregar una clase
 
 agregarClase.addEventListener("click", () => {
-  fetchHorario();
-  abrirModal();
+  fetchHorario()
+  abrirModal()
 });
 
 closeDialog.addEventListener("click", () => {
-  cerrarModal();
+  cerrarModal()
 });
 
 cancelarRegistro.addEventListener("click", () => {
   if (confirm("¿Está seguro de que quiere cancelar el registro?")) {
-    limpiarCampos();
-    dialogAgregarClase.close();
+    limpiarCampos()
+    cerrarModal()
   }
 });
 
 // Formulario de registro y publicación de anuncio
 agregarClaseBtn.addEventListener("click", async (event) => {
   if (!nivel.value) {
-    console("Por favor, ingrese todos los campos");
+    mostrarError("No ha ingresado el nivel de la clase.");
     return;
   } else {
     // Obtener hora de inicio seleccionada
@@ -318,7 +331,7 @@ agregarClaseBtn.addEventListener("click", async (event) => {
 
     // Verifica si se seleccionaron horarios
     if (horariosSeleccionados.length === 0) {
-      console.error("Por favor, seleccione al menos un horario.");
+      mostrarError("Por favor, seleccione al menos un horario.")
       return;
     }
 
@@ -335,11 +348,12 @@ agregarClaseBtn.addEventListener("click", async (event) => {
       });
 
       if (response.ok) {
-        alert("Clase creada exitosamente");
-        cerrarModal();
+        mostrarExito("Clase creada exitosamente")
+        fetchClases()
+        cerrarModal()
       }
     } catch {
-      alert("Error al crear la clase");
+      mostrarError("Hubo un error al crear la clase. ");
     }
   }
 });

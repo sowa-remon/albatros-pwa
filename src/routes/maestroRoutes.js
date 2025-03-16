@@ -65,6 +65,25 @@ router.get("/clases", async (req, res) => {
   }
 });
 
+// Eliminar clase
+router.delete("/eliminarClase/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const claseRef = firestore.collection("clases").doc(id);
+    const claseDoc = await claseRef.get();
+    if (!claseDoc.exists) {
+      return res.status(404).send({ message: "La clase no existe" });
+       }
+
+    await claseRef.delete();
+    res.status(200).send({ message: "Clase eliminada exitosamente" });
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Error al eliminar la clase", error: error.message });
+  }
+});
+
 
 // * Rutas POST
 router.post("/crear-clase", async (req, res) => {

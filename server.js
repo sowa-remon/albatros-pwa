@@ -97,7 +97,11 @@ app.get('/alumno-panel', isAuthenticated, (req, res) => {
 app.get('/maestro-inicio', isMaestro, (req, res) => {
   res.sendFile(path.join(__dirname, 'public/pages/maestroPages/maestro-panel.html'))
 })
-
+app.get("/detalle-anuncio", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "public/pages/anuncio-detalles.html")
+  );
+});
 
 // * Rutas get
 // Obtener lista de anuncios
@@ -113,6 +117,27 @@ app.get("/lista-anuncios", async (req, res) => {
     res
       .status(400)
       .send({ message: "Error al obtener los anuncios", error: error.message });
+  }
+});
+
+
+// Obtener datos de un anuncio
+app.get("/anuncio/:id", async (req, res) => {
+  try {
+    const anuncioSnapshot = await firestore
+      .collection("anuncios")
+      .doc(req.params.id)
+      .get();
+    const anuncio = anuncioSnapshot.data();
+
+    if (!anuncio) {
+      return res.status(404).send({ message: "Anuncio no encontrado" });
+    }
+    res.status(200).json(anuncio);
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Error al obtener anuncio", error: error.message });
   }
 });
 

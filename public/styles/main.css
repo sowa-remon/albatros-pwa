@@ -427,6 +427,42 @@ label {
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
+.mensaje-error {
+  color: red;
+  background-color: #f8fbff;
+  display: none;
+  min-width: 250px;
+  margin-left: -125px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 16px;
+  position: fixed;
+  z-index: 2;
+  left: 50%;
+  bottom: 30px;
+  visibility: visible;
+  animation: fadein 0.5s, fadeout 0.5s 4s;
+  box-shadow: 0 3px 3px rgba(46, 49, 146, 0.3);
+}
+
+.mensaje-exito {
+  color: #f8fbff;
+  background-color: #2e3192;
+  display: none;
+  min-width: 250px;
+  margin-left: -125px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 16px;
+  position: fixed;
+  z-index: 2;
+  left: 50%;
+  bottom: 30px;
+  visibility: visible;
+  animation: fadein 0.5s, fadeout 0.5s 4s;
+  box-shadow: 0 3px 3px rgba(46, 49, 146, 0.3);
+}
+
 .rectangulo {
   border: solid 3px var(--color);
   padding: 1rem;

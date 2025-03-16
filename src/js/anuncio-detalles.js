@@ -14,7 +14,7 @@ async function fetchAnuncioDetalles() {
   const id = urlParams.get("id");
 
   try {
-    const response = await fetch(`/admin/anuncio/${id}`);
+    const response = await fetch(`/anuncio/${id}`);
     if (!response.ok) {
       throw new Error("Error en la solicitud: " + response.status);
     }

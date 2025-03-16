@@ -11,17 +11,11 @@ const fs = require("fs");
 const { Timestamp } = require("firebase-admin/firestore");
 const router = express.Router();
 const saltRounds = 10;
+const { admin } = require("../configs/firebaseAdmin");
+const bucket = admin.storage().bucket();
 
-// Configuración de multer para guardar archivos en una carpeta específica
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./src/uploads/");
-  },
-  filename: (req, file, cb) => {
-    const randomName = crypto.randomBytes(16).toString("hex");
-    cb(null, randomName + path.extname(file.originalname));
-  },
-});
+// Configurar almacenamiento para el archivo
+const storage = multer.memoryStorage(); // Usar almacenamiento en memoria
 
 const upload = multer({ storage: storage });
 
@@ -54,11 +48,6 @@ router.get("/detalle-alumno", (req, res) => {
 router.get("/detalle-maestro", (req, res) => {
   res.sendFile(
     path.join(__dirname, "../../public/pages/adminPages/maestro-detalles.html")
-  );
-});
-router.get("/detalle-anuncio", (req, res) => {
-  res.sendFile(
-    path.join(__dirname, "../../public/pages/adminPages/anuncio-detalles.html")
   );
 });
 
@@ -171,7 +160,7 @@ router.post("/crearUsuarioAlumno", async (req, res) => {
       restricciones,
       direccion,
       telefono,
-      contactoE = { contactoNombre, contactoTelefono },
+      (contactoE = { contactoNombre, contactoTelefono }),
       nivel,
       usuarioNormalized,
       password,
@@ -492,7 +481,6 @@ router.get("/lista-maestros", async (req, res) => {
 });
 
 // *** ANUNCIOS
-// Ruta para crear un anuncio
 router.post("/crearAnuncio", upload.single("imagen"), async (req, res) => {
   const { titulo, contenido, duracion, tipo } = req.body;
   const activo = true;
@@ -504,20 +492,21 @@ router.post("/crearAnuncio", upload.single("imagen"), async (req, res) => {
   try {
     let fechaInicio = new Date();
     let fechaFinal;
-    let fechaInicioTS = Timestamp.fromDate(fechaInicio);
+    let fechaInicioTS = admin.firestore.Timestamp.fromDate(fechaInicio);
     let fechaFinalTS;
 
     if (duracion === "semana") {
       fechaFinal = new Date(fechaInicio);
       fechaFinal.setDate(fechaInicio.getDate() + 7);
-      fechaFinalTS = Timestamp.fromDate(fechaFinal);
+      fechaFinalTS = admin.firestore.Timestamp.fromDate(fechaFinal);
     } else if (duracion === "mes") {
       fechaFinal = new Date(fechaInicio);
       fechaFinal.setMonth(fechaInicio.getMonth() + 1);
-      fechaFinalTS = Timestamp.fromDate(fechaFinal);
+      fechaFinalTS = admin.firestore.Timestamp.fromDate(fechaFinal);
     } else if (duracion === "indefinido") {
       fechaFinalTS = null;
     }
+
     const anuncioRef = firestore.collection("anuncios").doc();
     const anuncioId = anuncioRef.id;
     const anuncioData = {
@@ -531,74 +520,91 @@ router.post("/crearAnuncio", upload.single("imagen"), async (req, res) => {
     };
 
     if (req.file) {
-      console.log(req.file.filename);
-      anuncioData.imagen = `/uploads/${req.file.filename}`;
+      const archivo = req.file;
+      const nombreArchivo = `imagenes-anuncios/${Date.now()}_${
+        archivo.originalname
+      }`;
+
+      // Subir al almacenamiento de Firebase
+      const archivoSubido = bucket.file(nombreArchivo);
+      await archivoSubido.save(archivo.buffer, {
+        metadata: {
+          contentType: archivo.mimetype,
+        },
+      });
+
+      // Usar getSignedUrl para generar una URL pública válida
+      const [url] = await archivoSubido.getSignedUrl({
+        action: 'read',
+        expires: '03-09-2491', // La fecha de expiración de la URL (se puede ajustar)
+      });
+      
+      anuncioData.imagen = url; // Guardar esta URL en Firestore
     }
 
     await anuncioRef.set(anuncioData);
 
     res.status(201).send({
       message: "Anuncio agregado exitosamente",
-      anuncioId: req.body.idAnuncio,
+      anuncioId: anuncioId,
     });
   } catch (error) {
+    console.error("Error al agregar el anuncio:", error);
     res
       .status(500)
-      .send({ message: `Error al agregar el anuncio`, error: error.message });
+      .send({ message: "Error al agregar el anuncio", error: error.message });
   }
 });
-
-// Eliminar anuncio
 router.delete("/eliminarAnuncio/:id", async (req, res) => {
   const { id } = req.params;
+
   try {
+    // Referencia al documento del anuncio
     const anuncioRef = firestore.collection("anuncios").doc(id);
     const anuncioDoc = await anuncioRef.get();
+
+    // Verificar si el anuncio existe
     if (!anuncioDoc.exists) {
       return res.status(404).send({ message: "Anuncio no encontrado" });
     }
 
     const anuncio = anuncioDoc.data();
+
+    // Verificar si el anuncio tiene imagen antes de intentar eliminarla
     if (anuncio.imagen) {
-      const imagenPath = "./src" + anuncio.imagen;
-      fs.unlink(imagenPath, (err) => {
-        if (err && err.code == "ENOENT") {
-          console.info("El archivo no existe, no se eliminará.");
-        } else if (err) {
-          console.error("Error al intentar eliminar el archivo");
+      console.log(anuncio.imagen)
+      try {
+        // Comprobar si la URL de la imagen tiene un formato válido
+        const imagenUrl = anuncio.imagen;
+        if (imagenUrl) {
+          const imagenPath = imagenUrl.split("?")[0]
+          console.log("imagen",imagenPath)
+          const imagen2 = imagenPath.split(".app/")[1]
+          console.log("imagen2", imagen2)
+          const archivo = admin.storage().bucket().file(imagen2);
+
+          // Intentar eliminar la imagen del bucket
+          await archivo.delete();
+          console.log("Imagen eliminada del almacenamiento.");
         } else {
-          console.info("Archivo eliminado");
+          console.warn("a");
         }
-      });
+      } catch (error) {
+        console.error("Error al eliminar la imagen del almacenamiento:", error.message);
+      }
     }
 
+    // Eliminar el documento del anuncio en Firestore
     await anuncioRef.delete();
+
     res.status(200).send({ message: "Anuncio eliminado exitosamente" });
   } catch (error) {
+    console.error("Error al eliminar el anuncio:", error);
     res
       .status(500)
       .send({ message: "Error al eliminar el anuncio", error: error.message });
   }
 });
 
-// Obtener datos de un alumnno
-router.get("/anuncio/:id", async (req, res) => {
-  try {
-    const anuncioSnapshot = await firestore
-      .collection("anuncios")
-      .doc(req.params.id)
-      .get();
-    const anuncio = anuncioSnapshot.data();
-
-    if (!anuncio) {
-      return res.status(404).send({ message: "Anuncio no encontrado" });
-    }
-    res.status(200).json(anuncio);
-  } catch (error) {
-    res
-      .status(500)
-      .send({ message: "Error al obtener anuncio", error: error.message });
-  }
-});
 
 module.exports = router;
