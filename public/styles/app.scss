@@ -170,6 +170,8 @@ body {
   background-color: $blanco;
   border: none;
   color: var(--color);
+  transform: scale(1);
+  transition: 1s;
 }
 
 .btn-texto:hover {
@@ -515,6 +517,7 @@ dialog {
     grid-template-columns: 1fr auto auto;
   }
 }
+
 
 // * Tamaño mínimo para tablets/laptops en modo landscape
 @media (min-width: 960px) {

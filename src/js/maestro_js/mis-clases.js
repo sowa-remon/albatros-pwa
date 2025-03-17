@@ -7,14 +7,28 @@ const agregarClaseBtn = document.getElementById("agregar-clase-btn");
 const nivel = document.getElementById("nivel-clase");
 const concentradoClases = document.getElementById("concentrado-mis-clases");
 
-const mensajeError = document.getElementById("mensajeError")
-const mensajeExito = document.getElementById("mensajeExito")
+const mensajeError = document.getElementById("mensajeError");
+const mensajeExito = document.getElementById("mensajeExito");
 
 let horario;
 
-const niveles = ["Bebé", "Cangrejo", "Caballito de  mar", "Estrella de mar", 
-  "Patito", "Ajolote", "Pecesito", "Tortuga", "Rana", "Pingüino", "Delfín", 
-  "Mantarraya", "Pez vela", "Albatros", "Adulto"]
+const niveles = [
+  "Bebé",
+  "Cangrejo",
+  "Caballito de  mar",
+  "Estrella de mar",
+  "Patito",
+  "Ajolote",
+  "Pecesito",
+  "Tortuga",
+  "Rana",
+  "Pingüino",
+  "Delfín",
+  "Mantarraya",
+  "Pez vela",
+  "Albatros",
+  "Adulto",
+];
 
 const programas = {
   1: 30,
@@ -34,7 +48,7 @@ const programas = {
   15: 60,
 };
 
-// ! mensaje de error 
+// ! mensaje de error
 function mostrarError(mensaje) {
   mensajeError.textContent = mensaje;
   mensajeError.style.display = "block";
@@ -44,7 +58,7 @@ function mostrarError(mensaje) {
   }, 4500);
 }
 
-// * mensaje de éxito 
+// * mensaje de éxito
 function mostrarExito(mensaje) {
   mensajeExito.textContent = mensaje;
   mensajeExito.style.display = "block";
@@ -64,21 +78,24 @@ function cerrarModal() {
 }
 
 function limpiarCampos() {
-  nivel.value = ""
+  nivel.value = "";
 }
-
 
 // ** FETCHES
 async function fetchClases() {
   try {
     const response = await fetch("/maestro/clases");
     if (!response.ok) {
+      if(response.status == 404){
+        concentradoClases.innerHTML = "<h3>No se encontró ninguna clase</h3>";
+      }
       throw new Error("Error en la solicitud: " + response.status);
+      
     }
     misClases = await response.json();
     mostrarClases(misClases.clases);
   } catch (error) {
-    console.error("Error al recuperar las clases:", error);
+    console.error("Error al recuperar las clases:", error)
   }
 }
 
@@ -137,7 +154,6 @@ function validarClase(horarioMaestro, clases, dia, nivel, horaInicio) {
 
   return true; // Clase válida
 }
-
 
 function generarInputsHorarios(horario) {
   container.innerHTML = ""; // Limpiar contenedor
@@ -221,87 +237,122 @@ function mostrarClases(clases) {
   concentradoClases.innerHTML = "";
 
   clases.forEach((clase) => {
-    const fichaClase = document.createElement("div")
-    fichaClase.className = "rectangulo"
-    fichaClase.style.setProperty("--color", "#2e3192")
-    fichaClase.style.marginBottom = "2rem"
-    fichaClase.innerHTML =  `<b>Nivel:</b> ${niveles[clase.nivel-1]}`
-    
+    const fichaClase = document.createElement("div");
+    fichaClase.className = "rectangulo";
+    fichaClase.style.setProperty("--color", "#2e3192");
+    fichaClase.style.marginBottom = "2rem";
+    fichaClase.innerHTML = `<b>Nivel:</b> ${niveles[clase.nivel - 1]}`;
 
-    const hr = document.createElement("hr")
-    
-    const alumnosHorario = document.createElement('div')
-    alumnosHorario.className = "fila-a-columna"
+    const hr = document.createElement("hr");
 
-    const alumnos = document.createElement("ul")
-    alumnos.innerHTML = "<b><p>Alumnos: </p></b>"
+    const alumnosHorario = document.createElement("div");
+    alumnosHorario.className = "fila-a-columna";
 
-    if(!clase.alumnos){
-      alumnos.innerHTML = "<b><p>Alumnos: </p></b>No se han agregado alumnos."
-    } else{
-      clase.alumnos.forEach((alumno)=>{
-        const liAlumno = document.createElement("li")
-        liAlumno.textContent = `${alumno.nombre} ${alumno.apellidos}`
-        alumnos.appendChild(liAlumno)
-      })
+    const alumnos = document.createElement("ul");
+    alumnos.innerHTML = "<b><p>Alumnos: </p></b>";
+
+    if (!clase.alumnos) {
+      alumnos.innerHTML = "<b><p>Alumnos: </p></b>No se han agregado alumnos.";
+    } else {
+      clase.alumnos.forEach((alumno) => {
+        const liAlumno = document.createElement("li");
+        liAlumno.textContent = `${alumno.nombre} ${alumno.apellidos}`;
+        alumnos.appendChild(liAlumno);
+      });
     }
 
-    const horario = document.createElement("ul")
-    horario.innerHTML = "<b><p>Horario: </p></b>"
+    const horario = document.createElement("ul");
+    horario.innerHTML = "<b><p>Horario: </p></b>";
     clase.horas.forEach((hora) => {
-      const liHora = document.createElement("li")
-      liHora.textContent = `${hora.dia}: ${hora.horaInicio}`
-      horario.appendChild(liHora)
-    })
-        
-    const evaluaciones = document.createElement('div')
-    evaluaciones.className = "fila-a-columna"
+      const liHora = document.createElement("li");
+      liHora.textContent = `${hora.dia}: ${hora.horaInicio}`;
+      horario.appendChild(liHora);
+    });
 
-    const ultimaEv = document.createElement("p")
-    if(!clase.ultimaEvaluacion){
-      ultimaEv.innerHTML = "<b><p>Última evaluación: </p></b>No se ha evaluado."
-    } else{
-      ultimaEv.innerHTML =  `<b><p>Última evaluación: </p></b>${clase.ultimaEvaluacion}`
+    const evaluaciones = document.createElement("div");
+    evaluaciones.className = "fila-a-columna";
+
+    const ultimaEv = document.createElement("p");
+    if (!clase.ultimaEvaluacion) {
+      ultimaEv.innerHTML =
+        "<b><p>Última evaluación: </p></b>No se ha evaluado.";
+    } else {
+      ultimaEv.innerHTML = `<b><p>Última evaluación: </p></b>${clase.ultimaEvaluacion}`;
     }
-    const siguienteEv = document.createElement("p")
-    if(!clase.siguienteEvaluacion){
-      siguienteEv.innerHTML = "<b><p>Siguiente evaluación: </p></b>No se ha asignado."
-    } else{
-      siguienteEv.innerHTML =  `<b><p>Siguiente evaluación: </p></b>${clase.siguienteEvaluacion}`
+    const siguienteEv = document.createElement("p");
+    if (!clase.siguienteEvaluacion) {
+      siguienteEv.innerHTML =
+        "<b><p>Siguiente evaluación: </p></b>No se ha asignado.";
+    } else {
+      siguienteEv.innerHTML = `<b><p>Siguiente evaluación: </p></b>${clase.siguienteEvaluacion}`;
     }
-    
-    alumnosHorario.appendChild(alumnos)
-    alumnosHorario.appendChild(horario)
-    evaluaciones.appendChild(ultimaEv)
-    evaluaciones.appendChild(siguienteEv)
 
-    fichaClase.appendChild(hr)
+    const botones = document.createElement("div");
+    botones.className = "btns-doble";
+    botones.style.marginTop = "2rem";
 
-    const columnaFila = document.createElement('div')
-    columnaFila.className= "columna-a-fila"
-    columnaFila.appendChild(alumnosHorario)
-    columnaFila.appendChild(evaluaciones)
+    const abrirVista = document.createElement("button");
+    abrirVista.className = "btn-texto";
+    abrirVista.textContent = "Abrir vista detallada";
+    abrirVista.style.setProperty("--color", "#2e3192")
+    abrirVista.onclick =  () => {
+      window.location.href = `/maestro/detalle-clase?id=${clase.id}`;
+    }
 
-    fichaClase.appendChild(columnaFila)
-    concentradoClases.appendChild(fichaClase)
-  })
+    const eliminarClase = document.createElement("button");
+    eliminarClase.className = "btn-texto";
+    eliminarClase.textContent = "Eliminar clase";
+    eliminarClase.style.setProperty("--color", "#ef8122");
+    eliminarClase.onclick = async () => {
+      if (confirm("¿Está seguro de que quiere eliminar ela clase?")) {
+        const response = await fetch(`/maestro/eliminarClase/${clase.id}`, {
+          method: "DELETE",
+        });
+        if (response.ok) {
+          mostrarExito("Clase eliminada.");
+          fetchClases();
+        } else {
+          mostrarError("UPS! Hubo un error al eliminar");
+        }
+      }
+    };
+
+    botones.appendChild(eliminarClase);
+    botones.appendChild(abrirVista);
+
+    alumnosHorario.appendChild(alumnos);
+    alumnosHorario.appendChild(horario);
+    evaluaciones.appendChild(ultimaEv);
+    evaluaciones.appendChild(siguienteEv);
+
+    fichaClase.appendChild(hr);
+
+    const columnaFila = document.createElement("div");
+    columnaFila.className = "columna-a-fila";
+    columnaFila.appendChild(alumnosHorario);
+    columnaFila.appendChild(evaluaciones);
+
+    fichaClase.appendChild(columnaFila);
+    fichaClase.appendChild(botones);
+    concentradoClases.appendChild(fichaClase);
+  });
 }
 
 // Abre el diálogo para agregar una clase
 
 agregarClase.addEventListener("click", () => {
-  fetchHorario()
-  abrirModal()
+  fetchHorario();
+  abrirModal();
 });
 
 closeDialog.addEventListener("click", () => {
-  cerrarModal()
+  cerrarModal();
 });
 
 cancelarRegistro.addEventListener("click", () => {
   if (confirm("¿Está seguro de que quiere cancelar el registro?")) {
-    limpiarCampos()
-    cerrarModal()
+    limpiarCampos();
+    cerrarModal();
   }
 });
 
@@ -331,7 +382,7 @@ agregarClaseBtn.addEventListener("click", async (event) => {
 
     // Verifica si se seleccionaron horarios
     if (horariosSeleccionados.length === 0) {
-      mostrarError("Por favor, seleccione al menos un horario.")
+      mostrarError("Por favor, seleccione al menos un horario.");
       return;
     }
 
@@ -348,9 +399,9 @@ agregarClaseBtn.addEventListener("click", async (event) => {
       });
 
       if (response.ok) {
-        mostrarExito("Clase creada exitosamente")
-        fetchClases()
-        cerrarModal()
+        mostrarExito("Clase creada exitosamente");
+        fetchClases();
+        cerrarModal();
       }
     } catch {
       mostrarError("Hubo un error al crear la clase. ");

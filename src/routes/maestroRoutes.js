@@ -28,6 +28,11 @@ router.get("/tabla-niveles-tecnicos", (req, res) => {
     path.join(__dirname, "../../public/pages/maestroPages/niveles-tecnicos.html")
   );
 });
+router.get("/detalle-clase", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../../public/pages/maestroPages/detalle-clase.html")
+  );
+});
 
 // * Rutas GET
 router.get("/obtener-horario", async (req, res) => {
@@ -64,6 +69,54 @@ router.get("/clases", async (req, res) => {
     res.status(500).json({ message: "Error al obtener las clases." });
   }
 });
+
+router.get("/clase/:id", async (req, res) => {
+  try {
+    const claseSnapshot = await firestore
+      .collection("clases")
+      .doc(req.params.id)
+      .get();
+    const clase = claseSnapshot.data();
+
+    if (!clase) {
+      return res.status(404).send({ message: "Clase no encontrada" });
+    }
+    res.status(200).json(clase);
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Error al obtener la clase", error: error.message });
+  }
+});
+
+router.get("/alumnos/:nivel", async (req, res) => {
+  const { nivel } = req.params; // Obtener el nivel de la clase enviado en la ruta
+
+  try {
+    // Consultar alumnos donde "clase" sea null y "nivel" sea igual al especificado
+    const alumnosSnapshot = await firestore
+      .collection("usuarios")
+      .where("tipo", "==", "alumno") // Asegurarse de filtrar solo alumnos
+      .where("clase", "==", "") // Filtrar donde no tengan clase asignada
+      .where("nivel", "==", nivel) // Filtrar por el nivel especificado
+      .get();
+
+    // Mapear los datos de los documentos
+    const alumnos = alumnosSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    // Enviar los datos de los alumnos
+    res.status(200).json(alumnos);
+  } catch (error) {
+    console.error("Error al obtener alumnos:", error);
+    res
+      .status(400)
+      .send({ message: "Error al obtener alumnos", error: error.message });
+  }
+});
+
 
 // Eliminar clase
 router.delete("/eliminarClase/:id", async (req, res) => {
