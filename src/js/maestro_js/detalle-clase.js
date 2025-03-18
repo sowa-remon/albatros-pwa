@@ -2,11 +2,22 @@ const nivelClase = document.getElementById("nivel-clase");
 const duracion = document.getElementById("duracion");
 const alumnos = document.getElementById("alumnos");
 const horarios = document.getElementById("horarios");
+// Elementos modal agregar alumnos
 const agregarAlumnosModal = document.getElementById("agregar-alumnos-modal");
 const btnAgregar = document.getElementById("btnAgregar");
 const btnAgregarAlumnos = document.getElementById("agregar-alumnos-btn");
 const btnCancelarAlumnos = document.getElementById("cancelar-alumnos-btn");
 const closeAgregarAlumnosModal = document.getElementById("closeAgregar");
+// Elementos modal editar horarios
+const editarHorariosModal = document.getElementById("editar-horarios-modal");
+const btnEditar = document.getElementById("btnEditar");
+const btnEditarHorarios = document.getElementById("editar-horarios-btn");
+const btnCancelarHorarios = document.getElementById("cancelar-horarios-btn");
+const closeEditarHorariosModal = document.getElementById("closeEditar");
+const containerHorarios = document.getElementById(
+  "horarios-disponibles-container"
+);
+// Elementos mensajes
 const mensajeError = document.getElementById("mensajeError");
 const mensajeExito = document.getElementById("mensajeExito");
 
@@ -49,6 +60,7 @@ const programas = {
 };
 
 let idClase;
+let horario;
 
 // ! mensaje de error
 function mostrarError(mensaje) {
@@ -170,11 +182,93 @@ function generarInputsAlumnos(alumnos) {
   };
 }
 
+async function fetchHorario() {
+  try {
+    const response = await fetch("/maestro/obtener-horario");
+    if (!response.ok) {
+      throw new Error("Error en la solicitud: " + response.status);
+    }
+    horario = await response.json();
+    generarInputsHorarios(horario.horario);
+  } catch (error) {
+    console.error("Error al recuperar el horario:", error);
+  }
+}
+
+function generarInputsHorarios(horario) {
+  containerHorarios.innerHTML = ""; // Limpiar contenedor
+
+  Object.keys(horario).forEach((dia) => {
+    const { horaInicio, horaFin } = horario[dia];
+
+    // Verificar que ambos horarios sean válidos
+    if (horaInicio && horaFin) {
+      // Crear contenedor para cada día
+      const div = document.createElement("div");
+      div.classList.add("dia-horario");
+
+      // Checkbox
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = `checkbox-${dia}`;
+      checkbox.name = dia;
+      checkbox.onchange = () => {
+        if (checkbox.checked) {
+          inputHoraInicio.removeAttribute("disabled");
+        } else {
+          inputHoraInicio.value = horaInicio;
+          inputHoraInicio.setAttribute("disabled", true);
+        }
+      };
+
+      // Etiqueta para el día
+      const label = document.createElement("label");
+      label.htmlFor = `checkbox-${dia}`;
+      label.textContent = dia.charAt(0).toUpperCase() + dia.slice(1);
+
+      // Etiqueta para el inicio
+      const horaI = document.createElement("label");
+      horaI.htmlFor = `input-${horaInicio}`;
+      horaI.textContent = "Hora de inicio de clase";
+
+      // Input de hora de inicio
+      const inputHoraInicio = document.createElement("input");
+      inputHoraInicio.setAttribute("disabled", true);
+      inputHoraInicio.type = "time";
+      inputHoraInicio.name = `horaInicio-${dia}`;
+      inputHoraInicio.min = horaInicio;
+      inputHoraInicio.max = horaFin;
+      inputHoraInicio.value = horaInicio;
+
+      // Agregar elementos al contenedor
+      const diaCheck = document.createElement("div");
+      diaCheck.style.display = "flex";
+      diaCheck.style.alignItems = "center";
+      diaCheck.style.margin = "1rem 0";
+      diaCheck.appendChild(checkbox);
+      diaCheck.appendChild(label);
+
+      div.appendChild(diaCheck);
+      div.appendChild(horaI);
+      div.appendChild(inputHoraInicio);
+
+      containerHorarios.appendChild(div);
+    }
+  });
+}
+
 function abrirModalAgregar() {
   agregarAlumnosModal.style.display = "block";
 }
 function cerrarModalAgregar() {
   agregarAlumnosModal.style.display = "none";
+}
+
+function abrirModalEditar() {
+  editarHorariosModal.style.display = "block";
+}
+function cerrarModalEditar() {
+  editarHorariosModal.style.display = "none";
 }
 
 function mostrarClase(clase) {
@@ -201,7 +295,7 @@ function mostrarClase(clase) {
 
       eliminarAlumno.onclick = async () => {
         if (confirm("¡Está seguro que quiere remover al alumno de la clase?")) {
-          console.log(alumno.id)
+          console.log(alumno.id);
           const response = await fetch(`/maestro/removerAlumno`, {
             method: "PUT",
             headers: {
@@ -210,8 +304,8 @@ function mostrarClase(clase) {
             body: JSON.stringify({ idClase: idClase, idAlumno: alumno.id }),
           });
           if (response.ok) {
-            liAlumno.remove()
-            eliminarAlumno.remove()
+            liAlumno.remove();
+            eliminarAlumno.remove();
             mostrarExito("Se eliminó al alumno correctamente");
           } else {
             mostrarError("Ocurrió un error al intentar remover al alumno");
@@ -232,7 +326,62 @@ function mostrarClase(clase) {
     fetchAlumnos(clase.nivel);
     abrirModalAgregar();
   };
+
+  btnEditar.onclick = () => {
+    fetchHorario();
+    abrirModalEditar();
+  };
 }
+
+btnEditarHorarios.addEventListener("click", async (event) => {
+  const inputsHoraInicio =
+    containerHorarios.querySelectorAll('input[type="time"]');
+  const inputsCheckbox = containerHorarios.querySelectorAll(
+    'input[type="checkbox"]'
+  );
+
+  // Crear un array con los horarios seleccionados
+  let horariosSeleccionados = [];
+  inputsCheckbox.forEach((checkbox, index) => {
+    if (checkbox.checked) {
+      const horaInicio = inputsHoraInicio[index].value; // Hora de inicio correspondiente
+      if (horaInicio) {
+        horariosSeleccionados.push({
+          dia: checkbox.name, // Nombre del día
+          horaInicio: horaInicio,
+        });
+      }
+    }
+  });
+  // Verifica si se seleccionaron horarios
+  if (horariosSeleccionados.length === 0) {
+    mostrarError("Por favor, seleccione al menos un horario.");
+    return;
+  }
+
+  try {
+    const response = await fetch("/maestro/actualizar-horario-clase", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        idClase: idClase,
+        horas: horariosSeleccionados,
+      }),
+    });
+
+    if (response.ok) {
+      mostrarExito("Horarios actualizados exitosamente");
+      location.reload();
+    } else {
+      const errorData = await response.json();
+      mostrarError("Error del servidor: " + errorData.message);
+    }
+  } catch {
+    mostrarError("Hubo un error al actualizar la clase. ");
+  }
+});
 
 btnCancelarAlumnos.onclick = () => {
   cerrarModalAgregar();
@@ -240,6 +389,14 @@ btnCancelarAlumnos.onclick = () => {
 
 closeAgregarAlumnosModal.onclick = () => {
   cerrarModalAgregar();
+};
+
+btnCancelarHorarios.onclick = () => {
+  cerrarModalEditar();
+};
+
+closeEditarHorariosModal.onclick = () => {
+  cerrarModalEditar();
 };
 
 document.addEventListener("DOMContentLoaded", fetchClaseDetalles);

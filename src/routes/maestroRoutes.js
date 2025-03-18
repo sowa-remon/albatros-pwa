@@ -204,6 +204,7 @@ router.put("/actualizar-curriculum", async (req, res) => {
 });
 
 router.put("/actualizar-horario", async (req, res) => {
+  console.log(req.body)
   const { horario } = req.body;
   const { id } = req.session.user;
   try {
@@ -213,6 +214,39 @@ router.put("/actualizar-horario", async (req, res) => {
     res.status(400).send({ message: "Error al actualizar el horario" });
   }
 });
+
+router.put("/actualizar-horario-clase", async (req, res) => {
+  console.log(req.body);
+  const { horas, idClase } = req.body;
+
+  // Validación de los datos recibidos
+  if (!horas || !idClase) {
+    return res.status(400).send({ message: "Los datos proporcionados son inválidos." });
+  }
+
+  if (!Array.isArray(horas) || horas.some(hora => !hora.dia || !hora.horaInicio)) {
+    return res.status(400).send({ message: "El formato de las horas es inválido." });
+  }
+
+  try {
+    const claseRef = firestore.collection("clases").doc(idClase);
+    const claseDoc = await claseRef.get();
+
+    // Verificar que la clase exista
+    if (!claseDoc.exists) {
+      return res.status(404).send({ message: "La clase no existe." });
+    }
+
+    // Actualizar las horas de la clase
+    await claseRef.update({ horas });
+
+    res.status(200).send({ message: "Horario actualizado exitosamente." });
+  } catch (error) {
+    console.error("Error al actualizar el horario:", error);
+    res.status(500).send({ message: "Error al actualizar el horario", error: error.message });
+  }
+});
+
 
 router.put("/agregarAlumnos", async (req, res) => {
   const { alumnos, idClase } = req.body; // Datos enviados desde el cliente

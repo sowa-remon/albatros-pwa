@@ -96,7 +96,7 @@
             </ul>
         </div>
         <div>
-            <button class="btn btn-naranja">Editar horarios</button>
+            <button class="btn btn-naranja" id="btnEditar">Editar horarios</button>
         </div>
       </div>
     </div>
@@ -117,6 +117,22 @@
             </div>
         </div>
 
+        
+    <div class="modal" id="editar-horarios-modal">
+      <div class="modal-content">
+              <div class="modal-header">
+                  <span class="close" id="closeEditar">&times;</span>
+                  <h2>Editar horarios de la clase</h2>      
+              </div>
+              <label for="dias-clase">Horarios disponibles: </label>
+              <div id="horarios-disponibles-container"></div>
+          
+              <div class="btns-doble">
+                  <button class="btn btn-naranja-2" id="cancelar-horarios-btn" style="margin-top: 1rem;">Cancelar</button>
+                  <button class="btn btn-marino" id="editar-horarios-btn" style="margin-top: 1rem;">Agregar</button>
+              </div>
+          </div>
+      </div>
 
     <script src="/js/script.js"></script>
     <script src="/js/maestro_js/detalle-clase.js"></script>
