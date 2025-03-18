@@ -28,7 +28,12 @@
             </button></li>
         </ul>
     </nav> 
-  <div id="detalle-alumno">
+        
+    <div id="mensajeError" class="mensaje-error"></div>
+    
+    <div id="mensajeExito" class="mensaje-exito"></div>
+
+  <div class="seccion-app" id="detalle-alumno">
     <form id="form-detalle-alumno" style="padding: 2rem 5rem;">
       <div class="titulo-seccion">
         <p>Datos del alumno</p>   
@@ -66,14 +71,14 @@
             <option value="12">Mantarraya (escolares)</option>
             <option value="13">Pez vela (escolares)</option>
             <option value="14">Albatros (escolares)</option>
-            <option value="14">Adulto</option>
+            <option value="15">Adulto</option>
           </select>    
         </div>
       </div>
       <label for="antecedentes">Antecedentes de salud:</label>
-      <textarea type="text" id="antecedentes" name="antecedentes" required><br><br></textarea>
+      <textarea type="text" id="antecedentes" name="antecedentes" required></textarea>
       <label for="restricciones">Restricciones médicas:</label>
-      <textarea type="text" id="restricciones" name="restricciones" required><br><br></textarea>
+      <textarea type="text" id="restricciones" name="restricciones" required></textarea>
       <div class="input-doble">
         <div style="margin-right: 1rem;">
           <label for="direccion">Dirección:</label>
@@ -128,6 +133,6 @@
     </form>
   </div>
   <script src="/js/script.js"></script>
-  <script src="/js/admin_js/alumno-detalles"></script>
+  <script src="/js/admin_js/alumno-detalles.js"></script>
 </body>
 </html>

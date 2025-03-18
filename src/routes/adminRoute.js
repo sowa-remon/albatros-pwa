@@ -97,6 +97,7 @@ router.post("/crearUsuarioAlumno", async (req, res) => {
   } = req.body;
   const tipo = "alumno";
   const estado = true;
+  const clase = ''
 
   // Verificar que el nombre de usuario y la contraseña estén presentes
   if (
@@ -166,6 +167,7 @@ router.post("/crearUsuarioAlumno", async (req, res) => {
       password,
       estado,
       tipo,
+      clase,
       evaluacion
     );
 

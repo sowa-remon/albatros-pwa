@@ -112,49 +112,6 @@ async function fetchHorario() {
   }
 }
 
-// Funciones para cálculo de horas de clase
-function calcularHoraFin(horaInicio, duracionMinutos) {
-  const [horas, minutos] = horaInicio.split(":").map(Number);
-  const nuevaHora = new Date();
-  nuevaHora.setHours(horas);
-  nuevaHora.setMinutes(minutos + duracionMinutos);
-
-  const horaFin = nuevaHora.toTimeString().slice(0, 5); // Formato HH:mm
-  return horaFin;
-}
-
-function validarDentroDeHorario(horarioMaestro, dia, horaInicio, horaFin) {
-  const { horaInicio: minHora, horaFin: maxHora } = horarioMaestro[dia];
-
-  return horaInicio >= minHora && horaFin <= maxHora;
-}
-
-function validarSinTraslapes(clases, dia, horaInicio, horaFin) {
-  return clases.every(
-    (clase) =>
-      clase.dia !== dia || // Día diferente, no hay conflicto
-      horaInicio >= clase.horaFin || // La nueva clase empieza después
-      horaFin <= clase.horaInicio // La nueva clase termina antes
-  );
-}
-
-function validarClase(horarioMaestro, clases, dia, nivel, horaInicio) {
-  const duracion = programas[nivel];
-  const horaFin = calcularHoraFin(horaInicio, duracion);
-
-  if (!validarDentroDeHorario(horarioMaestro, dia, horaInicio, horaFin)) {
-    mostrarError("La clase está fuera del horario permitido por el maestro.");
-    return false;
-  }
-
-  if (!validarSinTraslapes(clases, dia, horaInicio, horaFin)) {
-    console.error("La clase se traslapa con otra ya existente.");
-    return false;
-  }
-
-  return true; // Clase válida
-}
-
 function generarInputsHorarios(horario) {
   container.innerHTML = ""; // Limpiar contenedor
 
@@ -215,22 +172,6 @@ function generarInputsHorarios(horario) {
       container.appendChild(div);
     }
   });
-}
-
-function validarRango(horaInicio, horaFin, min, max) {
-  if (horaInicio < min || horaInicio > max) {
-    console.error(
-      `La hora de inicio (${horaInicio}) está fuera del rango permitido (${min} - ${max}).`
-    );
-    return false;
-  }
-  if (horaFin < min || horaFin > max) {
-    console.error(
-      `La hora de fin (${horaFin}) está fuera del rango permitido (${min} - ${max}).`
-    );
-    return false;
-  }
-  return true;
 }
 
 function mostrarClases(clases) {
@@ -304,7 +245,7 @@ function mostrarClases(clases) {
     eliminarClase.textContent = "Eliminar clase";
     eliminarClase.style.setProperty("--color", "#ef8122");
     eliminarClase.onclick = async () => {
-      if (confirm("¿Está seguro de que quiere eliminar ela clase?")) {
+      if (confirm("¿Está seguro de que quiere eliminar la clase?")) {
         const response = await fetch(`/maestro/eliminarClase/${clase.id}`, {
           method: "DELETE",
         });
@@ -312,7 +253,7 @@ function mostrarClases(clases) {
           mostrarExito("Clase eliminada.");
           fetchClases();
         } else {
-          mostrarError("UPS! Hubo un error al eliminar");
+          mostrarError("UPS! Ocurrió un error al eliminar la clase");
         }
       }
     };
@@ -356,7 +297,6 @@ cancelarRegistro.addEventListener("click", () => {
   }
 });
 
-// Formulario de registro y publicación de anuncio
 agregarClaseBtn.addEventListener("click", async (event) => {
   if (!nivel.value) {
     mostrarError("No ha ingresado el nivel de la clase.");

@@ -1,5 +1,7 @@
 class usuarioAlumno {
-    constructor(id, nombre, apellidos, fechaN, antecedentes, restricciones, direccion, telefono, contactoE, nivel, usuario, password, estado, tipo, evaluacion ={}) {
+    constructor(id, nombre, apellidos, fechaN, antecedentes, 
+        restricciones, direccion, telefono, contactoE, nivel,
+        usuario, password, estado, tipo, clase, evaluacion ={}) {
         this.id = id;
         this.nombre = nombre;
         this.apellidos  = apellidos;
@@ -14,6 +16,7 @@ class usuarioAlumno {
         this.password = password;
         this.estado = estado;
         this.tipo = tipo;
+        this.clase = clase;
         this.evaluacion = evaluacion;
     }
     
@@ -34,6 +37,7 @@ class usuarioAlumno {
             password: this.password,
             estado: this.estado,
             tipo: this.tipo,
+            clase: this.clase,
             evaluacion: this.evaluacion
         }
     }
@@ -42,7 +46,7 @@ class usuarioAlumno {
         const data = doc.data();
         return new usuarioAlumno(doc.id, data.nombre, data.apellidos, 
             data.fechaN, data.antecedentes, data.direccion, data.telefono, data.contactoE, 
-            data.nivel, data.usuario, data.password, data.estado, data.tipo,data.evaluacion);
+            data.nivel, data.usuario, data.password, data.estado, data.tipo, data.clase, data.evaluacion);
     }
 }
 

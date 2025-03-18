@@ -13,7 +13,33 @@ let totalAlumnos = document.getElementById("total-alumnos");
 const alumnoModal = document.getElementById("alumno-modal");
 const concentradoAlumnos = document.getElementById("concentrado-alumnos");
 const barraBusqueda = document.getElementById('barra-busqueda');
+
+const meError = document.getElementById("mensaje-error");
+const meExito = document.getElementById("mensaje-exito");
+
 let todosAlumnos = [];
+
+
+// ! mensaje de error
+function mostrarError(mensaje) {
+  meError.textContent = mensaje;
+  meError.style.display = "block";
+
+  setTimeout(() => {
+    me.style.display = "none";
+  }, 4500);
+}
+
+// * mensaje de éxito
+function mostrarExito(mensaje) {
+  meExito.textContent = mensaje;
+  meExito.style.display = "block";
+
+  setTimeout(() => {
+    meExito.style.display = "none";
+  }, 4500);
+}
+
 
 async function fetchAlumnos() {
   try {
@@ -105,10 +131,10 @@ function mostrarAlumnos(alumnos) {
             body: JSON.stringify({ id: alumno.id }),
           });
           if (response.ok) {
-            alert("Alumno dado de baja exitosamente");
+            mostrarExito("Alumno dado de baja exitosamente");
             fetchAlumnos();
           } else {
-            alert("Error al dar de baja al alumno");
+            mostrarError("Error al dar de baja al alumno");
           }
         }
       };
@@ -129,10 +155,10 @@ function mostrarAlumnos(alumnos) {
             body: JSON.stringify({ id: alumno.id }),
           });
           if (response.ok) {
-            alert("Alumno dado de alta exitosamente");
+            mostrarExito("Alumno dado de alta exitosamente");
             fetchAlumnos();
           } else {
-            alert("Error al dar de alta al alumno");
+            mostrarError("Error al dar de alta al alumno");
           }
         }
       };
@@ -177,19 +203,23 @@ window.onclick = function (event) {
   }
 };
 
+function limpiarCampos(){
+  nombre.value = "";
+  apellidos.value = "";
+  fechaN.value = "";
+  antecedentes.value = "";
+  restricciones.value = "";
+  direccion.value = "";
+  telefono.value = ""
+  contactoNombre.value = "";
+  contactoTelefono.value = "";
+  nivel.value = "";
+}
+
 // Cancela el registro de un alumno
 cancelarRegistro.addEventListener("click", () => {
   if (confirm("¿Está seguro de que quiere cancelar el registro?")) {
-    nombre.value = "";
-    apellidos.value = "";
-    fechaN.value = "";
-    antecedentes.value = "";
-    restricciones.value = "";
-    direccion.value = "";
-    telefono.value = ""
-    contactoNombre.value = "";
-    contactoTelefono.value = "";
-    nivel.value = "";
+    limpiarCampos()
     closeModal();
   }
 });
@@ -208,7 +238,7 @@ document
       !telefono.value ||
       !nivel.value
     ) {
-      console("Por favor, ingrese todos los campos");
+      mostrarError("Por favor, ingrese todos los campos");
       return;
     } else {
 
@@ -234,11 +264,12 @@ document
       });
 
       if (response.ok) {
-        alert("Alumno registrado exitosamente");
+        mostrarExito("Alumno registrado exitosamente");
+        limpiarCampos()
         fetchAlumnos()
         closeModal()
       } else {
-        alert("Error al registrar el alumno ?");
+        mostrarError("Error al registrar el alumno ?");
       }
     }
   });

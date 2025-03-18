@@ -55,16 +55,27 @@
         </li>
       </ul>
     </nav>
+            
+    <div id="mensajeError" class="mensaje-error"></div>
+    
+    <div id="mensajeExito" class="mensaje-exito"></div>
+
     <div class="seccion-app"
       id="detalle-clase"
     >
-      <div class="fechas-anuncio-detalle"">
+    <div class="fechas-anuncio-detalle"">
+      
+      <div style="display:flex;justify-content: baseline;">
+        <div id="icon-niveles"></div>
             <p id="nivel-clase"></p>
+      </div>
             <p id="duracion"></p>
       </div>
       
       <!-- ALUMNOS -->
-      <p><b>Alumnos: </b></p>
+      <div style="display:flex;justify-content: baseline;" class="marino">
+        <div id="icon-grupo"></div><p><b>Alumnos: </b></p>  
+      </div>
       <div class="fechas-anuncio-detalle" style="padding: 1rem;">
         <div>
             <ul id="alumnos">
@@ -76,7 +87,9 @@
       </div>
 
       <!-- HORAS -->
-      <p><b>Días de clase: </b></p>
+      <div style="display:flex;justify-content: baseline;" class="marino">
+        <div id="icon-horario"></div><p><b>Días de clase: </b></p>
+      </div>
       <div class="fechas-anuncio-detalle" style="padding: 1rem;">
         <div>
             <ul id="horarios">
@@ -98,8 +111,8 @@
                 <div id="alumnos-disponibles-container"></div>
             
                 <div class="btns-doble">
-                    <button class="btn btn-naranja-2" id="cancelar-clase" style="margin-top: 1rem;">Cancelar</button>
-                    <button class="btn btn-marino" id="agregar-clase-btn" style="margin-top: 1rem;">Agregar</button>
+                    <button class="btn btn-naranja-2" id="cancelar-alumnos-btn" style="margin-top: 1rem;">Cancelar</button>
+                    <button class="btn btn-marino" id="agregar-alumnos-btn" style="margin-top: 1rem;">Agregar</button>
                 </div>
             </div>
         </div>

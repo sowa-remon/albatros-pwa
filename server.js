@@ -1,8 +1,6 @@
-const bodyParser = require('body-parser')
 const dotenv = require('dotenv').config() 
 const express = require('express')
 const session = require('express-session')
-const multer = require('multer')
 const path = require('path')
 const authRoutes = require('./src/routes/auth')
 const adminRoutes = require('./src/routes/adminRoute')
@@ -11,11 +9,11 @@ const { firestore } = require("./src/configs/firebaseAdmin");
 
 const os = require('os');
 
-// RAM usada (en MB)
-console.log('Memoria utilizada (MB):', (os.totalmem() - os.freemem()) / (1024 * 1024));
+// // RAM usada (en MB)
+// console.log('Memoria utilizada (MB):', (os.totalmem() - os.freemem()) / (1024 * 1024));
 
-// CPU información
-console.log('Cores disponibles:', os.cpus().length);
+// // CPU información
+// console.log('Cores disponibles:', os.cpus().length);
 
 
 const httpPort = process.env.PORT
