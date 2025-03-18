@@ -118,24 +118,43 @@ router.get("/alumnos/:nivel", async (req, res) => {
   }
 });
 
-// Eliminar clase
 router.delete("/eliminarClase/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const claseRef = firestore.collection("clases").doc(id);
     const claseDoc = await claseRef.get();
+
     if (!claseDoc.exists) {
       return res.status(404).send({ message: "La clase no existe" });
     }
 
+    // Obtener los alumnos de la clase
+    const claseData = claseDoc.data();
+    const alumnos = claseData.alumnos || []; // Lista de alumnos de la clase
+
+    // Crear un batch para actualizar a los alumnos
+    const batch = firestore.batch();
+
+    alumnos.forEach((alumno) => {
+      const alumnoRef = firestore.collection("usuarios").doc(alumno.id);
+      batch.update(alumnoRef, { clase: "" }); // Eliminar el ID de la clase del campo "clase"
+    });
+
+    // Ejecutar las actualizaciones en el batch
+    await batch.commit();
+
+    // Eliminar el documento de la clase
     await claseRef.delete();
-    res.status(200).send({ message: "Clase eliminada exitosamente" });
+
+    res.status(200).send({ message: "Clase y referencias de alumnos eliminadas exitosamente." });
   } catch (error) {
+    console.error("Error al eliminar la clase:", error);
     res
       .status(500)
       .send({ message: "Error al eliminar la clase", error: error.message });
   }
 });
+
 
 // * Rutas POST
 router.post("/crear-clase", async (req, res) => {
