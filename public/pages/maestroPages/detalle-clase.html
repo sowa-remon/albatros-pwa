@@ -76,10 +76,21 @@
       <div style="display:flex;justify-content: baseline;" class="marino">
         <div id="icon-grupo"></div><p><b>Alumnos: </b></p>  
       </div>
-      <div class="fechas-anuncio-detalle" style="padding: 1rem;">
-        <div>
-            <ul id="alumnos">
-            </ul>
+      <div class="fechas-anuncio-detalle" style="padding-bottom: 1rem;">
+        <div id="tabla-borde" style="border-radius: 10px; overflow: hidden; border: 4px solid #2e3192; height: fit-content; width: fit-content; margin: 0 1rem 1rem 0;">
+            <table>
+              <tbody id="alumnos">
+                <tr id="tr-no">
+                  <th>Nombre completo</th>
+
+                  <!-- 
+                  <th>Antecedentes</th>
+                  <th>Restricciones</th>
+                  -->
+                  <th>Remover alumno</th>
+                </tr>
+              </tbody>
+            </table>
         </div>
         <div>
             <button class="btn btn-marino" id="btnAgregar">Agregar Alumnos</button>
@@ -90,7 +101,7 @@
       <div style="display:flex;justify-content: baseline;" class="marino">
         <div id="icon-horario"></div><p><b>Días de clase: </b></p>
       </div>
-      <div class="fechas-anuncio-detalle" style="padding: 1rem;">
+      <div class="fechas-anuncio-detalle" style="padding-bottom: 1rem;">
         <div>
             <ul id="horarios">
             </ul>
@@ -99,7 +110,24 @@
             <button class="btn btn-naranja" id="btnEditar">Editar horarios</button>
         </div>
       </div>
+      
+      <!-- EVALUACIÓN TÉCNICA -->
+      <div style="display:flex;justify-content: baseline;" class="marino">
+        <div id="icon-evaluacion"></div><p><b>Evaluación técnica </b></p>
+      </div>
+      <div class="fechas-anuncio-detalle" style="padding-bottom: 1rem;">
+        <div>
+          <p><b>Última evaluación: </b><span id="ultimaEv"></span></p>
+          <p><b>Siguiente evaluación: </b><span id="siguienteEv"></span></p>
+        </div>
+        <div>
+            <button class="btn btn-marino" id="btnEvaluacion">Evaluación</button>
+            <button class="btn btn-marino" id="btnResultados" style="display: none;">Resultados de la evaluación</button>
+        </div>
+      </div>
     </div>
+    </div>
+
 
     <div class="modal" id="agregar-alumnos-modal">
         <div class="modal-content">
@@ -114,8 +142,8 @@
                     <button class="btn btn-naranja-2" id="cancelar-alumnos-btn" style="margin-top: 1rem;">Cancelar</button>
                     <button class="btn btn-marino" id="agregar-alumnos-btn" style="margin-top: 1rem;">Agregar</button>
                 </div>
-            </div>
-        </div>
+          </div>
+    </div>
 
         
     <div class="modal" id="editar-horarios-modal">
@@ -133,6 +161,46 @@
               </div>
           </div>
       </div>
+
+      <div class="modal" id="evaluacion-modal">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" id="closeEvaluacion">&times;</span>
+                    <h2>Asignar evaluación</h2>      
+                </div>
+                <p id="grupo"></p>
+                <label for="">Alumnos a quienes aplica: </label>
+                <div id="alumnos-evaluacion-container"></div>
+                <label for="fecha-evaluacion">Fecha de evaluación</label>
+                <input type="month" id="mes-evaluacion" lang="es">
+                <div id="dias-evaluacion-container">
+                <select name="diasEvaluacion" id="diasEvaluacion"></select>
+
+                </div>
+            
+                <div class="btns-doble">
+                    <button class="btn btn-naranja-2" id="cancelar-evaluacion-btn" style="margin-top: 1rem;">Cancelar</button>
+                    <button class="btn btn-marino" id="asignar-evaluacion-btn" style="margin-top: 1rem;">Asignar</button>
+                </div>
+          </div>
+    </div>
+    
+    <div class="modal" id="resultados-modal">
+      <form class="modal-content" id="form-resultados">
+              <div class="modal-header">
+                  <span class="close" id="closeResultados">&times;</span>
+                  <h2>Resultados de la evaluación</h2>      
+              </div>
+              <label for="">Alumnos: </label>
+              <div id="alumnos-resultados-container">
+
+              </div>
+              <div class="btns-doble">
+                  <button type="reset" class="btn btn-naranja-2" id="cancelar-resultados-btn" style="margin-top: 1rem;">Cancelar</button>
+                  <button type="submit" class="btn btn-marino" id="asignar-resultados-btn" style="margin-top: 1rem;">Guardar</button>
+              </div>
+            </form>
+  </div>
 
     <script src="/js/script.js"></script>
     <script src="/js/maestro_js/detalle-clase.js"></script>

@@ -146,7 +146,11 @@ router.delete("/eliminarClase/:id", async (req, res) => {
     // Eliminar el documento de la clase
     await claseRef.delete();
 
-    res.status(200).send({ message: "Clase y referencias de alumnos eliminadas exitosamente." });
+    res
+      .status(200)
+      .send({
+        message: "Clase y referencias de alumnos eliminadas exitosamente.",
+      });
   } catch (error) {
     console.error("Error al eliminar la clase:", error);
     res
@@ -154,7 +158,6 @@ router.delete("/eliminarClase/:id", async (req, res) => {
       .send({ message: "Error al eliminar la clase", error: error.message });
   }
 });
-
 
 // * Rutas POST
 router.post("/crear-clase", async (req, res) => {
@@ -169,6 +172,10 @@ router.post("/crear-clase", async (req, res) => {
     const usuario = await firestore.collection("usuarios").doc(id).get();
     const maestro = usuario.data();
 
+    const alumnos = [];
+    const ultimaEv = "";
+    const siguienteEv = "";
+
     const claseRef = firestore.collection("clases").doc();
     const claseId = claseRef.id;
 
@@ -181,8 +188,10 @@ router.post("/crear-clase", async (req, res) => {
         nombre: maestro.nombre,
         apellidos: maestro.apellidos,
       },
+      alumnos,
+      ultimaEv,
+      siguienteEv,
     };
-    console.log(clase);
 
     await claseRef.set(clase);
     res.status(200).send({ message: "Clase creada exitosamente" });
@@ -204,7 +213,7 @@ router.put("/actualizar-curriculum", async (req, res) => {
 });
 
 router.put("/actualizar-horario", async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   const { horario } = req.body;
   const { id } = req.session.user;
   try {
@@ -221,11 +230,18 @@ router.put("/actualizar-horario-clase", async (req, res) => {
 
   // Validación de los datos recibidos
   if (!horas || !idClase) {
-    return res.status(400).send({ message: "Los datos proporcionados son inválidos." });
+    return res
+      .status(400)
+      .send({ message: "Los datos proporcionados son inválidos." });
   }
 
-  if (!Array.isArray(horas) || horas.some(hora => !hora.dia || !hora.horaInicio)) {
-    return res.status(400).send({ message: "El formato de las horas es inválido." });
+  if (
+    !Array.isArray(horas) ||
+    horas.some((hora) => !hora.dia || !hora.horaInicio)
+  ) {
+    return res
+      .status(400)
+      .send({ message: "El formato de las horas es inválido." });
   }
 
   try {
@@ -243,10 +259,14 @@ router.put("/actualizar-horario-clase", async (req, res) => {
     res.status(200).send({ message: "Horario actualizado exitosamente." });
   } catch (error) {
     console.error("Error al actualizar el horario:", error);
-    res.status(500).send({ message: "Error al actualizar el horario", error: error.message });
+    res
+      .status(500)
+      .send({
+        message: "Error al actualizar el horario",
+        error: error.message,
+      });
   }
 });
-
 
 router.put("/agregarAlumnos", async (req, res) => {
   const { alumnos, idClase } = req.body; // Datos enviados desde el cliente
@@ -308,9 +328,7 @@ router.put("/removerAlumno", async (req, res) => {
     const claseSnapshot = await claseRef.get();
 
     if (!claseSnapshot.exists) {
-      return res
-        .status(404)
-        .send({ message: "Clase no encontrada." });
+      return res.status(404).send({ message: "Clase no encontrada." });
     }
 
     // Obtener el array actual de alumnos
@@ -351,6 +369,68 @@ router.put("/removerAlumno", async (req, res) => {
     });
   }
 });
+router.put("/asignar-evaluacion", async (req, res) => {
+  const { alumnos, idClase, fecha } = req.body;
 
+  // Validaciones iniciales
+  if (!idClase || !alumnos || alumnos.length === 0) {
+    return res.status(400).send({ 
+      message: "ID de clase o lista de alumnos no proporcionados." 
+    });
+  }
+
+  try {
+    const claseRef = firestore.collection("clases").doc(idClase);
+
+    // Obtener el documento de la clase
+    const claseDoc = await claseRef.get();
+    if (!claseDoc.exists) {
+      return res.status(404).send({
+        message: "Clase no encontrada.",
+      });
+    }
+
+    const claseData = claseDoc.data();
+    const alumnosActuales = claseData.alumnos || []; // Lista de alumnos en Firestore
+
+    // Crear el batch para realizar actualizaciones
+    const batch = firestore.batch();
+
+    // Actualizar los datos de los alumnos y la clase
+    for (const alumno of alumnos) {
+      const alumnoRef = firestore.collection("usuarios").doc(alumno.id);
+
+      // Actualizar el alumno en Firestore
+      batch.update(alumnoRef, {
+        "evaluacion.fechaEv": fecha,
+      });
+
+      // Modificar el campo `alumnos` de la clase
+      const nuevosAlumnos = alumnosActuales.map((actual) => {
+        if (actual.id === alumno.id) {
+          return { ...actual, evaluar: true }; // Cambiar `evaluar` a true
+        }
+        return actual; // Dejar el resto sin cambios
+      });
+
+      // Actualizar el documento de la clase
+      batch.update(claseRef, {
+        alumnos: nuevosAlumnos,
+        siguienteEv: fecha,
+      });
+    }
+
+    // Ejecutar el batch
+    await batch.commit();
+
+    res.status(200).json({ message: "Se asignó correctamente." });
+  } catch (error) {
+    console.error("Error al asignar:", error);
+    res.status(500).send({
+      message: "Error al asignar la evaluación.",
+      error: error.message,
+    });
+  }
+});
 
 module.exports = router;

@@ -192,9 +192,9 @@ function mostrarClases(clases) {
     const alumnos = document.createElement("ul");
     alumnos.innerHTML = "<b><p>Alumnos: </p></b>";
 
-    if (!clase.alumnos) {
+    if (clase.alumnos.length===0) {
       alumnos.innerHTML = "<b><p>Alumnos: </p></b>No se han agregado alumnos.";
-    } else {
+    } else if (clase.alumnos.length != 0){
       clase.alumnos.forEach((alumno) => {
         const liAlumno = document.createElement("li");
         liAlumno.textContent = `${alumno.nombre} ${alumno.apellidos}`;
@@ -230,12 +230,12 @@ function mostrarClases(clases) {
 
     const botones = document.createElement("div");
     botones.className = "btns-doble";
-    botones.style.marginTop = "2rem";
 
     const abrirVista = document.createElement("button");
     abrirVista.className = "btn-texto";
     abrirVista.textContent = "Abrir vista detallada";
     abrirVista.style.setProperty("--color", "#2e3192")
+    abrirVista.style.margin = '1rem 0'
     abrirVista.onclick =  () => {
       window.location.href = `/maestro/detalle-clase?id=${clase.id}`;
     }
@@ -243,7 +243,9 @@ function mostrarClases(clases) {
     const eliminarClase = document.createElement("button");
     eliminarClase.className = "btn-texto";
     eliminarClase.textContent = "Eliminar clase";
-    eliminarClase.style.setProperty("--color", "#ef8122");
+    eliminarClase.style.setProperty("--color", "#ef8122")
+    eliminarClase.style.margin = '1rem 0'
+
     eliminarClase.onclick = async () => {
       if (confirm("¿Está seguro de que quiere eliminar la clase?")) {
         const response = await fetch(`/maestro/eliminarClase/${clase.id}`, {

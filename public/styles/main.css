@@ -130,6 +130,15 @@
   height: auto;
 }
 
+#icon-evaluacion {
+  background-image: url(../images/icons/icon-evaluacion.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
 body {
   min-width: 400px;
 }
@@ -329,6 +338,11 @@ body {
 
 .marino {
   color: #2e3192;
+}
+
+.negro {
+  color: #1d1e1e;
+  font-weight: 400;
 }
 
 hr {
