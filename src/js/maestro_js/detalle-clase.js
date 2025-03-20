@@ -95,6 +95,7 @@ let idClase;
 let horario;
 let fechaEvaluacion;
 let alumnosEvaluados;
+let nivelActual;
 
 // ! mensaje de error
 function mostrarError(mensaje) {
@@ -127,6 +128,7 @@ async function fetchClaseDetalles() {
     }
     const clase = await response.json();
     idClase = clase.id;
+    nivelActual = clase.nivel
     mostrarClase(clase);
   } catch (error) {
     console.error("Error al recuperar los detalles del anuncio:", error);
@@ -349,7 +351,16 @@ function abrirModalEvaluacion() {
 function cerrarModalEvaluacion() {
   evaluacionModal.style.display = "none";
 }
-function abrirModalResultados() {
+function abrirModalResultados(a) {
+  const alumnoEvaluado = document.getElementById('alumnoEvaluado')
+  const nivelSelect = document.getElementById('nivelSelect')
+  const observaciones = document.getElementById('observaciones')
+  const idAlumno = document.getElementById('idAlumno')
+  idAlumno.style.display ='none'
+  idAlumno.textContent = a.id
+  alumnoEvaluado.textContent = a.nombre
+  nivelSelect.value = nivelActual
+
   resultadosModal.style.display = "block";
 }
 function cerrarModalResultados() {
@@ -372,8 +383,6 @@ function mostrarClase(clase) {
     siguienteEvElemento.innerHTML = 'No se ha asignado'
   } else{
     siguienteEvElemento.innerHTML = clase.siguienteEv
-    btnResultados.style.display = 'block'
-    btnEvaluacion.style.display = 'none'
   }
 
   clase.horas.forEach((hora) => {
@@ -439,19 +448,18 @@ function mostrarClase(clase) {
       alumnnosEvaluacionContainer.appendChild(alumnoCheck);
 
       if(alumno.evaluar == true){
-        const divAlumnoEvaluado = document.createElement('div')
-        const alumnoEvaluadoNombre = document.createElement('p')
-        alumnoEvaluadoNombre.textContent = alumno.nombre + ' ' + alumno.apellidos
-        const textareaResultados = document.createElement('textarea')
-        const checkSubeNivel = document.createElement('input')
-        checkSubeNivel.type = 'checkbox'
-        checkSubeNivel.textContent = 'Sube de nivel'
+        console.log("evaluar a ", alumno.nombre)
+        const tdEvaluar = document.createElement('td')
+        const btnEvaluar = document.createElement('button')
+        btnEvaluar.textContent = 'Añadir ev.'
+        tdEvaluar.appendChild(btnEvaluar)
 
-        divAlumnoEvaluado.appendChild(alumnoEvaluadoNombre)
-        divAlumnoEvaluado.appendChild(checkSubeNivel)
-        divAlumnoEvaluado.appendChild(textareaResultados)
-        const alumnosResultadosContainer = document.getElementById('alumnos-resultados-container')
-        alumnosResultadosContainer.appendChild(divAlumnoEvaluado)
+        trAlumno.appendChild(tdEvaluar)
+
+        btnEvaluar.onclick = () =>{
+          abrirModalResultados(alumno)
+        }
+
       }
     });
   }
@@ -480,10 +488,6 @@ function mostrarClase(clase) {
       generarDiasEvaluacion(mesEvaluacion, clase.horas);
     };
     abrirModalEvaluacion();
-  };
-  btnResultados.onclick = () => {
-    abrirModalResultados()
-
   }
 }
 
@@ -618,10 +622,41 @@ closeResultadosModal.onclick = () => {
   cerrarModalResultados();
 };
 
-formResultados.onsubmit = (e) =>{
+formResultados.onsubmit = async (e) =>{
   e.preventDefault()
 
-  const formData = new FormData(formResultados)
-  console.log(formData.entries)
+  if(observaciones.value==''){
+    mostrarError('Por favor incluye las observaciones')
+    return;
+  }
+
+  const data = {
+    idAlumno: idAlumno.textContent,
+    idClase: idClase,
+    nivel: nivelSelect.value,
+    observaciones: observaciones.value
+  }
+  console.log(data)
+  try {
+    const response = await fetch("/maestro/publicar-evaluacion", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data
+      ),
+    });
+
+    if (response.ok) {
+      mostrarExito("Se asignó la evaluación");
+      location.reload();
+    } else {
+      const errorData = await response.json();
+      mostrarError("Error del servidor: " + errorData.message);
+    }
+  } catch {
+    mostrarError("Hubo un error al asignar la evaluación. ");
+  }
+
 }
 document.addEventListener("DOMContentLoaded", fetchClaseDetalles);

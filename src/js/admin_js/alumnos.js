@@ -124,7 +124,7 @@ function mostrarAlumnos(alumnos) {
       btnBaja.onclick = async () => {
         if (confirm("¿Está seguro de que quiere dar de baja a este alumno?")) {
           const response = await fetch(`/admin/bajaAlumno/${alumno.id}`, {
-            method: "POST",
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
             },
@@ -148,7 +148,7 @@ function mostrarAlumnos(alumnos) {
       btnAlta.onclick = async () => {
         if (confirm("¿Está seguro de que quiere dar de alta a este alumno?")) {
           const response = await fetch(`/admin/altaAlumno/${alumno.id}`, {
-            method: "POST",
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
             },

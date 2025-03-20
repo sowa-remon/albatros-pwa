@@ -214,18 +214,18 @@ function mostrarClases(clases) {
     evaluaciones.className = "fila-a-columna";
 
     const ultimaEv = document.createElement("p");
-    if (!clase.ultimaEvaluacion) {
+    if (clase.ultimaEv=='') {
       ultimaEv.innerHTML =
         "<b><p>Última evaluación: </p></b>No se ha evaluado.";
     } else {
-      ultimaEv.innerHTML = `<b><p>Última evaluación: </p></b>${clase.ultimaEvaluacion}`;
+      ultimaEv.innerHTML = `<b><p>Última evaluación: </p></b>${clase.ultimaEv}`;
     }
     const siguienteEv = document.createElement("p");
-    if (!clase.siguienteEvaluacion) {
+    if (clase.siguienteEv=='') {
       siguienteEv.innerHTML =
         "<b><p>Siguiente evaluación: </p></b>No se ha asignado.";
     } else {
-      siguienteEv.innerHTML = `<b><p>Siguiente evaluación: </p></b>${clase.siguienteEvaluacion}`;
+      siguienteEv.innerHTML = `<b><p>Siguiente evaluación: </p></b>${clase.siguienteEv}`;
     }
 
     const botones = document.createElement("div");

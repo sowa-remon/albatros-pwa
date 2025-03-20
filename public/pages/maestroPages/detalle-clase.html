@@ -82,12 +82,12 @@
               <tbody id="alumnos">
                 <tr id="tr-no">
                   <th>Nombre completo</th>
-
                   <!-- 
                   <th>Antecedentes</th>
                   <th>Restricciones</th>
                   -->
                   <th>Remover alumno</th>
+                  <th>Evaluación</th>
                 </tr>
               </tbody>
             </table>
@@ -122,7 +122,6 @@
         </div>
         <div>
             <button class="btn btn-marino" id="btnEvaluacion">Evaluación</button>
-            <button class="btn btn-marino" id="btnResultados" style="display: none;">Resultados de la evaluación</button>
         </div>
       </div>
     </div>
@@ -191,10 +190,31 @@
                   <span class="close" id="closeResultados">&times;</span>
                   <h2>Resultados de la evaluación</h2>      
               </div>
-              <label for="">Alumnos: </label>
-              <div id="alumnos-resultados-container">
-
+              <p>Alumno:</p>
+              <p class="negro" id="alumnoEvaluado"></p>
+              <p id="idAlumno"></p>
+              <div>
+                <label for="nivelSelect">Sube a nivel:</label>
+                <select name="nivelSelect" id="nivelSelect">
+            <option value="1">Bebé (matronatación)</option>
+            <option value="2">Cangrejo (bebés)</option>
+            <option value="3">Caballito de mar (bebés)</option>
+            <option value="4">Estrella de mar (preescolares)</option>
+            <option value="5">Patito (preescolares)</option>
+            <option value="6">Ajolote (preescolares)</option>
+            <option value="7">Pecesito (preescolares)</option>
+            <option value="8">Tortuga (escolares)</option>
+            <option value="9">Rana (escolares)</option>
+            <option value="10">Pingüino (escolares)</option>
+            <option value="11">Delfín (escolares)</option>
+            <option value="12">Mantarraya (escolares)</option>
+            <option value="13">Pez vela (escolares)</option>
+            <option value="14">Albatros (escolares)</option>
+            <option value="15">Adulto</option>
+                </select>
               </div>
+              Observaciones
+              <textarea name="observaciones" id="observaciones"></textarea>
               <div class="btns-doble">
                   <button type="reset" class="btn btn-naranja-2" id="cancelar-resultados-btn" style="margin-top: 1rem;">Cancelar</button>
                   <button type="submit" class="btn btn-marino" id="asignar-resultados-btn" style="margin-top: 1rem;">Guardar</button>

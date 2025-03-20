@@ -184,7 +184,7 @@ router.post("/crearUsuarioAlumno", async (req, res) => {
 });
 
 // Dar de baja alumno
-router.post("/bajaAlumno/:id", async (req, res) => {
+router.put("/bajaAlumno/:id", async (req, res) => {
   try {
     const alumnoRef = firestore.collection("usuarios").doc(req.params.id);
     await alumnoRef.update({ estado: false });
@@ -197,7 +197,7 @@ router.post("/bajaAlumno/:id", async (req, res) => {
 });
 
 // Dar de alta alumno
-router.post("/altaAlumno/:id", async (req, res) => {
+router.put("/altaAlumno/:id", async (req, res) => {
   try {
     const alumnoRef = firestore.collection("usuarios").doc(req.params.id);
     await alumnoRef.update({ estado: true });
@@ -236,21 +236,20 @@ router.put("/actualizarAlumno/:id", async (req, res) => {
   }
 });
 
-router.post("/publicarEvaluacion/:id", async (req, res) => {
+router.put("/publicarEvaluacion/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { observaciones } = req.body;
+    const { observaciones } = req.body
+    
     const alumnoRef = firestore.collection("usuarios").doc(id);
-    if (alumnoRef.evaluacion.aprobado == true) {
-      res.status(200).send({ message: "La evaluación ya ha sido publicada" });
-    }
+    
     await alumnoRef.update({ "evaluacion.aprobado": true });
     await alumnoRef.update({ "evaluacion.observaciones": observaciones });
     res.status(200).send({ message: "Evaluación publicada exitosamente" });
   } catch (error) {
     res
       .status(400)
-      .send({ message: "Error al dar de alta alumno", error: error.message });
+      .send({ message: "Error al publicacr evaluacion", error: error.message });
   }
 });
 

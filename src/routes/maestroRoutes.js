@@ -146,11 +146,9 @@ router.delete("/eliminarClase/:id", async (req, res) => {
     // Eliminar el documento de la clase
     await claseRef.delete();
 
-    res
-      .status(200)
-      .send({
-        message: "Clase y referencias de alumnos eliminadas exitosamente.",
-      });
+    res.status(200).send({
+      message: "Clase y referencias de alumnos eliminadas exitosamente.",
+    });
   } catch (error) {
     console.error("Error al eliminar la clase:", error);
     res
@@ -259,12 +257,10 @@ router.put("/actualizar-horario-clase", async (req, res) => {
     res.status(200).send({ message: "Horario actualizado exitosamente." });
   } catch (error) {
     console.error("Error al actualizar el horario:", error);
-    res
-      .status(500)
-      .send({
-        message: "Error al actualizar el horario",
-        error: error.message,
-      });
+    res.status(500).send({
+      message: "Error al actualizar el horario",
+      error: error.message,
+    });
   }
 });
 
@@ -294,6 +290,7 @@ router.put("/agregarAlumnos", async (req, res) => {
           id: alumno.id,
           nombre: alumno.nombre,
           apellidos: alumno.apellidos,
+          evaluar: false
         }),
       });
     });
@@ -369,13 +366,14 @@ router.put("/removerAlumno", async (req, res) => {
     });
   }
 });
+
 router.put("/asignar-evaluacion", async (req, res) => {
   const { alumnos, idClase, fecha } = req.body;
 
   // Validaciones iniciales
   if (!idClase || !alumnos || alumnos.length === 0) {
-    return res.status(400).send({ 
-      message: "ID de clase o lista de alumnos no proporcionados." 
+    return res.status(400).send({
+      message: "ID de clase o lista de alumnos no proporcionados.",
     });
   }
 
@@ -430,6 +428,88 @@ router.put("/asignar-evaluacion", async (req, res) => {
       message: "Error al asignar la evaluación.",
       error: error.message,
     });
+  }
+});
+
+router.put("/publicar-evaluacion", async (req, res) => {
+  const { idAlumno, idClase, nivel, observaciones } = req.body;
+
+  try {
+    const batch = firestore.batch();
+
+    // Referencias a las colecciones
+    const alumnoRef = firestore.collection("usuarios").doc(idAlumno);
+    const claseRef = firestore.collection("clases").doc(idClase);
+
+    // Obtener datos del alumno
+    const alumnoDoc = await alumnoRef.get();
+    if (!alumnoDoc.exists) {
+      return res.status(404).send({ message: "El alumno no existe." });
+    }
+
+    const maestro = req.session.user;
+
+    const maestroDoc = await firestore
+      .collection("usuarios")
+      .doc(maestro.id)
+      .get();
+
+    const maestroData = maestroDoc.data();
+
+    const maestroNombreCompleto = `${maestroData.nombre} ${maestroData.apellidos}`;
+
+    // Actualizar campos en el alumno
+    batch.update(alumnoRef, {
+      "nivel": nivel,
+      "evaluacion.maestro": maestroNombreCompleto,
+      "evaluacion.observaciones": observaciones,
+      "clase": ""
+    });
+
+    // Obtener datos de la clase
+    const claseDoc = await claseRef.get();
+    if (!claseDoc.exists) {
+      return res.status(404).send({ message: "La clase no existe." });
+    }
+
+    const claseData = claseDoc.data();
+    const alumnosActuales = claseData.alumnos || [];
+
+    // Eliminar al alumno del array de alumnos
+    const nuevosAlumnos = alumnosActuales.filter(
+      (alumno) => alumno.id !== idAlumno
+    );
+
+    // Revisar si quedan alumnos con evaluar == true
+    const quedanAlumnosPorEvaluar = nuevosAlumnos.some(
+      (alumno) => alumno.evaluar === true
+    );
+
+    // Actualizar la clase en Firestore
+    if (!quedanAlumnosPorEvaluar) {
+      batch.update(claseRef, {
+        alumnos: nuevosAlumnos,
+        ultimaEv: claseData.siguienteEv || "",
+        siguienteEv: "", // Vaciar este campo
+      });
+    } else {
+      batch.update(claseRef, {
+        alumnos: nuevosAlumnos,
+      });
+    }
+
+    // Ejecutar el batch
+    await batch.commit();
+
+    res.status(200).send({ message: "Evaluación publicada correctamente." });
+  } catch (error) {
+    console.error("Error al publicar evaluación:", error);
+    res
+      .status(500)
+      .send({
+        message: "Error al publicar la evaluación.",
+        error: error.message,
+      });
   }
 });
 
