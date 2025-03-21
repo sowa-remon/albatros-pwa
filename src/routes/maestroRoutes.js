@@ -40,7 +40,7 @@ router.get("/obtener-horario", async (req, res) => {
   } catch (error) {
     res.status(400).send({ message: "Error al obtener el horario" });
   }
-});
+})
 
 router.get("/clases", async (req, res) => {
   const { id } = req.session.user;
@@ -89,26 +89,23 @@ router.get("/clase/:id", async (req, res) => {
 });
 
 router.get("/alumnos/:nivel", async (req, res) => {
-  const { nivel } = req.params; // Obtener el nivel de la clase enviado en la ruta
+  const { nivel } = req.params
 
   try {
-    // Consultar alumnos donde "clase" sea null y "nivel" sea igual al especificado
     const alumnosSnapshot = await firestore
       .collection("usuarios")
-      .where("tipo", "==", "alumno") // Asegurarse de filtrar solo alumnos
-      .where("clase", "==", "") // Filtrar donde no tengan clase asignada
+      .where("tipo", "==", "alumno") 
+      .where("clase", "==", "") 
       .where("estado", "==", true)
-      .where("nivel", "==", nivel) // Filtrar por el nivel especificado
+      .where("nivel", "==", nivel)
       .get();
 
-    // Mapear los datos de los documentos
     const alumnos = alumnosSnapshot.docs.map((doc) => ({
       id: doc.id,
       nombre: doc.data().nombre,
       apellidos: doc.data().apellidos,
     }));
 
-    // Enviar los datos de los alumnos
     res.status(200).json(alumnos);
   } catch (error) {
     console.error("Error al obtener alumnos:", error);
@@ -128,22 +125,18 @@ router.delete("/eliminarClase/:id", async (req, res) => {
       return res.status(404).send({ message: "La clase no existe" });
     }
 
-    // Obtener los alumnos de la clase
     const claseData = claseDoc.data();
-    const alumnos = claseData.alumnos || []; // Lista de alumnos de la clase
-
-    // Crear un batch para actualizar a los alumnos
+    const alumnos = claseData.alumnos || []; 
+    
     const batch = firestore.batch();
 
     alumnos.forEach((alumno) => {
       const alumnoRef = firestore.collection("usuarios").doc(alumno.id);
-      batch.update(alumnoRef, { clase: "" }); // Eliminar el ID de la clase del campo "clase"
+      batch.update(alumnoRef, { clase: "" }); 
     });
 
-    // Ejecutar las actualizaciones en el batch
     await batch.commit();
 
-    // Eliminar el documento de la clase
     await claseRef.delete();
 
     res.status(200).send({
@@ -159,23 +152,22 @@ router.delete("/eliminarClase/:id", async (req, res) => {
 
 // * Rutas POST
 router.post("/crear-clase", async (req, res) => {
-  console.log(req.body);
   const { nivel, horarios } = req.body;
   const { id } = req.session.user;
 
   if (!id) {
-    return res.status(400).send({ message: "El usuario no está autenticado." });
+    return res.status(400).send({ message: "El usuario no está autenticado." })
   }
   try {
-    const usuario = await firestore.collection("usuarios").doc(id).get();
-    const maestro = usuario.data();
+    const usuario = await firestore.collection("usuarios").doc(id).get()
+    const maestro = usuario.data()
 
-    const alumnos = [];
-    const ultimaEv = "";
-    const siguienteEv = "";
+    const alumnos = []
+    const ultimaEv = ""
+    const siguienteEv = ""
 
-    const claseRef = firestore.collection("clases").doc();
-    const claseId = claseRef.id;
+    const claseRef = firestore.collection("clases").doc()
+    const claseId = claseRef.id
 
     const clase = {
       id: claseId,

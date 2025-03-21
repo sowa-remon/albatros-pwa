@@ -19,7 +19,6 @@ const meExito = document.getElementById("mensaje-exito");
 
 let todosAlumnos = [];
 
-
 // ! mensaje de error
 function mostrarError(mensaje) {
   meError.textContent = mensaje;
