@@ -5,6 +5,7 @@ const fechaN = document.getElementById("fechaN");
 const curriculum = document.getElementById("curriculum");
 const direccion = document.getElementById("direccion");
 const telefono = document.getElementById("telefono");
+const horario = document.getElementById("horario");
 
 async function fetchMaestroDetalles() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -23,6 +24,20 @@ async function fetchMaestroDetalles() {
     curriculum.value = maestro.curriculum;
     direccion.value = maestro.direccion;
     telefono.value = maestro.telefono;
+
+    console.log(maestro.horario);
+    const horarios = maestro.horario 
+
+    // Mostrar los días con horarios definidos
+    for (const dia in horarios) {
+      const { horaInicio, horaFin } = horarios[dia];
+      if (horaInicio && horaFin) {
+        const diaHorario = document.createElement('li')
+        diaHorario.textContent =`${dia}: De ${horaInicio} a ${horaFin}`
+
+        horario.appendChild(diaHorario)
+      }
+    }
 
     const originalValues = {
       nombre: maestro.nombre,

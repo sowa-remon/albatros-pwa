@@ -96,6 +96,7 @@ let horario;
 let fechaEvaluacion;
 let alumnosEvaluados;
 let nivelActual;
+let alumnosDisponibles;
 
 // ! mensaje de error
 function mostrarError(mensaje) {
@@ -153,6 +154,7 @@ function generarInputsAlumnos(alumnos) {
   const contenedor = document.getElementById("alumnos-disponibles-container");
   contenedor.innerHTML = ""; // Limpiar contenido previo
 
+  console.log(alumnos)
   if (alumnos.length == 0) {
     contenedor.innerHTML = "No hay alumnos disponibles";
     btnAgregarAlumnos.setAttribute("disabled", true);
@@ -451,6 +453,9 @@ function mostrarClase(clase) {
         console.log("evaluar a ", alumno.nombre)
         const tdEvaluar = document.createElement('td')
         const btnEvaluar = document.createElement('button')
+        btnEvaluar.className = 'btn-texto'        
+        btnEvaluar.style.setProperty("--color", "#2e3192");
+
         btnEvaluar.textContent = 'Añadir ev.'
         tdEvaluar.appendChild(btnEvaluar)
 

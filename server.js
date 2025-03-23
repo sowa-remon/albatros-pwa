@@ -139,7 +139,7 @@ app.get("/anuncio/:id", async (req, res) => {
   }
 });
 
-app.get("/todas-las-clases", isAuthenticated(), async (req, res) => {
+app.get("/todas-las-clases", isAuthenticated, async (req, res) => {
   try {
     const clasesSnapshot = await firestore.collection("clases").get();
     const clases = clasesSnapshot.docs.map((doc) => ({

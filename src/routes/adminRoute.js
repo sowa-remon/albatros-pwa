@@ -53,21 +53,25 @@ router.get("/detalle-maestro", (req, res) => {
 
 // * Rutas post
 // Crear usuario admininstrador
-router.post("/crearUsuarioAdmin", upload.none(), async (req, res) => {
-  const { usuario, password } = req.body;
+router.post("/crearUsuarioAdmin", async (req, res) => {
+  const { usuario } = req.body;
   const tipo = "administrador";
 
   // Verificar que el nombre de usuario y la contraseña estén presentes
-  if (!usuario || !password) {
+  if (!usuario) {
     return res
       .status(400)
-      .send({ message: "Nombre de usuario y contraseña son requeridos" });
+      .send({ message: "Nombre de usuario es requerido" });
   }
 
   try {
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-    const usuarioAdmin = new UsuarioAdmin(null, usuario, hashedPassword, tipo);
+    const hashedPassword = await bcrypt.hash(usuario, saltRounds);
+    
     const userDocRef = firestore.collection("usuarios").doc();
+    const idAdmin = userDocRef.id;
+    
+    const usuarioAdmin = new UsuarioAdmin(idAdmin, usuario, hashedPassword, tipo);
+    
     await userDocRef.set(usuarioAdmin.toFirestore());
 
     res
@@ -187,7 +191,12 @@ router.post("/crearUsuarioAlumno", async (req, res) => {
 router.put("/bajaAlumno/:id", async (req, res) => {
   try {
     const alumnoRef = firestore.collection("usuarios").doc(req.params.id);
-    await alumnoRef.update({ estado: false });
+    await alumnoRef.update({ estado: false, clase: '', 
+      "evaluacion.fechaEv": '',
+      "evaluacion.maestro": '',
+      "evaluacion.observaciones": '',
+      "evaluacion.aprobado": false
+   });
     res.status(200).send({ message: "Alumno dado de baja exitosamente" });
   } catch (error) {
     res

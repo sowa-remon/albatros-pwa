@@ -104,7 +104,7 @@ router.get("/alumnos/:nivel", async (req, res) => {
       id: doc.id,
       nombre: doc.data().nombre,
       apellidos: doc.data().apellidos,
-    }));
+    }))
 
     res.status(200).json(alumnos);
   } catch (error) {
@@ -113,7 +113,7 @@ router.get("/alumnos/:nivel", async (req, res) => {
       .status(400)
       .send({ message: "Error al obtener alumnos", error: error.message });
   }
-});
+})
 
 router.delete("/eliminarClase/:id", async (req, res) => {
   const { id } = req.params;

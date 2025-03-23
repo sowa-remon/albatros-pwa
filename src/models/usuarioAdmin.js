@@ -9,6 +9,7 @@ class usuarioAdmin {
     // Método para transformar un documento de Firestore en un objeto de la clase
     toFirestore(){
         return {
+            id: this.id,
             usuario: this.usuario,
             password: this.password,
             tipo: this.tipo

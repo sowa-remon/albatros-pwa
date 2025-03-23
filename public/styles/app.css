@@ -364,7 +364,7 @@ dialog {
   overflow: auto;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
-  animation: fadein 0.5s, fadeout 0.5s 4s;
+  animation: fadein 0.5s;
 }
 
 .modal-header {

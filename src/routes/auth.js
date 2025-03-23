@@ -87,6 +87,7 @@ router.get("/perfil", async (req, res) => {
 router.put("/actualizar-password", async (req, res) => {
   const { password } = req.body;
   const { id } = req.session.user;
+  console.log(req.body, req.session.user)
 
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);

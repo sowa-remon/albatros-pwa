@@ -1,80 +1,143 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Detalles del Maestro</title>
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/app.css">
-  <link
-  rel="shortcut icon"
-  href="/icons/albatros-icon.svg"
-  type="image/x-icon"
-/>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalles del Maestro</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/app.css" />
+    <link
+      rel="shortcut icon"
+      href="/icons/albatros-icon.svg"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
     <nav class="app-navbar">
-        <ul>
-            <li class="navbar-item"><button class="btn-icon btn-marino" id="regresar">
-                <svg width="25" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M46.4635 16.4634L22.9302 40L46.4635 63.5367L53.5368 56.4634L37.0702 40L53.5368 23.5367L46.4635 16.4634Z" fill="#F8FBFF"/>
-                </svg>
-            </button>
-            </li>
-            <li class="navbar-item">
-                <span class="titulo-app marino">Detalle del maestro</span>
-            </li>
-            <li class="navbar-item"><button class="btn-icon btn-naranja" id="logout">
-                <svg width="25" viewBox="2 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M32.3332 27.0832V22.9165H13.5832V16.6665L3.1665 24.9998L13.5832 33.3332V27.0832H32.3332Z" fill="#F8FBFF"/>
-                    <path d="M40.6667 6.25H21.9167C19.6188 6.25 17.75 8.11875 17.75 10.4167V18.75H21.9167V10.4167H40.6667V39.5833H21.9167V31.25H17.75V39.5833C17.75 41.8812 19.6188 43.75 21.9167 43.75H40.6667C42.9646 43.75 44.8333 41.8812 44.8333 39.5833V10.4167C44.8333 8.11875 42.9646 6.25 40.6667 6.25Z" fill="#F8FBFF"/>
-                </svg>
-            </button></li>
-        </ul>
-    </nav> 
-  <div id="detalle-maestro">
-    <form id="form-detalle-maestro" style="padding: 2rem 5rem;">
+      <ul>
+        <li class="navbar-item">
+          <button class="btn-icon btn-marino" id="regresar">
+            <svg
+              width="25"
+              viewBox="0 0 75 75"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M46.4635 16.4634L22.9302 40L46.4635 63.5367L53.5368 56.4634L37.0702 40L53.5368 23.5367L46.4635 16.4634Z"
+                fill="#F8FBFF"
+              />
+            </svg>
+          </button>
+        </li>
+        <li class="navbar-item">
+          <span class="titulo-app marino">Detalle del maestro</span>
+        </li>
+        <li class="navbar-item">
+          <button class="btn-icon btn-naranja" id="logout">
+            <svg
+              width="25"
+              viewBox="2 0 50 50"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M32.3332 27.0832V22.9165H13.5832V16.6665L3.1665 24.9998L13.5832 33.3332V27.0832H32.3332Z"
+                fill="#F8FBFF"
+              />
+              <path
+                d="M40.6667 6.25H21.9167C19.6188 6.25 17.75 8.11875 17.75 10.4167V18.75H21.9167V10.4167H40.6667V39.5833H21.9167V31.25H17.75V39.5833C17.75 41.8812 19.6188 43.75 21.9167 43.75H40.6667C42.9646 43.75 44.8333 41.8812 44.8333 39.5833V10.4167C44.8333 8.11875 42.9646 6.25 40.6667 6.25Z"
+                fill="#F8FBFF"
+              />
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <section id="detalle-maestro" class="seccion-app">
+      <form id="form-detalle-maestro">
+        <div class="titulo-seccion">
+          <div style="display: flex; justify-content: baseline">
+            <div id="icon-maestro"></div>
+            <p>Datos del maestro</p>
+          </div>
+        </div>
+        <div class="input-doble">
+          <div style="margin-right: 1rem">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required /><br /><br />
+          </div>
+          <div>
+            <label for="apellidos">Apellidos:</label>
+            <input
+              type="text"
+              id="apellidos"
+              name="apellidos"
+              required
+            /><br /><br />
+          </div>
+        </div>
+        <div class="input-doble">
+          <div style="margin-right: 1rem">
+            <label for="fechaN">Fecha de Nacimiento:</label>
+            <input type="date" id="fechaN" name="fechaN" required /><br /><br />
+          </div>
+        </div>
+        <label for="curriculum">Currículum</label>
+        <textarea
+          type="text"
+          id="curriculum"
+          name="curriculum"
+          disabled
+        ></textarea>
+        <div class="input-doble">
+          <div style="margin-right: 1rem">
+            <label for="direccion">Dirección:</label>
+            <input
+              type="text"
+              id="direccion"
+              name="direccion"
+              required
+            /><br /><br />
+          </div>
+          <div>
+            <label for="telefono">Teléfono:</label>
+            <input
+              type="text"
+              id="telefono"
+              name="telefono"
+              required
+            /><br /><br />
+          </div>
+        </div>
+        <div class="btns-doble">
+          <button
+            type="button"
+            class="btn btn-naranja"
+            id="cancelar"
+            style="margin-top: 1rem"
+          >
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-marino" style="margin-top: 1rem">
+            Guardar cambios
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <hr />
+    <section class="seccion-app">
       <div class="titulo-seccion">
-        <p>Datos del maestro</p>   
-      </div>
-      <div class="input-doble">
-        <div style="margin-right: 1rem;">
-          <label for="nombre">Nombre:</label>
-          <input type="text" id="nombre" name="nombre" required><br><br>  
-        </div>
-        <div>
-          <label for="apellidos">Apellidos:</label>
-          <input type="text" id="apellidos" name="apellidos" required><br><br>  
+        <div style="display: flex; justify-content: baseline">
+          <div id="icon-horario"></div>
+          <p>Horario del maestro</p>
         </div>
       </div>
-      <div class="input-doble">
-        <div style="margin-right: 1rem;">     
-          <label for="fechaN">Fecha de Nacimiento:</label>
-          <input type="date" id="fechaN" name="fechaN" required><br><br>
-        </div>
-      </div>
-      <label for="curriculum">Currículum</label>
-      <textarea type="text" id="curriculum" name="curriculum" disabled></textarea>
-      <div class="input-doble">
-        <div style="margin-right: 1rem;">
-          <label for="direccion">Dirección:</label>
-          <input type="text" id="direccion" name="direccion" required><br><br>    
-        </div>
-        <div>
-          <label for="telefono">Teléfono:</label>
-          <input type="text" id="telefono" name="telefono" required><br><br>    
-        </div>
-      </div>
-       <div class="btns-doble">
-        <button type="button" class="btn btn-naranja" id="cancelar"style="margin-top: 1rem;">Cancelar</button>
-        <button type="submit" class="btn btn-marino" style="margin-top: 1rem;">Guardar cambios</button>
-      </div>
-    </form>
-  </div>
+      <ul id="horario"></ul>
+    </section>
 
-  <hr>
-
-  <script src="/js/script.js"></script>
-  <script src="/js/admin_js/maestro-detalles.js"></script>
-</body>
+    <script src="/js/script.js"></script>
+    <script src="/js/admin_js/maestro-detalles.js"></script>
+  </body>
 </html>

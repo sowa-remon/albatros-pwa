@@ -215,8 +215,8 @@ dialog {
   background-color: rgb(0, 0, 0); 
   background-color: rgba(0, 0, 0, 0.4); 
   
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 4s;
-  animation: fadein 0.5s, fadeout 0.5s 4s;
+  -webkit-animation: fadein 0.5s;
+  animation: fadein 0.5s
 }
 
 .modal-header {

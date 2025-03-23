@@ -64,6 +64,10 @@
             </li>
         </ul>
     </nav>
+    <div id="mensajeError" class="mensaje-error"></div>
+    
+    <div id="mensajeExito" class="mensaje-exito"></div>
+
     
     <section class="seccion-app">
         <div class="titulo-seccion">
@@ -111,17 +115,8 @@
                     <div style="margin-right: 1rem;">
                         <input type="password" id="password-maestro" value="*********" disabled>            
                     </div>
-                    <div style="display: grid; justify-self: end;">
-                        <button class="btn btn-marino" id="editar-password" type="button">
-                        Cambiar contraseña
-                        </button>
-                        <button class="btn btn-naranja-2" id="cancelar-password" style="display: none; margin: 1rem 1rem 0 0" type="button">
-                            Cancelar
-                        </button>               
-                        <button class="btn btn-marino" id="guardar-password" style="display: none; margin: 1rem 1rem 0 0" type="button">
-                            Guardar 
-                        </button>
-                    </div> 
+                    <button id="abrirPasswordModal" class="btn btn-marino" style="margin: 1rem">Cambiar contraseña</button>
+    
                 </div>
         </div>
         <br>
@@ -245,8 +240,34 @@
             </form>
         </div>
   <br><br><br><br><br><br><br><br><br>
+  
+     <!-- Cambiar contraseña -->
+     <div id="password-modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close" id="closepass">&times;</span>
+            <h2>Cambiar contraseña</h2>
+          </div>
+          <form id="cambiarPassword">
+            <label for="pass1">Nueva contraseña:</label>
+            <input type="password" id="pass1" name="pass1" />
+  
+            <label for="pass2">Repite la contraseña:</label>
+            <input type="password" id="pass2" name="pass2" />
+  
+            <div class="btns-doble">
+              <button class="btn btn-naranja-2" id="cancelarPassword" type="reset">
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-marino">Guardar</button>
+            </div>
+          </form>
+        </div>
+       </div>
+  
     </section>
     <script src="/js/script.js"></script>
+    <script src="/js/cambioPass.js"></script>
     <script src="/js/maestro_js/maestro-panel.js"></script>
 </body>
 </body>

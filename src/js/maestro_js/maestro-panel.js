@@ -3,11 +3,7 @@ const usuarioMaestro = document.getElementById("usuario-maestro");
 const curriculum = document.getElementById("curriculum");
 const editarCurriculum = document.getElementById("editar-curriculum");
 const guardarCurriculum = document.getElementById("guardar-curriculum");
-const cancelarCurriculum = document.getElementById("cancelar-curriculum");
-const editarPass = document.getElementById("editar-password");
-const guardarPass = document.getElementById("guardar-password");
-const cancelarPass = document.getElementById("cancelar-password");
-const passwordMaestro = document.getElementById("password-maestro");
+const cancelarCurriculum = document.getElementById("cancelar-curriculum")
 const editarHorario = document.getElementById("editar-horario");
 const btnsHorario = document.getElementById("btns-horario");
 const guardarHorario = document.getElementById("guardar-horario");
@@ -75,18 +71,6 @@ function mostrarPerfil(user) {
   horaFinSabado.value = user.horario.sabado.horaFin;
 }
 
-function validarPass(pass) {
-  if (pass.length < 8) {
-    alert("La contraseña debe tener al menos 8 caracteres");
-    return false;
-  }
-  if (pass.length > 20) {
-    alert("La contraseña debe tener menos de 20 caracteres");
-    return false;
-  }
-  return true;
-}
-
 editarCurriculum.addEventListener("click", () => {
   editarCurriculum.style.display = "none";
   guardarCurriculum.style.display = "block";
@@ -125,46 +109,7 @@ guardarCurriculum.addEventListener("click", async () => {
   } else {
     alert("Error al actualizar el currículum");
   }
-});
-
-editarPass.addEventListener("click", () => {
-  editarPass.style.display = "none";
-  guardarPass.style.display = "block";
-  cancelarPass.style.display = "block";
-  passwordMaestro.value = "";
-  passwordMaestro.removeAttribute("disabled");
-  passwordMaestro.focus();
-});
-
-cancelarPass.addEventListener("click", () => {
-  editarPass.style.display = "block";
-  guardarPass.style.display = "none";
-  cancelarPass.style.display = "none";
-  passwordMaestro.setAttribute("disabled", true);
-  passwordMaestro.value = "*********";
-});
-
-guardarPass.addEventListener("click", async () => {
-  if (!validarPass(passwordMaestro.value)) {
-    return false;
-  }
-  const response = await fetch("/auth/actualizar-password", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ password: passwordMaestro.value }),
-  });
-  if (response.ok) {
-    alert("Contraseña actualizada exitosamente");
-    editarPass.style.display = "block";
-    guardarPass.style.display = "none";
-    cancelarPass.style.display = "none";
-    fetchPerfil();
-  } else {
-    alert("Error al actualizar la contraseña");
-  }
-});
+})
 
 function activaChecks(){
   lunes.removeAttribute("disabled")
@@ -375,7 +320,6 @@ guardarHorario.addEventListener("click", async (e) => {
     },
   };
 
-  console.log(horario)
 
   if (!validarHorario(horario)) {
     console.log("entra a validar")

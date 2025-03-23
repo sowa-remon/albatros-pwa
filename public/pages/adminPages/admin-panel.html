@@ -136,7 +136,64 @@
         </svg>
         <p style="align-self: center; margin: 0">Maestros</p>
       </button>
+
+      <button id="abrirPasswordModal" class="btn btn-marino" style="margin: 1rem">Cambiar contraseña</button>
+      <button id="abrirAdminModal" class="btn btn-naranja" style="margin: 1rem">Agregar administrador</button>
+            
+    <div id="mensajeError" class="mensaje-error"></div>
+    
+    <div id="mensajeExito" class="mensaje-exito"></div>
+
     </section>
+
+     <!-- Cambiar contraseña -->
+     <div id="password-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close" id="closepass">&times;</span>
+          <h2>Cambiar contraseña</h2>
+        </div>
+        <form id="cambiarPassword">
+          <label for="pass1">Nueva contraseña:</label>
+          <input type="password" id="pass1" name="pass1" />
+
+          <label for="pass2">Repite la contraseña:</label>
+          <input type="password" id="pass2" name="pass2" />
+
+          <div class="btns-doble">
+            <button class="btn btn-naranja-2" id="cancelarPassword" type="reset">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-marino">Guardar</button>
+          </div>
+        </form>
+      </div>
+     </div>
+
+           <!-- Agregar admin -->
+     <div id="admin-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close" id="closeAdmin">&times;</span>
+          <h2>Agregar usuario administrador</h2>
+        </div>
+        <form id="agregarAdmin">
+          <label for="usuarioAdmin">Nombre de usuario</label>
+          <input type="text" id="usuario" name="usuario" />
+
+          <p class="negro"><b>Nota:</b> al registrar a los usuarios (cualquier tipo), la contraseña de acceso es la misma que el usuario</p>
+
+          <div class="btns-doble">
+            <button class="btn btn-naranja-2" id="cancelarAdmin" type="reset">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-marino">Agregar usuario</button>
+          </div>
+        </form>
+      </div></div>
+
   </body>
   <script src="/js/script.js"></script>
+  <script src="/js/cambioPass.js"></script>
+  <script src="/js/admin_js/admin-panel.js"></script>
 </html>
