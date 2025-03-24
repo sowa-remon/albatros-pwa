@@ -195,28 +195,28 @@ body {
 
 dialog {
   position: fixed;
-  
+
   overflow: auto; /* Permite scroll si el contenido es largo */
   height: 90vh;
 }
 
-.modal{
-  display: none; 
+.modal {
+  display: none;
 }
 
 .modal {
   position: fixed;
-  z-index: 1; 
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; 
-  height: 100%; 
-  overflow: auto; 
-  background-color: rgb(0, 0, 0); 
-  background-color: rgba(0, 0, 0, 0.4); 
-  
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+
   -webkit-animation: fadein 0.5s;
-  animation: fadein 0.5s
+  animation: fadein 0.5s;
 }
 
 .modal-header {
@@ -245,6 +245,21 @@ dialog {
   font-weight: 600;
 }
 
+.borde-tabla {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 4px solid #2e3192;
+  margin: 0 1rem 1rem 0;
+}
+
+.video-contenido{
+  width: 30%;
+  height: 30%;
+  border-radius: 10px;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+}
+
 .input-doble {
   display: flex;
 }
@@ -266,7 +281,7 @@ dialog {
 .contenido-card {
   border: solid 3px $marino;
   border-radius: 10px;
-  margin: 0 3rem 2rem 3rem;
+  margin-bottom: 3rem;
 }
 
 .card-encabezado {
@@ -410,7 +425,7 @@ dialog {
   transition: 0.5s ease;
 }
 
-.fila-horario{
+.fila-horario {
   margin-bottom: 1rem;
   min-width: min-content;
   padding: 1rem;
@@ -419,15 +434,15 @@ dialog {
   display: grid;
 }
 
-.fila-horario input{
+.fila-horario input {
   margin-right: 1rem;
 }
 
-.fila-a-columna{
+.fila-a-columna {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  ul{
+  ul {
     padding: 0;
     margin: 0 1rem;
     text-overflow: ellipsis;
@@ -435,12 +450,12 @@ dialog {
   }
 }
 
-.columna-a-fila{
+.columna-a-fila {
   display: flex;
   justify-content: space-around;
 }
 
-table{
+table {
   border-collapse: collapse;
   border-spacing: 0;
   border-style: hidden;
@@ -449,16 +464,17 @@ table{
   @include sombra-2;
 }
 
-th, td{
+th,
+td {
   padding: 10px;
   border: 2px solid $marino;
   text-align: center;
 }
 
-tr:hover{
-  background-color: rgba($color: $marino, $alpha: .2);
+tr:hover {
+  background-color: rgba($color: $marino, $alpha: 0.2);
 }
-#tr-no:hover{
+#tr-no:hover {
   background-color: transparent;
 }
 
@@ -470,9 +486,9 @@ tr:hover{
     grid-template-columns: 1fr;
   }
   .seccion-app {
-    padding: 1rem
-  }  
-  .columna-a-fila{
+    padding: 1rem;
+  }
+  .columna-a-fila {
     flex-direction: column;
   }
 }
@@ -516,10 +532,10 @@ tr:hover{
     flex-direction: column-reverse;
   }
   .fila-horario {
-    grid-template-columns: 1fr ;
+    grid-template-columns: 1fr;
   }
   .seccion-app {
-    padding: 1rem
+    padding: 1rem;
   }
 }
 
@@ -542,7 +558,6 @@ tr:hover{
     grid-template-columns: 1fr auto auto;
   }
 }
-
 
 // * Tamaño mínimo para tablets/laptops en modo landscape
 @media (min-width: 960px) {
@@ -577,8 +592,8 @@ tr:hover{
     flex-direction: column;
     margin: 0.5rem;
   }
-  
-.fila-horario {
-  grid-template-columns: 1fr auto auto;
-}
+
+  .fila-horario {
+    grid-template-columns: 1fr auto auto;
+  }
 }

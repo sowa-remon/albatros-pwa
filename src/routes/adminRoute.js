@@ -35,6 +35,11 @@ router.get("/maestros", (req, res) => {
     path.join(__dirname, "../../public/pages/adminPages/maestros.html")
   );
 });
+router.get("/administradores", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../../public/pages/adminPages/administradores.html")
+  );
+});
 router.get("/anuncios", (req, res) => {
   res.sendFile(
     path.join(__dirname, "../../public/pages/adminPages/anuncios.html")
@@ -50,28 +55,38 @@ router.get("/detalle-maestro", (req, res) => {
     path.join(__dirname, "../../public/pages/adminPages/maestro-detalles.html")
   );
 });
+router.get("/tabla-concentrado", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../../public/pages/adminPages/niveles-tecnicos.html")
+  );
+});
 
 // * Rutas post
 // Crear usuario admininstrador
 router.post("/crearUsuarioAdmin", async (req, res) => {
   const { usuario } = req.body;
   const tipo = "administrador";
+  const activo = true;
 
   // Verificar que el nombre de usuario y la contraseña estén presentes
   if (!usuario) {
-    return res
-      .status(400)
-      .send({ message: "Nombre de usuario es requerido" });
+    return res.status(400).send({ message: "Nombre de usuario es requerido" });
   }
 
   try {
     const hashedPassword = await bcrypt.hash(usuario, saltRounds);
-    
+
     const userDocRef = firestore.collection("usuarios").doc();
     const idAdmin = userDocRef.id;
-    
-    const usuarioAdmin = new UsuarioAdmin(idAdmin, usuario, hashedPassword, tipo);
-    
+
+    const usuarioAdmin = new UsuarioAdmin(
+      idAdmin,
+      usuario,
+      hashedPassword,
+      tipo,
+      activo
+    );
+
     await userDocRef.set(usuarioAdmin.toFirestore());
 
     res
@@ -101,7 +116,7 @@ router.post("/crearUsuarioAlumno", async (req, res) => {
   } = req.body;
   const tipo = "alumno";
   const estado = true;
-  const clase = ''
+  const clase = "";
 
   // Verificar que el nombre de usuario y la contraseña estén presentes
   if (
@@ -145,12 +160,10 @@ router.post("/crearUsuarioAlumno", async (req, res) => {
     "." +
     fechaCadena.split("-")[2] +
     fechaCadena.split("-")[1];
-  console.log("Usuario: ", usuario);
   const usuarioNormalized = usuario
     .normalize("NFD")
     .replace(/([aeio])\u0301|(u)[\u0301\u0308]/gi, "$1$2")
     .normalize();
-  console.log("Usuario normalizado: ", usuarioNormalized);
   try {
     const password = await bcrypt.hash(usuarioNormalized, saltRounds);
 
@@ -191,12 +204,14 @@ router.post("/crearUsuarioAlumno", async (req, res) => {
 router.put("/bajaAlumno/:id", async (req, res) => {
   try {
     const alumnoRef = firestore.collection("usuarios").doc(req.params.id);
-    await alumnoRef.update({ estado: false, clase: '', 
-      "evaluacion.fechaEv": '',
-      "evaluacion.maestro": '',
-      "evaluacion.observaciones": '',
-      "evaluacion.aprobado": false
-   });
+    await alumnoRef.update({
+      estado: false,
+      clase: "",
+      "evaluacion.fechaEv": "",
+      "evaluacion.maestro": "",
+      "evaluacion.observaciones": "",
+      "evaluacion.aprobado": false,
+    });
     res.status(200).send({ message: "Alumno dado de baja exitosamente" });
   } catch (error) {
     res
@@ -248,10 +263,10 @@ router.put("/actualizarAlumno/:id", async (req, res) => {
 router.put("/publicarEvaluacion/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { observaciones } = req.body
-    
+    const { observaciones } = req.body;
+
     const alumnoRef = firestore.collection("usuarios").doc(id);
-    
+
     await alumnoRef.update({ "evaluacion.aprobado": true });
     await alumnoRef.update({ "evaluacion.observaciones": observaciones });
     res.status(200).send({ message: "Evaluación publicada exitosamente" });
@@ -277,6 +292,22 @@ router.get("/lista-alumnos", async (req, res) => {
     res
       .status(400)
       .send({ message: "Error al obtener alumnos", error: error.message });
+  }
+});
+
+router.get("/lista-admins", async (req, res) => {
+  try {
+    const adminsSnapshot = await firestore
+      .collection("usuarios")
+      .where("tipo", "==", "administrador")
+      .orderBy("activo", "desc")
+      .get();
+    const admins = adminsSnapshot.docs.map((doc) => doc.data());
+    res.status(200).json(admins);
+  } catch (error) {
+    res
+      .status(400)
+      .send({ message: "Error al obtener los alumnos", error: error.message });
   }
 });
 
@@ -335,7 +366,6 @@ router.get("/lista-contenidos", async (req, res) => {
 
 // *** MAESTROS
 router.post("/crearUsuarioMaestro", async (req, res) => {
-  console.log(req.body);
   const { nombre, apellidos, fechaN, direccion, telefono } = req.body;
   const tipo = "maestro";
   const estado = true;
@@ -385,7 +415,6 @@ router.post("/crearUsuarioMaestro", async (req, res) => {
       horario,
       curriculum
     );
-    console.log(usuarioMaestro);
 
     await userDocRef.set(usuarioMaestro.toFirestore());
 
@@ -400,7 +429,7 @@ router.post("/crearUsuarioMaestro", async (req, res) => {
 });
 
 // Dar de baja maestro
-router.post("/bajaMaestro/:id", async (req, res) => {
+router.put("/bajaMaestro/:id", async (req, res) => {
   try {
     const maestroRef = firestore.collection("usuarios").doc(req.params.id);
     await maestroRef.update({ estado: false });
@@ -414,7 +443,7 @@ router.post("/bajaMaestro/:id", async (req, res) => {
 });
 
 // Dar de alta maestro
-router.post("/altaMaestro/:id", async (req, res) => {
+router.put("/altaMaestro/:id", async (req, res) => {
   try {
     const maestroRef = firestore.collection("usuarios").doc(req.params.id);
     await maestroRef.update({ estado: true });
@@ -490,6 +519,57 @@ router.get("/lista-maestros", async (req, res) => {
   }
 });
 
+router.post(
+  "/subir-video-contenido",
+  upload.single("video"),
+  async (req, res) => {
+    const { id } = req.body;
+
+    try {
+      // Obtener referencia al documento de Firestore
+      const contenidoRef = firestore.collection("contenidos").doc(id);
+      const contenidoDoc = await contenidoRef.get();
+
+      if (!contenidoDoc.exists) {
+        return res.status(404).send({ message: "El contenido no existe." });
+      }
+
+      const archivo = req.file;
+      const nombreArchivo = `videos-contenidos/${Date.now()}_${archivo.originalname}`;
+      
+      // Subir al almacenamiento de Firebase
+      const archivoSubido = bucket.file(nombreArchivo);
+      await archivoSubido.save(archivo.buffer, {
+        metadata: {
+          contentType: archivo.mimetype,
+        },
+      });
+
+      // Usar getSignedUrl para generar una URL pública válida
+      const [url] = await archivoSubido.getSignedUrl({
+        action: "read",
+        expires: "03-09-2200", // La fecha de expiración de la URL (puedes ajustarla)
+      });
+
+      // Actualizar el campo "video" en Firestore con la URL del archivo
+      await contenidoRef.update({
+        video: url,
+      });
+
+      res.status(201).send({
+        message: "Video agregado exitosamente",
+        url,
+      });
+    } catch (error) {
+      console.error("Error al agregar el video:", error);
+      res
+        .status(500)
+        .send({ message: "Error al agregar el video", error: error.message });
+    }
+  }
+);
+
+
 // *** ANUNCIOS
 router.post("/crearAnuncio", upload.single("imagen"), async (req, res) => {
   const { titulo, contenido, duracion, tipo } = req.body;
@@ -545,10 +625,10 @@ router.post("/crearAnuncio", upload.single("imagen"), async (req, res) => {
 
       // Usar getSignedUrl para generar una URL pública válida
       const [url] = await archivoSubido.getSignedUrl({
-        action: 'read',
-        expires: '03-09-2491', // La fecha de expiración de la URL (se puede ajustar)
+        action: "read",
+        expires: "03-09-2200", // La fecha de expiración de la URL (se puede ajustar)
       });
-      
+
       anuncioData.imagen = url; // Guardar esta URL en Firestore
     }
 
@@ -582,25 +662,23 @@ router.delete("/eliminarAnuncio/:id", async (req, res) => {
 
     // Verificar si el anuncio tiene imagen antes de intentar eliminarla
     if (anuncio.imagen) {
-      console.log(anuncio.imagen)
       try {
         // Comprobar si la URL de la imagen tiene un formato válido
         const imagenUrl = anuncio.imagen;
         if (imagenUrl) {
-          const imagenPath = imagenUrl.split("?")[0]
-          console.log("imagen",imagenPath)
-          const imagen2 = imagenPath.split(".app/")[1]
-          console.log("imagen2", imagen2)
+          const imagenPath = imagenUrl.split("?")[0];
+          const imagen2 = imagenPath.split(".app/")[1];
           const archivo = admin.storage().bucket().file(imagen2);
 
           // Intentar eliminar la imagen del bucket
           await archivo.delete();
           console.log("Imagen eliminada del almacenamiento.");
-        } else {
-          console.warn("a");
         }
       } catch (error) {
-        console.error("Error al eliminar la imagen del almacenamiento:", error.message);
+        console.error(
+          "Error al eliminar la imagen del almacenamiento:",
+          error.message
+        );
       }
     }
 
@@ -616,5 +694,19 @@ router.delete("/eliminarAnuncio/:id", async (req, res) => {
   }
 });
 
+router.delete("/eliminar-admin/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const adminRef = firestore.collection("usuarios").doc(id);
+    await adminRef.delete();
+
+    res.status(200).send({ message: "Administrador eliminado exitosamente" });
+  } catch (error) {
+    console.error("Error al eliminar al administrador :", error);
+    res
+      .status(500)
+      .send({ message: "Error al eliminar", error: error.message });
+  }
+});
 
 module.exports = router;

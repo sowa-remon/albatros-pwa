@@ -1,21 +1,37 @@
 const cancelarRegistro = document.getElementById("cancelarRegistro");
-let nombre = document.getElementById("nombre");
-let apellidos = document.getElementById("apellidos");
-let fechaN = document.getElementById("fechaN");
-let antecedentes = document.getElementById("antecedentes");
-let restricciones = document.getElementById("restricciones");
-let direccion = document.getElementById("direccion");
-let telefono = document.getElementById("telefono");
+const nombre = document.getElementById("nombre");
+const apellidos = document.getElementById("apellidos");
+const fechaN = document.getElementById("fechaN");
+const antecedentes = document.getElementById("antecedentes");
+const restricciones = document.getElementById("restricciones");
+const direccion = document.getElementById("direccion");
+const telefono = document.getElementById("telefono");
 const contactoNombre = document.getElementById("contactoNombre");
 const contactoTelefono = document.getElementById("contactoTelefono");
-let nivel = document.getElementById("nivel");
-let totalAlumnos = document.getElementById("total-alumnos");
+const nivel = document.getElementById("nivel");
+const totalAlumnos = document.getElementById("total-alumnos");
 const alumnoModal = document.getElementById("alumno-modal");
 const concentradoAlumnos = document.getElementById("concentrado-alumnos");
 const barraBusqueda = document.getElementById('barra-busqueda');
 
 const meError = document.getElementById("mensaje-error");
 const meExito = document.getElementById("mensaje-exito");
+
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1;
+var yyyy = today.getFullYear();
+
+if (dd < 10) {
+  dd = "0" + dd;
+}
+
+if (mm < 10) {
+  mm = "0" + mm;
+}
+
+today = yyyy + "-" + mm + "-" + dd;
+fechaN.setAttribute("max", today);
 
 let todosAlumnos = [];
 
@@ -25,7 +41,7 @@ function mostrarError(mensaje) {
   meError.style.display = "block";
 
   setTimeout(() => {
-    me.style.display = "none";
+    meError.style.display = "none";
   }, 4500);
 }
 
@@ -231,8 +247,6 @@ document
       !nombre.value ||
       !apellidos.value ||
       !fechaN.value ||
-      !antecedentes.value ||
-      !restricciones.value ||
       !direccion.value ||
       !telefono.value ||
       !nivel.value

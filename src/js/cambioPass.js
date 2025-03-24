@@ -38,6 +38,17 @@ closePass.onclick = () =>{
     modalPassword.style.display = 'none'
 } 
 
+function validarPass(pass) {
+    if (pass.length < 8) {
+      mostrarError("La contraseña debe tener al menos 8 caracteres");
+      return false;
+    }
+    if (pass.length > 20) {
+      mostrarError("La contraseña debe tener menos de 20 caracteres");
+      return false;
+    }
+    return true;
+  }
 
 modalPassword.onsubmit = async (e) =>{
 e.preventDefault()
@@ -49,6 +60,11 @@ e.preventDefault()
         mostrarError('Las contraseñas no coinciden')
         return
     }
+    
+    if(!validarPass(pass1.value)){
+        return
+    }
+
     try{
         const response = await fetch("/auth/actualizar-password", {
             method: "PUT",

@@ -93,9 +93,22 @@
               <p>Maestros</p>
               </a>
           </li>
+          <li class="navbar-item-lateral">
+              <a href="/admin/tabla-concentrado">
+                  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 26.25H24.8662C26.245 26.25 27.3662 25.1288 27.3662 23.75V6.25C27.3662 4.87125 26.245 3.75 24.8662 3.75H5C3.62125 3.75 2.5 4.87125 2.5 6.25V23.75C2.5 25.1288 3.62125 26.25 5 26.25ZM5 23.75V17.5H10V23.75H5ZM17.5 8.75V15H12.5V8.75H17.5ZM10 8.75V15H5V8.75H10ZM12.5 23.75V17.5H17.5V23.75H12.5ZM20 23.75V17.5H24.8675V23.75H20ZM24.8662 15H20V8.75H24.8662V15Z" fill="#2E3192"/>
+                  </svg>
+              <p>Clases</p>
+              </a>
+          </li>
       </ul>
   </nav>
   
+    
+  <div id="mensajeError" class="mensaje-error"></div>
+
+  <div id="mensajeExito" class="mensaje-exito"></div>
+
     <section class="seccion-app">
       <div class="titulo-seccion grupo">
         <div style="display: flex; justify-content: baseline">
@@ -119,13 +132,13 @@
           </div>
           <form id="publicarAnuncio" enctype="multipart/form-data">
             <label for="titulo">Título del anuncio:</label>
-            <input type="text" id="titulo" name="titulo" required />
+            <input type="text" id="titulo" name="titulo"  />
             <label for="contenido">Contenido:</label>
             <textarea
               type="text"
               id="contenido"
               name="contenido"
-              required></textarea>
+              ></textarea>
             <label for="imagen">Imagen (opcional)</label>
             <input
               type="file"
@@ -136,7 +149,7 @@
             <div class="input-doble">
               <div style="margin-right: 1rem;">
                 <label for="duracion">Duración:</label>
-                <select id="duracion" name="duracion" required>
+                <select id="duracion" name="duracion">
                   <option value="semana">1 semana</option>
                   <option value="mes">1 mes</option>
                   <option value="indefinido">Indefinido</option>
@@ -155,7 +168,7 @@
               <button class="btn btn-naranja-2" id="cancelarRegistro">
                 Cancelar
               </button>
-              <button type="submit" class="btn btn-marino">Publicar</button>
+              <button type="submit" class="btn btn-marino" id="btnPublicar">Publicar</button>
             </div>
           </form>
         </div>

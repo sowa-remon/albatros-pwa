@@ -64,9 +64,21 @@
                 </svg>
                 <p>Maestros</p>
             </li>
+            <li class="navbar-item-lateral">
+                <a href="/admin/tabla-concentrado">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 26.25H24.8662C26.245 26.25 27.3662 25.1288 27.3662 23.75V6.25C27.3662 4.87125 26.245 3.75 24.8662 3.75H5C3.62125 3.75 2.5 4.87125 2.5 6.25V23.75C2.5 25.1288 3.62125 26.25 5 26.25ZM5 23.75V17.5H10V23.75H5ZM17.5 8.75V15H12.5V8.75H17.5ZM10 8.75V15H5V8.75H10ZM12.5 23.75V17.5H17.5V23.75H12.5ZM20 23.75V17.5H24.8675V23.75H20ZM24.8662 15H20V8.75H24.8662V15Z" fill="#2E3192"/>
+                    </svg>
+                <p>Clases</p>
+                </a>
+            </li>
         </ul>
     </nav>
     
+    <div id="mensajeError" class="mensaje-error"></div>
+
+    <div id="mensajeExito" class="mensaje-exito"></div>
+
     <section class="seccion-app">
         <div class="titulo-seccion grupo">
             <div style="display:flex;justify-content: baseline;">
@@ -98,28 +110,28 @@
         <div class="input-doble">           
             <div style="padding-right: 1rem;">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
+                <input type="text" id="nombre" name="nombre" >
             </div>
             <div>
                 <label for="apellidos">Apellidos:</label>
-                <input type="text" id="apellidos" name="apellidos" required>      
+                <input type="text" id="apellidos" name="apellidos" >      
             </div>
         </div>
         <label for="fechaN">Fecha de Nacimiento:</label>
-        <input type="date" id="fechaN" name="fechaN" required>
+        <input type="date" id="fechaN" name="fechaN">
         <div class="input-doble">           
             <div style="padding-right: 1rem;">
                 <label for="direccion">Dirección:</label>
-                <input type="text" id="direccion" name="direccion" required>
+                <input type="text" id="direccion" name="direccion" >
             </div>
             <div>
                 <label for="telefono">Teléfono:</label>
-                <input type="text" id="telefono" name="telefono" required>
+                <input type="number" id="telefono" name="telefono" min="1" aria-controls="none">
             </div>
         </div>
         <div class="btns-doble">
             <button class="btn btn-naranja-2" id="cancelarRegistro" style="margin-top: 1rem;">Cancelar</button>
-            <button type="submit" class="btn btn-marino" style="margin-top: 1rem;">Registrar</button>
+            <button id="btnRegistrar" type="submit" class="btn btn-marino" style="margin-top: 1rem;">Registrar</button>
         </div>
     </form>
     </div>

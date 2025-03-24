@@ -10,6 +10,45 @@ const telefono = document.getElementById("telefono");
 const nombre = document.getElementById("nombre");
 const fechaN = document.getElementById("fechaN");
 
+const meError = document.getElementById("mensajeError");
+const meExito = document.getElementById("mensajeExito");
+
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1;
+var yyyy = today.getFullYear();
+
+if (dd < 10) {
+  dd = "0" + dd;
+}
+
+if (mm < 10) {
+  mm = "0" + mm;
+}
+
+today = yyyy + "-" + mm + "-" + dd;
+fechaN.setAttribute("max", today);
+
+// ! mensaje de error
+function mostrarError(mensaje) {
+  meError.textContent = mensaje;
+  meError.style.display = "block";
+
+  setTimeout(() => {
+    meError.style.display = "none";
+  }, 4500);
+}
+
+// * mensaje de éxito
+function mostrarExito(mensaje) {
+  meExito.textContent = mensaje;
+  meExito.style.display = "block";
+
+  setTimeout(() => {
+    meExito.style.display = "none";
+  }, 4500);
+}
+
 let todosMaestros = [];
 
 async function fetchMaestros() {
@@ -85,17 +124,17 @@ function mostrarMaestros(maestros) {
       btnBaja.onclick = async () => {
         if (confirm("¿Está seguro de que quiere dar de baja a este maestro?")) {
           const response = await fetch(`/admin/bajaMaestro/${maestro.id}`, {
-            method: "POST",
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({ id: maestro.id }),
           });
           if (response.ok) {
-            alert("Maestro dado de baja exitosamente");
+            mostrarExito("Maestro dado de baja exitosamente");
             fetchMaestros();
           } else {
-            alert("Error al dar de baja al maestro");
+            mostrarError("Error al dar de baja al maestro");
           }
         }
       };
@@ -109,17 +148,17 @@ function mostrarMaestros(maestros) {
       btnAlta.onclick = async () => {
         if (confirm("¿Está seguro de que quiere dar de alta a este maestro?")) {
           const response = await fetch(`/admin/altaMaestro/${maestro.id}`, {
-            method: "POST",
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({ id: maestro.id }),
           });
           if (response.ok) {
-            alert("Maestro dado de alta exitosamente");
+            mostrarExito("Maestro dado de alta exitosamente");
             fetchMaestros();
           } else {
-            alert("Error al dar de alta al maestro");
+            mostrarError("Error al dar de alta al maestro");
           }
         }
       };
@@ -166,19 +205,14 @@ window.onclick = function (event) {
 
 // Cancela el registro de un alumno
 cancelarRegistro.addEventListener("click", () => {
-  if (confirm("¿Está seguro de que quiere cancelar el registro?")) {
-    nombre.value = "";
-    apellidos.value = "";
-    fechaN.value = "";
-    direccion.value = "";
-    telefono.value = "";
-    closeModal();
-  }
+  closeModal();
 });
 
 // Maneja el envío del formulario de registro de alumnos
 registrarMaestro.addEventListener("submit", async (event) => {
   event.preventDefault();
+  const btnRegistrar = document.getElementById("btnRegistrar");
+  btnRegistrar.setAttribute("disabled", true);
   if (
     !nombre.value ||
     !apellidos.value ||
@@ -186,7 +220,8 @@ registrarMaestro.addEventListener("submit", async (event) => {
     !direccion.value ||
     !telefono.value
   ) {
-    console.log("Por favor, ingrese todos los campos");
+    mostrarError("Por favor, ingrese todos los campos");
+    btnRegistrar.removeAttribute("disabled");
     return;
   } else {
     // Crear un objeto con los datos del formulario
@@ -203,15 +238,18 @@ registrarMaestro.addEventListener("submit", async (event) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-
     });
 
     if (response.ok) {
-      alert("Maestro registrado exitosamente");
+      mostrarExito("Maestro registrado exitosamente");
+
+      btnRegistrar.removeAttribute("disabled");
       fetchMaestros();
       closeModal();
     } else {
-      alert("Error al registrar el maestro ?");
+      mostrarError("Error al registrar el maestro");
+
+      btnRegistrar.removeAttribute("disabled");
     }
   }
 });
