@@ -1,4 +1,39 @@
 const listaContenidos = document.getElementById('lista-contenido-pedagogico')
+const videoModal = document.getElementById('video-modal')
+const closeVideo = document.getElementById('closeVideo')
+const cancelarVideo = document.getElementById('cancelarVideo')
+const guardarVideo = document.getElementById('guardarVideo')
+
+const meError = document.getElementById("mensaje-error");
+const meExito = document.getElementById("mensaje-exito");
+
+// ! mensaje de error
+function mostrarError(mensaje) {
+  meError.textContent = mensaje;
+  meError.style.display = "block";
+
+  setTimeout(() => {
+    meError.style.display = "none";
+  }, 4500);
+}
+
+// * mensaje de éxito
+function mostrarExito(mensaje) {
+  meExito.textContent = mensaje;
+  meExito.style.display = "block";
+
+  setTimeout(() => {
+    meExito.style.display = "none";
+  }, 4500);
+}
+
+closeVideo.onclick = () =>{
+  videoModal.style.display = 'none'
+}
+
+cancelarVideo.onclick = () =>{
+  videoModal.style.display = 'none'
+}
 
 async function fetchContenido() {
   try {
@@ -32,10 +67,48 @@ function mostrarContenidos(contenidos){
 
         const cardCuerpo = document.createElement('div')
         cardCuerpo.className= 'card-cuerpo'
+
+        const filaAcolumna = document.createElement('div')
+        filaAcolumna.style.display = 'flex'
+
+        const videoContenido = document.createElement('video')
+        const sourceVideo = document.createElement('source')
+        sourceVideo.src = contenido.video
+        videoContenido.appendChild(sourceVideo)
+        videoContenido.className = 'video-contenido'
+        videoContenido.autoplay = true
+        videoContenido.loop = true
+        videoContenido.muted = true; 
+
+        const btnVideo = document.createElement('button')
+        btnVideo.className = 'btn-texto'
+        btnVideo.textContent = 'Agregar video'
+        
+        btnVideo.style.setProperty("--color", "#EF8122");
+
+        btnVideo.onclick = async () =>{
+          videoModal.style.display = 'block'
+          
+        guardarVideo.onclick=(e)=>{
+          guardarVideo.setAttribute('disabled', true)
+          e.preventDefault()
+          modalVideo(contenido.id)
+        }
+
+        }
+
+        if(contenido.video!=''){
+          filaAcolumna.appendChild(videoContenido)
+          btnVideo.textContent = 'Cambiar video'
+        }
+        filaAcolumna.appendChild(btnVideo)
+
         let inputContenido = document.createElement('textarea')
         inputContenido.setAttribute("rows", "7")
         inputContenido.setAttribute('disabled', true)
         inputContenido.value=contenido.objetivos
+
+        cardCuerpo.appendChild(filaAcolumna)
         cardCuerpo.appendChild(inputContenido)
 
         const editar = document.createElement('button')
@@ -77,13 +150,13 @@ function mostrarContenidos(contenidos){
                 body: JSON.stringify({id: contenido.id, objetivos: inputContenido.value}),
             })
             if(response.ok){
-                alert('Se actualizo el contenido')
+                mostrarExito('Se actualizó el contenido')
                 cancelar.style.display = 'none'
                 guardar.style.display = 'none'
                 editar.style.display = 'block'
                 fetchContenido()
             } else {
-                alert("Error al intentar cambiar el contenido")
+                mostrarError("Error al intentar cambiar el contenido")
             }
         }
 
@@ -100,6 +173,44 @@ function mostrarContenidos(contenidos){
 
         listaContenidos.appendChild(contenidoCard)
     });
+}
+
+async function modalVideo(id) {
+  const videoContenido = document.getElementById('videoContenido')
+        
+  if(!videoContenido.value){
+    mostrarError('Sube el video por favor')
+    
+    guardarVideo.removeAttribute('disabled')
+    return
+  }
+  try{
+     // Crear un objeto FormData para enviar el archivo y el ID
+     const formData = new FormData();
+     formData.append('video', videoContenido.files[0]); // Agregar el archivo
+     formData.append('id', id); // Agregar el ID del contenido
+ 
+    
+    const response = await fetch("/admin/subir-video-contenido", {
+      method: "POST",
+      body: formData
+    });
+
+    if (response.ok) {
+      mostrarExito("Video publicado");
+
+      guardarVideo.removeAttribute("disabled");
+      fetchContenido();
+      videoModal.style.display = 'none'
+    } else {
+      mostrarError("Error al publicar el anuncio");
+
+      guardarVideo.removeAttribute('disabled')
+    }
+  }
+  catch{
+    mostrarError('error')
+  }
 }
 
 fetchContenido()

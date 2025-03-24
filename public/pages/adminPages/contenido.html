@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Página oficial del Centro Acuático Albatros en Tequisquiapan, Qro., México.">
     <title>Albatros: Contenido Pedagógico</title>
-    <link rel="manifest" href="./js/pwa.webmanifest">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/app.css">
     <link rel="shortcut icon" href="/icons/albatros-icon.svg" type="image/x-icon">
@@ -65,8 +64,22 @@
                 <p>Maestros</p>
                 </a>
             </li>
+            <li class="navbar-item-lateral">
+                <a href="/admin/tabla-concentrado">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 26.25H24.8662C26.245 26.25 27.3662 25.1288 27.3662 23.75V6.25C27.3662 4.87125 26.245 3.75 24.8662 3.75H5C3.62125 3.75 2.5 4.87125 2.5 6.25V23.75C2.5 25.1288 3.62125 26.25 5 26.25ZM5 23.75V17.5H10V23.75H5ZM17.5 8.75V15H12.5V8.75H17.5ZM10 8.75V15H5V8.75H10ZM12.5 23.75V17.5H17.5V23.75H12.5ZM20 23.75V17.5H24.8675V23.75H20ZM24.8662 15H20V8.75H24.8662V15Z" fill="#2E3192"/>
+                    </svg>
+                <p>Clases</p>
+                </a>
+            </li>
         </ul>
     </nav>
+    
+    
+    <div id="mensaje-error" class="mensaje-error"></div>
+
+    <div id="mensaje-exito" class="mensaje-exito"></div>
+
     <section class="seccion-app" style="margin-bottom: 7rem;">
         <div class="titulo-seccion">
             <div style="display:flex;justify-content: baseline;">
@@ -77,6 +90,21 @@
         </div>
 
     </section>
+
+    <form id="video-modal" class="modal" enctype="multipart/form-data">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" id="closeVideo">&times;</span>
+                <h2>Cambiar video</h2>      
+            </div>
+            <input id="videoContenido" type="file"accept="video/mp4,video/x-m4v,video/*" >
+            <div class="btns-doble">
+                <button class="btn btn-naranja-2" id="cancelarVideo" type="reset">Cancelar</button>
+                <button class="btn btn-marino" id="guardarVideo">Guardar</button>
+            </div>
+        </div>
+    </form>
+
     <script src="/js/script.js"></script>
     <script src="/js/admin_js/contenido.js"></script>
 </body>

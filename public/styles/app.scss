@@ -25,20 +25,17 @@ body {
   width: 100%;
   border-radius: 0;
   left: 0;
-  top: 83%;
   background-color: $blanco;
   @include sombra-2;
 }
 
 .app-navbar-lateral ul {
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   padding: 0.5rem 0;
-  margin: 0;
   flex-direction: row;
   justify-content: space-evenly;
   list-style-type: none;
-  padding: 0.5rem 0;
   text-decoration: none;
 }
 
@@ -50,8 +47,7 @@ body {
   text-align: center;
   color: $marino;
   font-weight: 600;
-  font-size: x-small;
-  margin: 0.5rem;
+  font-size: xx-small;
   transform: scale(1);
   transition: 0.5s;
   text-decoration: none;
@@ -60,7 +56,7 @@ body {
 .navbar-item-lateral a {
   text-decoration: none;
   color: $marino;
-  margin: 0 0 0.5rem 0;
+  margin: 0 ;
 }
 
 .navbar-item-lateral:hover {
@@ -167,9 +163,11 @@ body {
   font-size: 1rem;
   font-weight: 700;
   margin: 0 1rem;
-  background-color: $blanco;
+  background-color: transparent;
   border: none;
   color: var(--color);
+  transform: scale(1);
+  transition: 1s;
 }
 
 .btn-texto:hover {
@@ -179,7 +177,8 @@ body {
   cursor: pointer;
 }
 
-.btn-texto:disabled, .btn-texto:disabled:hover {
+.btn-texto:disabled,
+.btn-texto:disabled:hover {
   color: gray;
   transform: none;
   cursor: not-allowed;
@@ -190,17 +189,30 @@ body {
   background-color: rgba($color: #b8d2db, $alpha: 0.5);
 }
 
+dialog {
+  position: fixed;
+
+  overflow: auto; /* Permite scroll si el contenido es largo */
+  height: 90vh;
+}
+
 .modal {
-  display: none; /* Oculto por defecto */
-  position: fixed; /* Queda fijo en la pantalla */
-  z-index: 1; /* Se coloca por encima de otros elementos */
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; /* Ancho completo */
-  height: 100%; /* Alto completo */
-  overflow: auto; /* Permite scroll si el contenido es largo */
-  background-color: rgb(0, 0, 0); /* Color de fondo */
-  background-color: rgba(0, 0, 0, 0.4); /* Color de fondo con transparencia */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+
+  -webkit-animation: fadein 0.5s;
+  animation: fadein 0.5s;
 }
 
 .modal-header {
@@ -229,6 +241,21 @@ body {
   font-weight: 600;
 }
 
+.borde-tabla {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 4px solid #2e3192;
+  margin: 0 1rem 1rem 0;
+}
+
+.video-contenido{
+  width: 30%;
+  height: 30%;
+  border-radius: 10px;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+}
+
 .input-doble {
   display: flex;
 }
@@ -250,7 +277,7 @@ body {
 .contenido-card {
   border: solid 3px $marino;
   border-radius: 10px;
-  margin: 0 3rem 2rem 3rem;
+  margin-bottom: 3rem;
 }
 
 .card-encabezado {
@@ -394,9 +421,79 @@ body {
   transition: 0.5s ease;
 }
 
+.fila-horario {
+  margin-bottom: 1rem;
+  min-width: min-content;
+  padding: 1rem;
+  @include sombra-2;
+  border-radius: 10px;
+  display: grid;
+}
+
+.fila-horario input {
+  margin-right: 1rem;
+}
+
+.fila-a-columna {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  ul {
+    padding: 0;
+    margin: 0 1rem;
+    text-overflow: ellipsis;
+    white-space: break-spaces;
+  }
+}
+
+.columna-a-fila {
+  display: flex;
+  justify-content: space-around;
+}
+
+.dato{
+  display: flex;
+  justify-content: space-between;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-style: hidden;
+  width: 100%;
+  height: 100%;
+  @include sombra-2;
+}
+
+th,
+td {
+  padding: 10px;
+  border: 2px solid $marino;
+  text-align: center;
+}
+
+tr:hover {
+  background-color: rgba($color: $marino, $alpha: 0.2);
+}
+#tr-no:hover {
+  background-color: transparent;
+}
+
 @media (max-width: 400px) {
   .btns-doble {
     flex-direction: column;
+  }
+  .fila-horario {
+    grid-template-columns: 1fr;
+  }
+  .seccion-app {
+    padding: 1rem;
+  }
+  .columna-a-fila {
+    flex-direction: column;
+  }
+  .app-navbar-lateral{
+    bottom: 0;
   }
 }
 
@@ -438,12 +535,21 @@ body {
   .btns-doble {
     flex-direction: column-reverse;
   }
+  .fila-horario {
+    grid-template-columns: 1fr;
+  }
+  .seccion-app {
+    padding: 1rem;
+  }
+  .app-navbar-lateral{
+    bottom: 0;
+  }
 }
 
 // * Tamaño mínimo para celulares
 @media (min-width: 500px) and (max-width: 959px) {
   .seccion-app {
-    padding: 1rem;
+    padding: 1rem 3rem;
   }
   .acciones-admin {
     grid-template-columns: auto;
@@ -455,12 +561,18 @@ body {
   .navbar-item-lateral {
     margin: 0 1rem;
   }
+  .fila-horario {
+    grid-template-columns: 1fr auto auto;
+  }
+  .app-navbar-lateral{
+    bottom: 0;
+  }
 }
 
 // * Tamaño mínimo para tablets/laptops en modo landscape
 @media (min-width: 960px) {
   .seccion-app {
-    padding: 1rem 8rem;
+    padding: 1rem 12rem;
   }
   .columna-1-2 {
     display: flex;
@@ -476,18 +588,22 @@ body {
   .app-navbar-lateral {
     width: auto;
     left: 10px;
-    top: 25%;
+    top: 20%;
     background-color: $blanco;
     border-radius: 100px;
   }
   .app-navbar-lateral ul {
     flex-direction: column;
     list-style-type: none;
-    padding: 0.5rem 0;
+    padding:  0;
   }
 
   .navbar-item-lateral {
     flex-direction: column;
-    margin: 0.5rem;
+    margin: 0.3rem;
+  }
+
+  .fila-horario {
+    grid-template-columns: 1fr auto auto;
   }
 }

@@ -19,6 +19,23 @@ $rosa: #f523ce;
   src: url("../fonts/FugazOne-Regular.ttf");
 }
 
+@mixin mensaje{
+  display: none; 
+  min-width: 250px;
+  margin-left: -125px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 16px;
+  position: fixed;
+  z-index: 2;
+  left: 50%;
+  bottom: 30px;
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 4s;
+  animation: fadein 0.5s, fadeout 0.5s 4s;
+  @include sombra-2;
+}
+
 @mixin centrado {
   justify-content: center;
   align-items: center;
@@ -202,4 +219,62 @@ $rosa: #f523ce;
   margin-right: 0.5rem;
   width: 45px;
   height: auto;
+}
+
+#icon-maestro {
+  background-image: url(../images/icons/icon-maestro.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-horario {
+  background-image: url(../images/icons/icon-horario.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-evaluacion {
+  background-image: url(../images/icons/icon-evaluacion.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-tabla {
+  background-image: url(../images/icons/icon-tabla.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-detalles {
+  background-image: url(../images/icons/icon-detalles.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }

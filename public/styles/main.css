@@ -112,6 +112,65 @@
   height: auto;
 }
 
+#icon-maestro {
+  background-image: url(../images/icons/icon-maestro.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-horario {
+  background-image: url(../images/icons/icon-horario.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-evaluacion {
+  background-image: url(../images/icons/icon-evaluacion.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-tabla {
+  background-image: url(../images/icons/icon-tabla.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+#icon-detalles {
+  background-image: url(../images/icons/icon-detalles.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+          appearance: textfield;
+}
+
 body {
   min-width: 400px;
 }
@@ -208,6 +267,8 @@ body {
   transition: 0.1s;
   min-width: 45px;
   min-height: 45px;
+  max-width: 45px;
+  max-height: 45px;
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 4px rgba(46, 49, 146, 0.5);
@@ -245,6 +306,10 @@ body {
   color: #f8fbff;
   transform: scale(0.95) rotate(-1deg);
   transition: 0.5s;
+}
+
+.btn-naranja-2:hover svg path {
+  fill: #f8fbff;
 }
 
 .btn-naranja:active,
@@ -307,6 +372,11 @@ body {
   color: #2e3192;
 }
 
+.negro {
+  color: #1d1e1e;
+  font-weight: 400;
+}
+
 hr {
   height: 2px;
   background-color: #2e3192;
@@ -327,7 +397,7 @@ input,
 select,
 textarea {
   margin: 1rem 0;
-  border: 3px solid #ef8122;
+  border: 2px solid #ef8122;
   background-color: #f8fbff;
   border-radius: 5px;
   font-family: "commissioner";
@@ -342,9 +412,41 @@ textarea {
   min-height: 50px;
 }
 
-textarea:disabled {
-  border: 3px solid rgba(239, 129, 34, 0.6);
+input[type=checkbox] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  background-color: #fff;
+  /* Not removed via appearance */
+  margin: 0 1rem 0 0;
+  display: grid;
+  place-content: center;
+  width: 10px;
+  height: 10px;
+}
+
+input[type=checkbox]::before {
+  content: "";
+  width: 1.2em;
+  height: 1.2em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1.2em 1.2em #ef8122;
+}
+
+input[type=checkbox]:checked::before {
+  transform: scale(1);
+}
+
+input:disabled, select:disabled, textarea:disabled {
+  border: 2px solid rgba(239, 129, 34, 0.6);
   color: #1d1e1e;
+}
+
+label {
+  font-weight: 600;
 }
 
 .input-doble div {
@@ -369,6 +471,49 @@ textarea:disabled {
 #snackbar-login.show {
   visibility: visible;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+.mensaje-error {
+  color: red;
+  background-color: #f8fbff;
+  display: none;
+  min-width: 250px;
+  margin-left: -125px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 16px;
+  position: fixed;
+  z-index: 2;
+  left: 50%;
+  bottom: 30px;
+  visibility: visible;
+  animation: fadein 0.5s, fadeout 0.5s 4s;
+  box-shadow: 0 3px 3px rgba(46, 49, 146, 0.3);
+}
+
+.mensaje-exito {
+  color: #f8fbff;
+  background-color: #2e3192;
+  display: none;
+  min-width: 250px;
+  margin-left: -125px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 16px;
+  position: fixed;
+  z-index: 2;
+  left: 50%;
+  bottom: 30px;
+  visibility: visible;
+  animation: fadein 0.5s, fadeout 0.5s 4s;
+  box-shadow: 0 3px 3px rgba(46, 49, 146, 0.3);
+}
+
+.rectangulo {
+  border: solid 3px var(--color);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 3px rgba(46, 49, 146, 0.3);
 }
 
 @media (min-width: 320px) and (max-width: 959px) {

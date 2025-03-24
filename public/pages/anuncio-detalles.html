@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalles del anuncio</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/app.css" />
+    <link
+      rel="shortcut icon"
+      href="/icons/albatros-icon.svg"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <nav class="app-navbar">
+      <ul>
+        <li class="navbar-item">
+          <button class="btn-icon btn-marino" id="regresar">
+            <svg
+              width="25"
+              viewBox="0 0 75 75"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M46.4635 16.4634L22.9302 40L46.4635 63.5367L53.5368 56.4634L37.0702 40L53.5368 23.5367L46.4635 16.4634Z"
+                fill="#F8FBFF"
+              />
+            </svg>
+          </button>
+        </li>
+        <li class="navbar-item">
+          <span class="titulo-app marino">Detalles del anuncio</span>
+        </li>
+        <li class="navbar-item">
+          <button class="btn-icon btn-naranja"id="logout">
+            <svg
+              width="25"
+              viewBox="2 0 50 50"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M32.3332 27.0832V22.9165H13.5832V16.6665L3.1665 24.9998L13.5832 33.3332V27.0832H32.3332Z"
+                fill="#F8FBFF"
+              />
+              <path
+                d="M40.6667 6.25H21.9167C19.6188 6.25 17.75 8.11875 17.75 10.4167V18.75H21.9167V10.4167H40.6667V39.5833H21.9167V31.25H17.75V39.5833C17.75 41.8812 19.6188 43.75 21.9167 43.75H40.6667C42.9646 43.75 44.8333 41.8812 44.8333 39.5833V10.4167C44.8333 8.11875 42.9646 6.25 40.6667 6.25Z"
+                fill="#F8FBFF"
+              />
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <div
+      id="detalle-anuncio"
+      style="
+        margin: 1rem;
+        display: grid;
+        justify-content: center;
+        align-self: center;
+      "
+    >
+      <div class="titulo-seccion titulo-seccion-anuncios">
+        <h1 id="titulo-anuncio">
+          Título del anuncio
+        </h1>
+        <p id="tipo" class="anuncio-general">Tipo de anuncio</p>
+      </div>
+      <div class="fechas-anuncio-detalle">
+        <p class="texto-gris" id="fechaInicio"><b>Fecha de publicación: </b></p>
+        <p class="texto-gris" id="fechaFinal"><b>Duración: </b></p>
+      </div>
+      <p id="contenido" style="width: 80vw;"></p>
+      <div>
+        <div id="contenedor-imagen-anuncio" style="display: none">
+          <img alt="Imagen del anuncio" id="imagen" class="imagen-anuncio" />
+          <div class="imagen-anuncio-hover">
+            <button class="btn btn-naranja type="button" onclick="abrirModal()">Abrir</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal" id="modal-imagen">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+          <img alt="Imagen del anuncio" id="imagen-modal" style="width: 100%; height: auto;">
+        </div>
+        </div>
+    </div>
+
+    <script src="/js/script.js"></script>
+    <script src="/js/anuncio-detalles.js"></script>
+  </body>
+</html>

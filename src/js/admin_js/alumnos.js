@@ -1,19 +1,60 @@
 const cancelarRegistro = document.getElementById("cancelarRegistro");
-let nombre = document.getElementById("nombre");
-let apellidos = document.getElementById("apellidos");
-let fechaN = document.getElementById("fechaN");
-let antecedentes = document.getElementById("antecedentes");
-let restricciones = document.getElementById("restricciones");
-let direccion = document.getElementById("direccion");
-let telefono = document.getElementById("telefono");
+const nombre = document.getElementById("nombre");
+const apellidos = document.getElementById("apellidos");
+const fechaN = document.getElementById("fechaN");
+const antecedentes = document.getElementById("antecedentes");
+const restricciones = document.getElementById("restricciones");
+const direccion = document.getElementById("direccion");
+const telefono = document.getElementById("telefono");
 const contactoNombre = document.getElementById("contactoNombre");
 const contactoTelefono = document.getElementById("contactoTelefono");
-let nivel = document.getElementById("nivel");
-let totalAlumnos = document.getElementById("total-alumnos");
+const nivel = document.getElementById("nivel");
+const totalAlumnos = document.getElementById("total-alumnos");
 const alumnoModal = document.getElementById("alumno-modal");
 const concentradoAlumnos = document.getElementById("concentrado-alumnos");
 const barraBusqueda = document.getElementById('barra-busqueda');
+
+const meError = document.getElementById("mensaje-error");
+const meExito = document.getElementById("mensaje-exito");
+
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1;
+var yyyy = today.getFullYear();
+
+if (dd < 10) {
+  dd = "0" + dd;
+}
+
+if (mm < 10) {
+  mm = "0" + mm;
+}
+
+today = yyyy + "-" + mm + "-" + dd;
+fechaN.setAttribute("max", today);
+
 let todosAlumnos = [];
+
+// ! mensaje de error
+function mostrarError(mensaje) {
+  meError.textContent = mensaje;
+  meError.style.display = "block";
+
+  setTimeout(() => {
+    meError.style.display = "none";
+  }, 4500);
+}
+
+// * mensaje de éxito
+function mostrarExito(mensaje) {
+  meExito.textContent = mensaje;
+  meExito.style.display = "block";
+
+  setTimeout(() => {
+    meExito.style.display = "none";
+  }, 4500);
+}
+
 
 async function fetchAlumnos() {
   try {
@@ -98,17 +139,17 @@ function mostrarAlumnos(alumnos) {
       btnBaja.onclick = async () => {
         if (confirm("¿Está seguro de que quiere dar de baja a este alumno?")) {
           const response = await fetch(`/admin/bajaAlumno/${alumno.id}`, {
-            method: "POST",
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({ id: alumno.id }),
           });
           if (response.ok) {
-            alert("Alumno dado de baja exitosamente");
+            mostrarExito("Alumno dado de baja exitosamente");
             fetchAlumnos();
           } else {
-            alert("Error al dar de baja al alumno");
+            mostrarError("Error al dar de baja al alumno");
           }
         }
       };
@@ -122,17 +163,17 @@ function mostrarAlumnos(alumnos) {
       btnAlta.onclick = async () => {
         if (confirm("¿Está seguro de que quiere dar de alta a este alumno?")) {
           const response = await fetch(`/admin/altaAlumno/${alumno.id}`, {
-            method: "POST",
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({ id: alumno.id }),
           });
           if (response.ok) {
-            alert("Alumno dado de alta exitosamente");
+            mostrarExito("Alumno dado de alta exitosamente");
             fetchAlumnos();
           } else {
-            alert("Error al dar de alta al alumno");
+            mostrarError("Error al dar de alta al alumno");
           }
         }
       };
@@ -177,19 +218,23 @@ window.onclick = function (event) {
   }
 };
 
+function limpiarCampos(){
+  nombre.value = "";
+  apellidos.value = "";
+  fechaN.value = "";
+  antecedentes.value = "";
+  restricciones.value = "";
+  direccion.value = "";
+  telefono.value = ""
+  contactoNombre.value = "";
+  contactoTelefono.value = "";
+  nivel.value = "";
+}
+
 // Cancela el registro de un alumno
 cancelarRegistro.addEventListener("click", () => {
   if (confirm("¿Está seguro de que quiere cancelar el registro?")) {
-    nombre.value = "";
-    apellidos.value = "";
-    fechaN.value = "";
-    antecedentes.value = "";
-    restricciones.value = "";
-    direccion.value = "";
-    telefono.value = ""
-    contactoNombre.value = "";
-    contactoTelefono.value = "";
-    nivel.value = "";
+    limpiarCampos()
     closeModal();
   }
 });
@@ -202,28 +247,42 @@ document
       !nombre.value ||
       !apellidos.value ||
       !fechaN.value ||
-      !antecedentes.value ||
-      !restricciones.value ||
       !direccion.value ||
       !telefono.value ||
       !nivel.value
     ) {
-      console("Por favor, ingrese todos los campos");
+      mostrarError("Por favor, ingrese todos los campos");
       return;
     } else {
-      const formData = new FormData(document.getElementById("registrarAlumno"));
+
+      data = {
+        nombre: nombre.value,
+        apellidos: apellidos.value,
+        fechaN: fechaN.value,
+        antecedentes: antecedentes.value,
+        restricciones: restricciones.value,
+        direccion: direccion.value,
+        telefono: telefono.value,
+        contactoNombre: contactoNombre.value,
+        contactoTelefono: contactoTelefono.value,
+        nivel: nivel.value
+      }
 
       const response = await fetch("/admin/crearUsuarioAlumno/", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
-        alert("Alumno registrado exitosamente");
+        mostrarExito("Alumno registrado exitosamente");
+        limpiarCampos()
         fetchAlumnos()
         closeModal()
       } else {
-        alert("Error al registrar el alumno ?");
+        mostrarError("Error al registrar el alumno ?");
       }
     }
   });

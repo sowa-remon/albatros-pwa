@@ -8,7 +8,6 @@
       content="Página oficial del Centro Acuático Albatros en Tequisquiapan, Qro., México."
     />
     <title>Albatros: Centro Acuático de Natación en Tequisquiapan</title>
-    <link rel="manifest" href="./js/pwa.webmanifest" />
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/app.css" />
     <link
@@ -20,7 +19,7 @@
   <body>
     <nav class="app-navbar">
       <ul>
-        <li class="navbar-item" id="logo-menu">
+        <li class="navbar-item" id="regresar">
           <img
             src="./images/logo.png"
             alt="Albatros Logo"
@@ -137,7 +136,89 @@
         </svg>
         <p style="align-self: center; margin: 0">Maestros</p>
       </button>
+      <button
+        class="btn-admin"
+        style="--color: #2e3192"
+        aria-label="Botón de administradores"
+        onclick="window.location.href='/admin/administradores'"
+      >
+        <svg
+          width="50"
+          height="50"
+          viewBox="0 0 80 80"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M25 21.6665C25 29.9365 31.73 36.6665 40 36.6665C48.27 36.6665 55 29.9365 55 21.6665C55 13.3965 48.27 6.6665 40 6.6665C31.73 6.6665 25 13.3965 25 21.6665ZM66.6667 69.9998H70V66.6665C70 53.8032 59.53 43.3332 46.6667 43.3332H33.3333C20.4667 43.3332 10 53.8032 10 66.6665V69.9998H66.6667Z"
+            fill="#2E3192"
+          />
+        </svg>
+        <p style="align-self: center; margin: 0">Administradores</p>
+      </button>
+      <button
+        class="btn-admin"
+        style="--color: #ef8122"
+        aria-label="Botón de tabla niveles tecnicos"
+        onclick="window.location.href='/admin/tabla-concentrado'"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="50"
+          height="50"
+          viewBox="0 0 25 25"
+          style="fill:#EF8122"
+        >
+          <path
+            d="M4 21h15.893c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zm0-2v-5h4v5H4zM14 7v5h-4V7h4zM8 7v5H4V7h4zm2 12v-5h4v5h-4zm6 0v-5h3.894v5H16zm3.893-7H16V7h3.893v5z"
+          ></path>
+        </svg>
+
+        <p style="align-self: center; margin: 0">Concentrado de Niv. Téc.</p>
+      </button>
+
+      <button
+        id="abrirPasswordModal"
+        class="btn btn-marino"
+        style="margin: 1rem"
+      >
+        Cambiar contraseña
+      </button>
+      <div id="mensajeError" class="mensaje-error"></div>
+
+      <div id="mensajeExito" class="mensaje-exito"></div>
     </section>
-  </body>
+
+    <!-- Cambiar contraseña -->
+    <div id="password-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close" id="closepass">&times;</span>
+          <h2>Cambiar contraseña</h2>
+        </div>
+        <form id="cambiarPassword">
+          <label for="pass1">Nueva contraseña:</label>
+          <input type="password" id="pass1" name="pass1" />
+
+          <label for="pass2">Repite la contraseña:</label>
+          <input type="password" id="pass2" name="pass2" />
+
+          <div class="btns-doble">
+            <button
+              class="btn btn-naranja-2"
+              id="cancelarPassword"
+              type="reset"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-marino">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+      </body>
   <script src="/js/script.js"></script>
+  <script src="/js/cambioPass.js"></script>
+  <script src="/js/admin_js/admin-panel.js"></script>
 </html>

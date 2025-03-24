@@ -20,7 +20,7 @@
             <li class="navbar-item">
                 <span class="titulo-app marino">Detalle del alumno</span>
             </li>
-            <li class="navbar-item"><button class="btn-icon btn-naranja">
+            <li class="navbar-item"><button class="btn-icon btn-naranja" id="logout">
                 <svg width="25" viewBox="2 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M32.3332 27.0832V22.9165H13.5832V16.6665L3.1665 24.9998L13.5832 33.3332V27.0832H32.3332Z" fill="#F8FBFF"/>
                     <path d="M40.6667 6.25H21.9167C19.6188 6.25 17.75 8.11875 17.75 10.4167V18.75H21.9167V10.4167H40.6667V39.5833H21.9167V31.25H17.75V39.5833C17.75 41.8812 19.6188 43.75 21.9167 43.75H40.6667C42.9646 43.75 44.8333 41.8812 44.8333 39.5833V10.4167C44.8333 8.11875 42.9646 6.25 40.6667 6.25Z" fill="#F8FBFF"/>
@@ -28,8 +28,13 @@
             </button></li>
         </ul>
     </nav> 
-  <div id="detalle-alumno">
-    <form id="form-detalle-alumno" style="padding: 2rem 5rem;">
+        
+    <div id="mensajeError" class="mensaje-error"></div>
+    
+    <div id="mensajeExito" class="mensaje-exito"></div>
+
+  <div class="seccion-app" id="detalle-alumno">
+    <form id="form-detalle-alumno">
       <div class="titulo-seccion">
         <p>Datos del alumno</p>   
       </div>
@@ -66,14 +71,14 @@
             <option value="12">Mantarraya (escolares)</option>
             <option value="13">Pez vela (escolares)</option>
             <option value="14">Albatros (escolares)</option>
-            <option value="14">Adulto</option>
+            <option value="15">Adulto</option>
           </select>    
         </div>
       </div>
       <label for="antecedentes">Antecedentes de salud:</label>
-      <textarea type="text" id="antecedentes" name="antecedentes" required><br><br></textarea>
+      <textarea type="text" id="antecedentes" name="antecedentes" required></textarea>
       <label for="restricciones">Restricciones médicas:</label>
-      <textarea type="text" id="restricciones" name="restricciones" required><br><br></textarea>
+      <textarea type="text" id="restricciones" name="restricciones" required></textarea>
       <div class="input-doble">
         <div style="margin-right: 1rem;">
           <label for="direccion">Dirección:</label>
@@ -104,7 +109,7 @@
 
   <hr>
   
-  <div id="evaluacion-alumno" style="padding: 3rem;">
+  <div id="evaluacion-alumno" class="seccion-app">
     <form id="form-evaluacion-alumno">
       <div class="titulo-seccion">
         <p>Evaluación del alumno</p>   
@@ -128,6 +133,6 @@
     </form>
   </div>
   <script src="/js/script.js"></script>
-  <script src="/js/admin_js/alumno-detalles"></script>
+  <script src="/js/admin_js/alumno-detalles.js"></script>
 </body>
 </html>

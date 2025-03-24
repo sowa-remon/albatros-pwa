@@ -4,6 +4,7 @@ const multer = require('multer');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const upload = multer();
+const saltRounds = 10;
 
 // * Inicio de sesión
 router.post("/login", upload.none(), async (req, res) => {
@@ -43,7 +44,7 @@ router.post("/login", upload.none(), async (req, res) => {
       return res.status(200).send({ message: "Inicio de sesión exitoso", tipo: tipoUsuario, redirect: "/alumno-panel" })
     } 
     if(tipoUsuario === "maestro"){
-      return res.status(200).send({ message: "Inicio de sesión exitoso", tipo: tipoUsuario, redirect: "/maestro-panel" })
+      return res.status(200).send({ message: "Inicio de sesión exitoso", tipo: tipoUsuario, redirect: "/maestro-inicio" })
     }
   }
 
@@ -61,6 +62,40 @@ router.get("/logout", (req, res) => {
     res.clearCookie("sid")
     res.status(200).send({ message: "Sesión cerrada exitosamente" })
   })
+})
+
+// Ruta para obtener los datos del usuario autenticado
+router.get("/perfil", async (req, res) => {
+  const usuario = req.session.user;
+  if (!usuario) {
+    return res.status(401).send({ message: "Usuario no autenticado" });
+  }
+
+  try {
+    const usuarioDoc = await firestore.collection("usuarios").doc(usuario.id).get();
+    if (!usuarioDoc.exists) {
+      return res.status(404).send({ message: "Usuario no encontrado" });
+    }
+
+    const usuarioData = usuarioDoc.data();
+    res.send({ usuario: usuarioData });
+  } catch (error) {
+    res.status(500).send({ message: "Error al recuperar los datos del usuario", error: error.message });
+  }
+}); 
+
+router.put("/actualizar-password", async (req, res) => {
+  const { password } = req.body;
+  const { id } = req.session.user;
+  console.log(req.body, req.session.user)
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    await firestore.collection("usuarios").doc(id).update({ password: hashedPassword });
+    res.status(200).send({ message: "Contraseña actualizada exitosamente" });
+  } catch (error) {
+    res.status(400).send({ message: "Error al actualizar la contraseña" });
+  }
 })
 
 module.exports = router;

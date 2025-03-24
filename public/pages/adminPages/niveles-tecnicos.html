@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalles del Alumno</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/app.css">
+  <link rel="shortcut icon" href="/icons/albatros-icon.svg" type="image/x-icon">
+</head>
+<body>
+    <nav class="app-navbar">
+        <ul>
+            <li class="navbar-item"><button class="btn-icon btn-marino" id="regresar">
+                <svg width="25" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M46.4635 16.4634L22.9302 40L46.4635 63.5367L53.5368 56.4634L37.0702 40L53.5368 23.5367L46.4635 16.4634Z" fill="#F8FBFF"/>
+                </svg>
+            </button>
+            </li>
+            <li class="navbar-item">
+                <span class="titulo-app marino"><abbr title="Tabla">Tab. </abbr> de Concentrado <abbr title="Niveles Técnicos">Niv. Téc.</abbr></span>
+            </li>
+            <li class="navbar-item"><button class="btn-icon btn-naranja" id="logout">
+                <svg width="25" viewBox="2 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M32.3332 27.0832V22.9165H13.5832V16.6665L3.1665 24.9998L13.5832 33.3332V27.0832H32.3332Z" fill="#F8FBFF"/>
+                    <path d="M40.6667 6.25H21.9167C19.6188 6.25 17.75 8.11875 17.75 10.4167V18.75H21.9167V10.4167H40.6667V39.5833H21.9167V31.25H17.75V39.5833C17.75 41.8812 19.6188 43.75 21.9167 43.75H40.6667C42.9646 43.75 44.8333 41.8812 44.8333 39.5833V10.4167C44.8333 8.11875 42.9646 6.25 40.6667 6.25Z" fill="#F8FBFF"/>
+                </svg>
+            </button></li>
+        </ul>
+    </nav> 
+
+    <nav class="app-navbar-lateral">
+        <ul>
+            <li class="navbar-item-lateral">
+              <a href="/admin/contenido">
+                <svg width="30" height="30" viewBox="0 0 30 30"  xmlns="http://www.w3.org/2000/svg">
+                    <path d="M26.25 3.75H17.5C16.5745 3.75313 15.6833 4.10071 15 4.725C14.3167 4.10071 13.4255 3.75313 12.5 3.75H3.75C3.41848 3.75 3.10054 3.8817 2.86612 4.11612C2.6317 4.35054 2.5 4.66848 2.5 5V23.75C2.5 24.0815 2.6317 24.3995 2.86612 24.6339C3.10054 24.8683 3.41848 25 3.75 25H10.9475C11.605 25 12.25 25.2675 12.715 25.7325L14.1162 27.1338C14.1275 27.145 14.1425 27.1488 14.1537 27.16C14.2612 27.2588 14.3812 27.3463 14.5212 27.405H14.5237C14.8287 27.5313 15.1713 27.5313 15.4762 27.405H15.4787C15.6187 27.3463 15.7387 27.2588 15.8462 27.16C15.8575 27.1488 15.8725 27.145 15.8837 27.1338L17.285 25.7325C17.7549 25.2654 18.3899 25.0022 19.0525 25H26.25C26.5815 25 26.8995 24.8683 27.1339 24.6339C27.3683 24.3995 27.5 24.0815 27.5 23.75V5C27.5 4.66848 27.3683 4.35054 27.1339 4.11612C26.8995 3.8817 26.5815 3.75 26.25 3.75ZM10.9475 22.5H5V6.25H12.5C13.19 6.25 13.75 6.81125 13.75 7.5V23.3612C12.9218 22.8028 11.9464 22.503 10.9475 22.5ZM25 22.5H19.0525C18.0537 22.5 17.0725 22.8075 16.25 23.3612V7.5C16.25 6.81125 16.81 6.25 17.5 6.25H25V22.5Z" fill="#2E3192"/>
+                </svg>
+                <p>C. Pedagógico</p>
+              </a>
+            </li>
+            <li class="navbar-item-lateral">
+                <a href="/admin/anuncios">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M24.8437 3.75H5.15625C3.69125 3.75 2.5 4.87125 2.5 6.25V23.75C2.5 25.1288 3.69125 26.25 5.15625 26.25H24.8437C26.3087 26.25 27.5 25.1288 27.5 23.75V6.25C27.5 4.87125 26.3087 3.75 24.8437 3.75ZM24.8437 23.75H5.15625C5.085 23.75 5.03625 23.73 5.015 23.73C5.00625 23.73 5.00125 23.7325 5 23.74L4.985 6.3075C4.99375 6.295 5.05 6.25 5.15625 6.25H24.8437C24.9425 6.25125 24.9962 6.285 25 6.26L25.015 23.6925C25.0062 23.705 24.95 23.75 24.8437 23.75Z" fill="#2E3192"/>
+                    <path d="M7.5 8.75H15V16.25H7.5V8.75ZM16.25 18.75H7.5V21.25H22.5V18.75H17.5H16.25ZM17.5 13.75H22.5V16.25H17.5V13.75ZM17.5 8.75H22.5V11.25H17.5V8.75Z" fill="#2E3192"/>
+                </svg>
+                <p>Anuncios</p>
+                </a>
+            </li>
+            <li class="navbar-item-lateral">
+                <a href="/admin/alumnos">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.875 15C14.6325 15 16.875 12.7575 16.875 10C16.875 7.2425 14.6325 5 11.875 5C9.1175 5 6.875 7.2425 6.875 10C6.875 12.7575 9.1175 15 11.875 15ZM13.75 16.25H10C5.86375 16.25 2.5 19.6137 2.5 23.75V25H21.25V23.75C21.25 19.6137 17.8863 16.25 13.75 16.25Z" fill="#2E3192"/>
+                    <path d="M20.7552 13.81C21.5165 12.5126 21.8453 11.0066 21.694 9.50996C21.4702 7.27996 20.2252 5.30871 18.1902 3.95996L16.809 6.04246C18.2077 6.96996 19.059 8.29121 19.2065 9.75996C19.2745 10.4426 19.1895 11.1318 18.9577 11.7774C18.7259 12.4231 18.3531 13.009 17.8665 13.4925L16.3765 14.9825L18.399 15.5762C23.689 17.1262 23.7502 22.4462 23.7502 22.5H26.2502C26.2502 20.2637 25.0552 15.8937 20.7552 13.81Z" fill="#2E3192"/>
+                </svg>
+                <p>Alumnos</p>
+                </a>
+            </li>
+            <li class="navbar-item-lateral">
+                <a href="/admin/maestros">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.875 15C14.6325 15 16.875 12.7575 16.875 10C16.875 7.2425 14.6325 5 11.875 5C9.1175 5 6.875 7.2425 6.875 10C6.875 12.7575 9.1175 15 11.875 15ZM13.75 16.25H10C5.86375 16.25 2.5 19.6137 2.5 23.75V25H21.25V23.75C21.25 19.6137 17.8863 16.25 13.75 16.25Z" fill="#2E3192"/>
+                    <path d="M20.7552 13.81C21.5165 12.5126 21.8453 11.0066 21.694 9.50996C21.4702 7.27996 20.2252 5.30871 18.1902 3.95996L16.809 6.04246C18.2077 6.96996 19.059 8.29121 19.2065 9.75996C19.2745 10.4426 19.1895 11.1318 18.9577 11.7774C18.7259 12.4231 18.3531 13.009 17.8665 13.4925L16.3765 14.9825L18.399 15.5762C23.689 17.1262 23.7502 22.4462 23.7502 22.5H26.2502C26.2502 20.2637 25.0552 15.8937 20.7552 13.81Z" fill="#2E3192"/>
+                </svg>
+                <p>Maestros</p>
+            </a>
+            </li>
+            <li class="navbar-item-lateral navbar-item-active">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 26.25H24.8662C26.245 26.25 27.3662 25.1288 27.3662 23.75V6.25C27.3662 4.87125 26.245 3.75 24.8662 3.75H5C3.62125 3.75 2.5 4.87125 2.5 6.25V23.75C2.5 25.1288 3.62125 26.25 5 26.25ZM5 23.75V17.5H10V23.75H5ZM17.5 8.75V15H12.5V8.75H17.5ZM10 8.75V15H5V8.75H10ZM12.5 23.75V17.5H17.5V23.75H12.5ZM20 23.75V17.5H24.8675V23.75H20ZM24.8662 15H20V8.75H24.8662V15Z" fill="#2E3192"/>
+                    </svg>
+                <p>Clases</p>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="mensajeError" class="mensaje-error"></div>
+    
+    <div id="mensajeExito" class="mensaje-exito"></div>
+
+  <div class="seccion-app" >
+    <div class="titulo-seccion">
+        <div style="display:flex;justify-content: baseline;">
+            <div id="icon-tabla"></div><p>Tabla de concentrado de niveles técnicos</p>
+        </div>
+    </div>
+    <div id="tabla-clases" class="">
+
+    </div>
+    </div>
+  <script src="/js/script.js"></script>
+  <script src="/js/maestro_js/tabla-niveles.js"></script>
+</body>
+</html>

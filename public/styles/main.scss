@@ -93,6 +93,8 @@ body {
   transition: 0.1s;
   min-width: 45px;
   min-height: 45px;
+  max-width: 45px;
+  max-height: 45px;
   @include centrado;
   @include sombra;
   @include btn-animacion-regreso;
@@ -126,6 +128,10 @@ body {
   background-color: $naranja;
   color: $blanco;
   @include btn-animacion;
+}
+
+.btn-naranja-2:hover svg path{
+  fill: $blanco;
 }
 
 .btn-naranja:active,
@@ -170,6 +176,7 @@ body {
   text-align: start;
   margin-left: 0.5rem;
 }
+
 .parrafo-regular {
   font-size: clamp(1rem, 1.5vw, 2rem);
   text-align: start;
@@ -186,7 +193,10 @@ body {
 .marino {
   color: $marino;
 }
-
+.negro {
+  color: $oscuro;
+  font-weight: 400;
+}
 hr {
   height: 2px;
   background-color: $marino;
@@ -207,7 +217,7 @@ input,
 select,
 textarea {
   margin: 1rem 0;
-  border: 3px solid $naranja;
+  border: 2px solid $naranja;
   background-color: $blanco;
   border-radius: 5px;
   font-family: "commissioner";
@@ -222,9 +232,40 @@ textarea {
   min-height: 50px;
 }
 
-textarea:disabled {
-  border: 3px solid rgba($color: $naranja, $alpha: 0.6);
+input[type="checkbox"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  background-color: #fff;
+  /* Not removed via appearance */
+  margin: 0 1rem 0 0;
+  display: grid;
+  place-content: center;
+  width: 10px;
+  height: 10px;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 1.2em;
+  height: 1.2em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1.2em 1.2em $naranja;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+input:disabled, select:disabled, textarea:disabled {
+  border: 2px solid rgba($color: $naranja, $alpha: 0.6);
   color: $oscuro;
+}
+
+label{
+  font-weight: 600;
 }
 
 .input-doble div {
@@ -250,6 +291,25 @@ textarea:disabled {
   visibility: visible;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+.mensaje-error{
+  color: red;
+  background-color: $blanco;
+  @include mensaje;
+}
+
+.mensaje-exito{
+  color: $blanco;
+  background-color: $marino;
+  @include mensaje;
+}
+
+.rectangulo {
+  border: solid 3px var(--color);
+  padding: 1rem;
+  border-radius: 10px;
+  @include sombra-2;
 }
 
 // * Tamaño mínimo para celulares

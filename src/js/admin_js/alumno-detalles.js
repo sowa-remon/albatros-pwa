@@ -149,11 +149,12 @@ formEvaluacion.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get("id");
+  const id = urlParams.get("id")
+  console.log(id)
 
   try {
     const response = await fetch(`/admin/publicarEvaluacion/${id}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
