@@ -99,6 +99,9 @@ app.get("/maestro-inicio", isMaestro, (req, res) => {
 });
 app.get("/detalle-anuncio", (req, res) => {
   res.sendFile(path.join(__dirname, "public/pages/anuncio-detalles.html"));
+})
+app.get("/anuncios", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/pages/anuncios.html"));
 });
 
 // * Rutas get
