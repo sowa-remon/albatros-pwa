@@ -1,4 +1,4 @@
-const { firestore } = require('./../configs/firebaseAdmin');
+const { firestore } = require('../configs/firebaseAdmin');
 const express = require('express');
 const multer = require('multer');
 const bcrypt = require('bcrypt');
