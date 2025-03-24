@@ -11,11 +11,6 @@ router.get("/mis-clases", (req, res) => {
     path.join(__dirname, "../../public/pages/maestroPages/mis-clases.html")
   );
 });
-router.get("/anuncios", (req, res) => {
-  res.sendFile(
-    path.join(__dirname, "../../public/pages/maestroPages/anuncios.html")
-  );
-});
 router.get("/tabla-niveles-tecnicos", (req, res) => {
   res.sendFile(
     path.join(
@@ -169,14 +164,16 @@ router.post("/crear-clase", async (req, res) => {
     const claseRef = firestore.collection("clases").doc()
     const claseId = claseRef.id
 
+    const nombreMaestro =`${maestro.nombre} ${maestro.apellidos}`;
+
     const clase = {
       id: claseId,
       nivel: nivel,
       horas: horarios,
       maestro: {
         id: id,
-        nombre: maestro.nombre,
-        apellidos: maestro.apellidos,
+        nombre: nombreMaestro, 
+        curriculum: maestro.curriculum
       },
       alumnos,
       ultimaEv,

@@ -82,7 +82,7 @@ function mostrarContenidos(contenidos){
 
         const btnVideo = document.createElement('button')
         btnVideo.className = 'btn-texto'
-        btnVideo.textContent = 'Cambiar video'
+        btnVideo.textContent = 'Agregar video'
         
         btnVideo.style.setProperty("--color", "#EF8122");
 
@@ -97,7 +97,10 @@ function mostrarContenidos(contenidos){
 
         }
 
-        filaAcolumna.appendChild(videoContenido)
+        if(contenido.video!=''){
+          filaAcolumna.appendChild(videoContenido)
+          btnVideo.textContent = 'Cambiar video'
+        }
         filaAcolumna.appendChild(btnVideo)
 
         let inputContenido = document.createElement('textarea')

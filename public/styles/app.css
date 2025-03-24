@@ -148,6 +148,15 @@
   height: auto;
 }
 
+#icon-detalles {
+  background-image: url(../images/icons/icon-detalles.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem;
+  width: 45px;
+  height: auto;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -186,7 +195,6 @@ body {
   width: 100%;
   border-radius: 0;
   left: 0;
-  top: 83%;
   background-color: #f8fbff;
   box-shadow: 0 3px 3px rgba(46, 49, 146, 0.3);
 }
@@ -195,11 +203,9 @@ body {
   display: flex;
   flex-direction: column;
   padding: 0.5rem 0;
-  margin: 0;
   flex-direction: row;
   justify-content: space-evenly;
   list-style-type: none;
-  padding: 0.5rem 0;
   text-decoration: none;
 }
 
@@ -211,8 +217,7 @@ body {
   text-align: center;
   color: #2e3192;
   font-weight: 600;
-  font-size: x-small;
-  margin: 0.5rem;
+  font-size: xx-small;
   transform: scale(1);
   transition: 0.5s;
   text-decoration: none;
@@ -221,7 +226,7 @@ body {
 .navbar-item-lateral a {
   text-decoration: none;
   color: #2e3192;
-  margin: 0 0 0.5rem 0;
+  margin: 0;
 }
 
 .navbar-item-lateral:hover {
@@ -632,6 +637,11 @@ dialog {
   justify-content: space-around;
 }
 
+.dato {
+  display: flex;
+  justify-content: space-between;
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -668,6 +678,9 @@ tr:hover {
   }
   .columna-a-fila {
     flex-direction: column;
+  }
+  .app-navbar-lateral {
+    bottom: 0;
   }
 }
 @media (max-width: 810px) {
@@ -714,6 +727,9 @@ tr:hover {
   .seccion-app {
     padding: 1rem;
   }
+  .app-navbar-lateral {
+    bottom: 0;
+  }
 }
 @media (min-width: 500px) and (max-width: 959px) {
   .seccion-app {
@@ -731,6 +747,9 @@ tr:hover {
   }
   .fila-horario {
     grid-template-columns: 1fr auto auto;
+  }
+  .app-navbar-lateral {
+    bottom: 0;
   }
 }
 @media (min-width: 960px) {
@@ -751,18 +770,18 @@ tr:hover {
   .app-navbar-lateral {
     width: auto;
     left: 10px;
-    top: 25%;
+    top: 20%;
     background-color: #f8fbff;
     border-radius: 100px;
   }
   .app-navbar-lateral ul {
     flex-direction: column;
     list-style-type: none;
-    padding: 0.5rem 0;
+    padding: 0;
   }
   .navbar-item-lateral {
     flex-direction: column;
-    margin: 0.5rem;
+    margin: 0.3rem;
   }
   .fila-horario {
     grid-template-columns: 1fr auto auto;

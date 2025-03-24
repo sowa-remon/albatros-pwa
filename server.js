@@ -5,6 +5,7 @@ const path = require("path");
 const authRoutes = require("./src/routes/auth");
 const adminRoutes = require("./src/routes/adminRoute");
 const maestroRoutes = require("./src/routes/maestroRoutes");
+const alumnoRoutes = require("./src/routes/alumnoRoutes");
 const { firestore } = require("./src/configs/firebaseAdmin");
 
 const os = require("os");
@@ -59,6 +60,15 @@ function isMaestro(req, res, next) {
   }
 }
 
+// middleware para verificar si es maestro
+function isAlumno(req, res, next) {
+  if (req.session.user && req.session.user.tipo === "alumno") {
+    next();
+  } else {
+    res.status(403).json({ message: "No autorizado" });
+  }
+}
+
 //
 app.use(session(sess));
 app.use(express.json());
@@ -74,6 +84,7 @@ app.use("/uploads", express.static(path.join(__dirname, "src/uploads")));
 app.use("/auth", authRoutes);
 app.use("/admin", isAdmin, adminRoutes);
 app.use("/maestro", isMaestro, maestroRoutes);
+app.use("/alumno", isAlumno, alumnoRoutes);
 
 // * Rutas personalizadas
 app.get("/", function (req, res) {
