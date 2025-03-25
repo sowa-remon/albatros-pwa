@@ -1,4 +1,4 @@
-const modalAdmin = document.getElementById('admin-modal')
+
 const mensajeError2 = document.getElementById('mensajeError')
 const mensajeExito2 = document.getElementById('mensajeExito')
 
