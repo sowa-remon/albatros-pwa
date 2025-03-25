@@ -6,6 +6,7 @@ const cancelarRegistro = document.getElementById("cancelar-clase");
 const agregarClaseBtn = document.getElementById("agregar-clase-btn");
 const nivel = document.getElementById("nivel-clase");
 const concentradoClases = document.getElementById("concentrado-mis-clases");
+const loader = document.getElementById('loader')
 
 const mensajeError = document.getElementById("mensajeError");
 const mensajeExito = document.getElementById("mensajeExito");
@@ -83,6 +84,8 @@ function limpiarCampos() {
 
 // ** FETCHES
 async function fetchClases() {
+  
+  loader.style.display = "block";
   try {
     const response = await fetch("/maestro/clases");
     if (!response.ok) {
@@ -94,8 +97,12 @@ async function fetchClases() {
     }
     misClases = await response.json();
     mostrarClases(misClases.clases);
+    
+  loader.style.display = "none";
   } catch (error) {
     console.error("Error al recuperar las clases:", error)
+    
+  loader.style.display = "none";
   }
 }
 
@@ -248,11 +255,15 @@ function mostrarClases(clases) {
 
     eliminarClase.onclick = async () => {
       if (confirm("¿Está seguro de que quiere eliminar la clase?")) {
+        
+  loader.style.display = "block";
         const response = await fetch(`/maestro/eliminarClase/${clase.id}`, {
           method: "DELETE",
         });
         if (response.ok) {
           mostrarExito("Clase eliminada.");
+          
+  loader.style.display = "none";
           fetchClases();
         } else {
           mostrarError("UPS! Ocurrió un error al eliminar la clase");
@@ -328,6 +339,7 @@ agregarClaseBtn.addEventListener("click", async (event) => {
       return;
     }
 
+    loader.style.display = "block";
     try {
       const response = await fetch("/maestro/crear-clase", {
         method: "POST",
@@ -341,6 +353,8 @@ agregarClaseBtn.addEventListener("click", async (event) => {
       });
 
       if (response.ok) {
+        
+  loader.style.display = "none";
         mostrarExito("Clase creada exitosamente");
         fetchClases();
         cerrarModal();

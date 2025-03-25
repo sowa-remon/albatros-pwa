@@ -9,12 +9,16 @@ let todosAnuncios = [];
 
 async function fetchAnuncios() {
   try {
+    
+  loader.style.display = "block"
     const response = await fetch("/lista-anuncios");
     if (!response.ok) {
       throw new Error("Error en la solicitud: " + response.status);
     }
     anuncios = await response.json();
     mostrarAnuncios(anuncios);
+    
+  loader.style.display = "none"
   } catch (error) {
     console.error("Error al recuperar anuncios:", error);
   }

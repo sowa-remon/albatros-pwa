@@ -14,6 +14,8 @@ const alumnoModal = document.getElementById("alumno-modal");
 const concentradoAlumnos = document.getElementById("concentrado-alumnos");
 const barraBusqueda = document.getElementById("barra-busqueda");
 
+const loader = document.getElementById("loader");
+
 const meError = document.getElementById("mensaje-error");
 const meExito = document.getElementById("mensaje-exito");
 
@@ -56,6 +58,7 @@ function mostrarExito(mensaje) {
 }
 
 async function fetchAlumnos() {
+  loader.style.display = "block";
   try {
     const response = await fetch("/admin/lista-alumnos");
     if (!response.ok) {
@@ -63,6 +66,8 @@ async function fetchAlumnos() {
     }
     todosAlumnos = await response.json();
     mostrarAlumnos(todosAlumnos);
+
+    loader.style.display = "none";
   } catch (error) {
     console.error("Error al recuperar alumnos:", error);
   }
@@ -120,13 +125,14 @@ function mostrarAlumnos(alumnos) {
     usuario.innerHTML = `<b>Usuario:</b> <span>${alumno.usuario}</span>`;
     fichaAlumno.appendChild(usuario);
 
-    const btnResetPass = document.createElement('button')
-    btnResetPass.className = 'btn-texto'
-    btnResetPass.style.margin =  '1rem 0'
+    const btnResetPass = document.createElement("button");
+    btnResetPass.className = "btn-texto";
+    btnResetPass.style.margin = "1rem 0";
     btnResetPass.style.setProperty("--color", "#EF8122");
-    btnResetPass.textContent = 'Restaurar contraseña'
+    btnResetPass.textContent = "Restaurar contraseña";
     btnResetPass.onclick = async () => {
       if (confirm("¿Desea restaurar la contraseña de este usuario?")) {
+        loader.style.display = "block";
         const response = await fetch(`/admin/reset-password/${alumno.id}`, {
           method: "PUT",
           headers: {
@@ -136,13 +142,17 @@ function mostrarAlumnos(alumnos) {
         });
         if (response.ok) {
           mostrarExito("Contraseña restaurada");
+
+          loader.style.display = "none";
         } else {
           mostrarError("Error al cambiar la contraseña");
+
+          loader.style.display = "none";
         }
       }
     };
 
-    fichaAlumno.appendChild(btnResetPass)
+    fichaAlumno.appendChild(btnResetPass);
 
     const columna = document.createElement("div");
     columna.className = "columna-1-2";
@@ -166,6 +176,7 @@ function mostrarAlumnos(alumnos) {
       btnBaja.textContent = "Dar de baja";
       btnBaja.onclick = async () => {
         if (confirm("¿Está seguro de que quiere dar de baja a este alumno?")) {
+          loader.style.display = "block";
           const response = await fetch(`/admin/bajaAlumno/${alumno.id}`, {
             method: "PUT",
             headers: {
@@ -175,9 +186,13 @@ function mostrarAlumnos(alumnos) {
           });
           if (response.ok) {
             mostrarExito("Alumno dado de baja exitosamente");
+
+            loader.style.display = "none";
             fetchAlumnos();
           } else {
             mostrarError("Error al dar de baja al alumno");
+
+            loader.style.display = "none";
           }
         }
       };
@@ -190,6 +205,7 @@ function mostrarAlumnos(alumnos) {
       btnAlta.textContent = "Dar de alta";
       btnAlta.onclick = async () => {
         if (confirm("¿Está seguro de que quiere dar de alta a este alumno?")) {
+          loader.style.display = "block";
           const response = await fetch(`/admin/altaAlumno/${alumno.id}`, {
             method: "PUT",
             headers: {
@@ -199,9 +215,13 @@ function mostrarAlumnos(alumnos) {
           });
           if (response.ok) {
             mostrarExito("Alumno dado de alta exitosamente");
+
+            loader.style.display = "none";
             fetchAlumnos();
           } else {
             mostrarError("Error al dar de alta al alumno");
+
+            loader.style.display = "none";
           }
         }
       };
@@ -277,7 +297,8 @@ document
       !nombre.value ||
       !apellidos.value ||
       !fechaN.value ||
-      !restricciones  ||
+      !antecedentes.value ||
+      !restricciones.value ||
       !direccion.value ||
       !telefono.value ||
       !nivel.value ||
@@ -302,6 +323,7 @@ document
         nivel: nivel.value,
       };
 
+      loader.style.display = "block";
       const response = await fetch("/admin/crearUsuarioAlumno/", {
         method: "POST",
         headers: {
@@ -312,15 +334,18 @@ document
 
       if (response.ok) {
         mostrarExito("Alumno registrado exitosamente");
+
+        loader.style.display = "block";
         limpiarCampos();
 
         btnRegistrarAlumno.removeAttribute("disabled");
         fetchAlumnos();
         closeModal();
       } else {
-        mostrarError("Error al registrar el alumno ?");
-        
-    btnRegistrarAlumno.removeAttribute('disabled')
+        mostrarError("Error al registrar el alumno");
+        loader.style.display = "bibe";
+
+        btnRegistrarAlumno.removeAttribute("disabled");
       }
     }
   });

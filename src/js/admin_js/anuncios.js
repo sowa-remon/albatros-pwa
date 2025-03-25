@@ -35,6 +35,7 @@ function mostrarExito(mensaje) {
 let todosAnuncios = [];
 
 async function fetchAnuncios() {
+  loader.style.display = "block";
   try {
     const response = await fetch("/lista-anuncios");
     if (!response.ok) {
@@ -42,6 +43,8 @@ async function fetchAnuncios() {
     }
     anuncios = await response.json();
     mostrarAnuncios(anuncios);
+
+    loader.style.display = "none";
   } catch (error) {
     console.error("Error al recuperar anuncios:", error);
   }
@@ -117,10 +120,12 @@ function mostrarAnuncios(anuncios) {
       btnEliminar.textContent = "Eliminar";
       btnEliminar.onclick = async () => {
         if (confirm("¿Está seguro de que quiere eliminar el anuncio?")) {
+          loader.style.display = "block";
           const response = await fetch(`/admin/eliminarAnuncio/${anuncio.id}`, {
             method: "DELETE",
           });
           if (response.ok) {
+            loader.style.display = "none";
             mostrarExito("Anuncio eliminado");
             fetchAnuncios();
           } else {
@@ -178,8 +183,11 @@ publicarAnuncio.addEventListener("submit", async (event) => {
   if (!titulo.value || !contenido.value || !duracion.value || !tipo.value) {
     mostrarError("Por favor, ingrese todos los campos");
     btnPublicar.removeAttribute("disabled");
+
+    loader.style.display = "none";
     return;
   } else {
+    loader.style.display = "block";
     const formData = new FormData(publicarAnuncio);
 
     const response = await fetch("/admin/crearAnuncio/", {
@@ -190,6 +198,7 @@ publicarAnuncio.addEventListener("submit", async (event) => {
     if (response.ok) {
       mostrarExito("Anuncio publicado");
 
+      loader.style.display = "none";
       btnPublicar.removeAttribute("disabled");
       fetchAnuncios();
       limpiarCampos();
@@ -198,6 +207,8 @@ publicarAnuncio.addEventListener("submit", async (event) => {
       mostrarError("Error al publicar el anuncio");
 
       btnPublicar.removeAttribute("disabled");
+
+      loader.style.display = "none";
     }
   }
 });

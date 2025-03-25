@@ -7,6 +7,7 @@ const direccion = document.getElementById("direccion");
 const telefono = document.getElementById("telefono");
 const horario = document.getElementById("horario");
 
+const loader = document.getElementById('loader')
 
 const meError = document.getElementById("mensajeError");
 const meExito = document.getElementById("mensajeExito");

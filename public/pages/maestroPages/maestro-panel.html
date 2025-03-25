@@ -89,7 +89,7 @@
             </div>
             <div class="input-doble" style="align-items: center;">
                 <div style="margin-right: 1rem;">
-                    <label for="curriculum">Currículum</label>
+                   <label for="curriculum">Currículum</label>
                     <textarea name="curriculum" id="curriculum" disabled></textarea>
                 </div>
                 <button class="btn-icon btn-naranja-2" id="cancelar-curriculum" style="display: none; margin: 1rem 1rem 0 0" type="button">
@@ -108,6 +108,8 @@
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M28.8075 0.504662C30.0328 1.43027 30.3688 3.31449 29.5579 4.71318L13.5296 28.6391C13.0908 29.3961 12.3783 29.8893 11.5873 29.9836C10.7964 30.0778 10.01 29.7633 9.44356 29.1261L0.793008 18.309C-0.253516 17.1317 -0.265811 15.2089 0.765546 14.0143C1.7969 12.8197 3.48136 12.8056 4.52788 13.9829L10.8762 22.2101L25.1206 1.36126C25.9315 -0.0374312 27.5822 -0.420945 28.8075 0.504662Z" fill="#F8FBFF"/>
                     </svg>   
                 </button>
+                <p class="negro"><b>Nota: </b>tu currículum es visible para los alumnos.</p>
+                   
             </div>
             
             <label for="password-maestro">Contraseña:</label>
@@ -126,6 +128,18 @@
             </div>
         </div>
         <div id="maestro-horario" class="rectangulo" style="--color: #ef8122;">
+           <div class="dato" style="align-content: center;">
+            <p class="negro"><b>Nota: </b>estos serán los horarios que te aparecerán disponibles al momento de crear una clase.</p>
+          
+            <div style="width: 100%; justify-content: end; display: grid;">
+                <button class="btn-icon btn-marino" id="editar-horario" type="button" style="align-self: flex-end;">
+                    <svg width="30" height="30" viewBox="-5 -8 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23.735 2.51465L27.485 6.26465L24.6263 9.12465L20.8763 5.37465L23.735 2.51465ZM10 19.9996H13.75L22.8588 10.8909L19.1087 7.1409L10 16.2496V19.9996Z" fill="#F8FBFF"/>
+                        <path d="M23.75 23.75H10.1975C10.165 23.75 10.1313 23.7625 10.0988 23.7625C10.0575 23.7625 10.0163 23.7513 9.97375 23.75H6.25V6.25H14.8088L17.3088 3.75H6.25C4.87125 3.75 3.75 4.87 3.75 6.25V23.75C3.75 25.13 4.87125 26.25 6.25 26.25H23.75C24.413 26.25 25.0489 25.9866 25.5178 25.5178C25.9866 25.0489 26.25 24.413 26.25 23.75V12.915L23.75 15.415V23.75Z" fill="#F8FBFF"/>
+                    </svg>
+                </button>
+            </div>
+           </div>
             <form action="">
                 <div class="fila-horario">
                     <div style="display: flex; flex-direction: row; justify-content: baseline; align-items: center; margin-right:1rem;">
@@ -223,20 +237,14 @@
                         </div>
                     </div>
                 </div>  
-                <div style="width: 100%; justify-content: end; display: grid;">
-                    <button class="btn-icon btn-marino" id="editar-horario" type="button" style="align-self: flex-end;">
-                        <svg width="30" height="30" viewBox="-5 -8 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M23.735 2.51465L27.485 6.26465L24.6263 9.12465L20.8763 5.37465L23.735 2.51465ZM10 19.9996H13.75L22.8588 10.8909L19.1087 7.1409L10 16.2496V19.9996Z" fill="#F8FBFF"/>
-                            <path d="M23.75 23.75H10.1975C10.165 23.75 10.1313 23.7625 10.0988 23.7625C10.0575 23.7625 10.0163 23.7513 9.97375 23.75H6.25V6.25H14.8088L17.3088 3.75H6.25C4.87125 3.75 3.75 4.87 3.75 6.25V23.75C3.75 25.13 4.87125 26.25 6.25 26.25H23.75C24.413 26.25 25.0489 25.9866 25.5178 25.5178C25.9866 25.0489 26.25 24.413 26.25 23.75V12.915L23.75 15.415V23.75Z" fill="#F8FBFF"/>
-                        </svg>
-                    </button>
-                </div>
-                    <div class="btns-doble" style="display: none;" id="btns-horario">
+
+                <div class="btns-doble" style="display: none;" id="btns-horario">
                                             
-                    <button type="reset" id="cancelar-horario" class="btn btn-naranja-2">Cancelar</button>
-                    <button id="guardar-horario" class="btn btn-marino">Guardar</button>
+                    <button type="reset" id="cancelar-horario" class="btn btn-naranja-2" style="margin-top: 1rem;">Cancelar</button>
+                    <button id="guardar-horario" class="btn btn-marino" style="margin-top: 1rem;">Guardar</button>
                 
-                    </div>
+                </div>
+
             </form>
         </div>
   <br><br><br><br><br><br><br><br><br>

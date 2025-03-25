@@ -79,6 +79,8 @@
     
     <div id="mensaje-exito" class="mensaje-exito"></div>
 
+    <div class="loader" id="loader"></div>
+
     <section class="seccion-app">
         <div class="titulo-seccion grupo">
             <div style="display:flex;justify-content: baseline;">
@@ -86,17 +88,21 @@
             </div>
             <p>Total: <span id="total-alumnos"></span></p>
         </div>
+
         <div style="display: flex; align-content: center;">
             <input type="text" id="barra-busqueda" name="barra-busqueda" placeholder="Buscar por nombre" style="width:100%">
             <svg width="40" viewBox="-5 -5 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16.6668 30.0002C19.6251 29.9996 22.4982 29.0092 24.8285 27.1868L32.1552 34.5135L34.5118 32.1568L27.1852 24.8302C29.0085 22.4996 29.9995 19.6259 30.0002 16.6668C30.0002 9.31516 24.0185 3.3335 16.6668 3.3335C9.31516 3.3335 3.3335 9.31516 3.3335 16.6668C3.3335 24.0185 9.31516 30.0002 16.6668 30.0002ZM16.6668 6.66683C22.1818 6.66683 26.6668 11.1518 26.6668 16.6668C26.6668 22.1818 22.1818 26.6668 16.6668 26.6668C11.1518 26.6668 6.66683 22.1818 6.66683 16.6668C6.66683 11.1518 11.1518 6.66683 16.6668 6.66683Z" fill="#2E3192"/>
             </svg>
         </div>
-        <div id="concentrado-alumnos">
-        </div>
-        <div style="margin: 1rem 0 7rem 0; display: grid; justify-content: end;">
+        <div style=" display: grid; justify-content: end;">
             <button class="btn btn-naranja" onclick="openModal()">Agregar Alumno</button>
         </div>
+        <div id="concentrado-alumnos">
+        </div>
+<br><br><br><br><br><br>
+<br><br><br>
+
 
 
   <!-- Agregar Alumno -->
@@ -120,9 +126,9 @@
         <label for="fechaN">Fecha de Nacimiento:</label>
         <input type="date" id="fechaN" name="fechaN" >
         <label for="antecedentes">Antecedentes de salud: </label>
-        <textarea type="text" id="antecedentes" name="antecedentes" ></textarea>
+        <textarea type="text" id="antecedentes" name="antecedentes" required></textarea>
         <label for="restricciones">Restricciones médicas: </label>
-        <textarea type="text" id="restricciones" name="restricciones" ></textarea>
+        <textarea type="text" id="restricciones" name="restricciones" required></textarea>
         <label for="nivel">Nivel:</label>        
         <select name="nivel" id="nivel">
             <option value="0">No Asignar</option>

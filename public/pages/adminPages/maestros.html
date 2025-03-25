@@ -10,6 +10,8 @@
     <link rel="shortcut icon" href="/icons/albatros-icon.svg" type="image/x-icon">
 </head>
 <body>
+    
+  <div class="loader" id="loader"></div>
     <nav class="app-navbar">
         <ul>
             <li class="navbar-item"><button class="btn-icon btn-marino" id="regresar">
@@ -92,11 +94,12 @@
                 <path d="M16.6668 30.0002C19.6251 29.9996 22.4982 29.0092 24.8285 27.1868L32.1552 34.5135L34.5118 32.1568L27.1852 24.8302C29.0085 22.4996 29.9995 19.6259 30.0002 16.6668C30.0002 9.31516 24.0185 3.3335 16.6668 3.3335C9.31516 3.3335 3.3335 9.31516 3.3335 16.6668C3.3335 24.0185 9.31516 30.0002 16.6668 30.0002ZM16.6668 6.66683C22.1818 6.66683 26.6668 11.1518 26.6668 16.6668C26.6668 22.1818 22.1818 26.6668 16.6668 26.6668C11.1518 26.6668 6.66683 22.1818 6.66683 16.6668C6.66683 11.1518 11.1518 6.66683 16.6668 6.66683Z" fill="#2E3192"/>
             </svg> 
         </div>
-        <div id="concentrado-maestros">
-        </div>
-        <div style="margin: 1rem 0 7rem 0; display: grid; justify-content: end;">
+        <div style="display: grid; justify-content: end;">
             <button class="btn btn-naranja" onclick="openModal()">Agregar Maestro</button>
         </div>
+        <div id="concentrado-maestros">
+        </div>
+
 
 
   <!-- Agregar Alumno -->

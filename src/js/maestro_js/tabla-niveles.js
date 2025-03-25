@@ -1,5 +1,6 @@
 const tablaClases = document.getElementById('tabla-clases')
 
+const loader = document.getElementById('loader')
 const meError = document.getElementById("mensaje-error");
 const meExito = document.getElementById("mensaje-exito");
 
@@ -43,16 +44,20 @@ function mostrarError(mensaje) {
   }
 
 async function fetchClases(){
+  
+  loader.style.display = "block"
   try {
     const response = await fetch("/todas-las-clases");
     if (!response.ok) {
       throw new Error("Error en la solicitud: " + response.status);
     }
     let clases = await response.json();
-    console.log(clases)
+    
+  loader.style.display = "none"
     mostrarClases(clases);
   } catch (error) {
     console.error("Error al recuperar las clases:", error);
+    
   }
 }
 

@@ -10,6 +10,8 @@ const telefono = document.getElementById("telefono");
 const nombre = document.getElementById("nombre");
 const fechaN = document.getElementById("fechaN");
 
+const loader = document.getElementById('loader')
+
 const meError = document.getElementById("mensajeError");
 const meExito = document.getElementById("mensajeExito");
 
@@ -52,6 +54,8 @@ function mostrarExito(mensaje) {
 let todosMaestros = [];
 
 async function fetchMaestros() {
+  
+  loader.style.display = "block"
   try {
     const response = await fetch("/admin/lista-maestros");
     if (!response.ok) {
@@ -59,6 +63,8 @@ async function fetchMaestros() {
     }
     todosMaestros = await response.json();
     mostrarMaestros(todosMaestros);
+    
+  loader.style.display = "none"
   } catch (error) {
     console.error("Error al recuperar maestros:", error);
   }
@@ -123,7 +129,7 @@ function mostrarMaestros(maestros) {
       }
     };
 
-    fichaAlumno.appendChild(btnResetPass)
+    fichaMaestro.appendChild(btnResetPass)
 
     const columna = document.createElement("div");
     columna.className = "columna-1-2";

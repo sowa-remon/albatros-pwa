@@ -17,6 +17,8 @@ const divMaestro = document.getElementById("maestro");
 const divHorarios = document.getElementById("horario");
 const divDetalles = document.getElementById("alumno");
 
+const loader = document.getElementById('loader')
+
 const niveles = [
   "Ninguno",
   "Bebé",
@@ -59,6 +61,9 @@ let idClase;
 let nivel;
 
 async function fetchClase(id) {
+  
+  loader.style.display = "block"
+
   try {
     const response = await fetch(`/alumno/mi-clase/${id}`);
     if (!response.ok) {
@@ -66,6 +71,8 @@ async function fetchClase(id) {
     }
     const data = await response.json();
     mostrarClase(data);
+    
+  loader.style.display = "none"
   } catch (error) {
     console.error("Error al recuperar la clase:", error);
   }

@@ -16,6 +16,7 @@ const maestro = document.getElementById("maestro");
 const observaciones = document.getElementById("observaciones");
 const aprobar = document.getElementById("aprobar");
 
+const loader = document.getElementById("loader");
 
 const meError = document.getElementById("mensajeError");
 const meExito = document.getElementById("mensajeExito");
@@ -75,12 +76,16 @@ async function fetchAlumnoDetails() {
       observaciones.setAttribute("disabled", true);
       aprobar.setAttribute("disabled", true);
     }
-    
-    if(alumno.evaluacion.fechaEv == '' && alumno.evaluacion.maestro == '' && alumno.evaluacion.observaciones == ''){
-      observaciones.setAttribute('disabled', true)
-      estadoEvaluacion.innerHTML = 'Pendiente'
+
+    if (
+      alumno.evaluacion.fechaEv == "" &&
+      alumno.evaluacion.maestro == "" &&
+      alumno.evaluacion.observaciones == ""
+    ) {
+      observaciones.setAttribute("disabled", true);
+      estadoEvaluacion.innerHTML = "Pendiente";
       aprobar.innerHTML = "Evaluación pendiente";
-      aprobar.setAttribute('disabled', true);
+      aprobar.setAttribute("disabled", true);
     }
 
     const originalValues = {
@@ -146,11 +151,12 @@ formDetalles.addEventListener("submit", async (event) => {
   data.contactoE = {
     contactoNombre: data.contactoNombre,
     contactoTelefono: data.contactoTelefono,
-  }; 
+  };
   delete data.contactoNombre;
   delete data.contactoTelefono;
 
   try {
+    loader.style.display = "block";
     const response = await fetch(`/admin/actualizarAlumno/${id}`, {
       method: "PUT",
       headers: {
@@ -161,10 +167,13 @@ formDetalles.addEventListener("submit", async (event) => {
 
     if (response.ok) {
       mostrarExito("Cambios guardados exitosamente");
+
+      loader.style.display = "none";
     } else {
       mostrarError("Error al guardar los cambios en el if");
     }
   } catch (error) {
+    loader.style.display = "none";
     console.error("Error al guardar los cambios:", error);
   }
 });
@@ -173,18 +182,21 @@ formEvaluacion.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get("id")
+  const id = urlParams.get("id");
   try {
+    loader.style.display = "block";
     const response = await fetch(`/admin/publicarEvaluacion/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({observaciones: observaciones.value}),
+      body: JSON.stringify({ observaciones: observaciones.value }),
     });
 
     if (response.ok) {
       mostrarExito("Se publicó la evaluación al alumno");
+
+      loader.style.display = "none";
       estadoEvaluacion.innerHTML = "Aprobado";
       observaciones.setAttribute("disabled", true);
       aprobar.setAttribute("disabled", true);
@@ -192,6 +204,7 @@ formEvaluacion.addEventListener("submit", async (event) => {
       mostrarError("No se pudo publicar la evaluación");
     }
   } catch (error) {
+    loader.style.display = "none";
     console.error("Error al guardar los cambios:", error);
   }
 });

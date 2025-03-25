@@ -100,7 +100,7 @@ function mostrarAdmins(admins) {
       }
     };
 
-    fichaAlumno.appendChild(btnResetPass)
+    fichaAdmin.appendChild(btnResetPass)
 
     filaAdmin.appendChild(fichaAdmin);
 

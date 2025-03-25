@@ -2,6 +2,9 @@ const nivelClase = document.getElementById("nivel-clase");
 const duracion = document.getElementById("duracion");
 const alumnos = document.getElementById("alumnos");
 const horarios = document.getElementById("horarios");
+
+const loader = document.getElementById("loader");
+
 // Elementos modal agregar alumnos
 const agregarAlumnosModal = document.getElementById("agregar-alumnos-modal");
 const btnAgregar = document.getElementById("btnAgregar");
@@ -42,11 +45,11 @@ const btnCancelarResultados = document.getElementById(
   "cancelar-resultados-btn"
 );
 const closeResultadosModal = document.getElementById("closeResultados");
-const formResultados = document.getElementById('form-resultados')
+const formResultados = document.getElementById("form-resultados");
 
-const select = document.getElementById("diasEvaluacion")
-const ultimaEvElemento = document.getElementById('ultimaEv')
-const siguienteEvElemento = document.getElementById('siguienteEv') 
+const select = document.getElementById("diasEvaluacion");
+const ultimaEvElemento = document.getElementById("ultimaEv");
+const siguienteEvElemento = document.getElementById("siguienteEv");
 
 const tablaBorde = document.getElementById("tabla-borde");
 // Elementos mensajes
@@ -119,6 +122,7 @@ function mostrarExito(mensaje) {
 }
 
 async function fetchClaseDetalles() {
+  loader.style.display = "block";
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
 
@@ -129,10 +133,14 @@ async function fetchClaseDetalles() {
     }
     const clase = await response.json();
     idClase = clase.id;
-    nivelActual = clase.nivel
+    nivelActual = clase.nivel;
     mostrarClase(clase);
+
+    loader.style.display = "none";
   } catch (error) {
     console.error("Error al recuperar los detalles del anuncio:", error);
+
+    loader.style.display = "none";
   }
 }
 
@@ -154,14 +162,12 @@ function generarInputsAlumnos(alumnos) {
   const contenedor = document.getElementById("alumnos-disponibles-container");
   contenedor.innerHTML = ""; // Limpiar contenido previo
 
-  console.log(alumnos)
   if (alumnos.length == 0) {
     contenedor.innerHTML = "No hay alumnos disponibles";
     btnAgregarAlumnos.setAttribute("disabled", true);
     return;
   }
   alumnos.forEach((alumno) => {
-    console.log(alumno);
     const input = document.createElement("input");
     input.type = "checkbox";
     input.value = alumno.id;
@@ -195,6 +201,7 @@ function generarInputsAlumnos(alumnos) {
       return;
     }
 
+    loader.style.display = "block";
     // Hacer la petición a la ruta para agregar alumnos
     try {
       const response = await fetch(`/maestro/agregarAlumnos`, {
@@ -210,12 +217,18 @@ function generarInputsAlumnos(alumnos) {
 
       if (response.ok) {
         mostrarExito("Alumnos agregados exitosamente.");
+
+        loader.style.display = "none";
         location.reload();
       } else {
         mostrarError("UPS! Hubo un error al agregar a los alumnos.");
+
+        loader.style.display = "none";
       }
     } catch (error) {
       mostrarError(`Error al enviar la solicitud: ${error.message}`);
+
+      loader.style.display = "none";
     }
   };
 }
@@ -233,8 +246,6 @@ async function fetchHorario() {
   }
 }
 function generarDiasEvaluacion(mes, horas) {
-
-
   // Limpiar el contenedor para evitar duplicados
   diasEvaluacionContainer.innerHTML = "";
 
@@ -354,14 +365,14 @@ function cerrarModalEvaluacion() {
   evaluacionModal.style.display = "none";
 }
 function abrirModalResultados(a) {
-  const alumnoEvaluado = document.getElementById('alumnoEvaluado')
-  const nivelSelect = document.getElementById('nivelSelect')
-  const observaciones = document.getElementById('observaciones')
-  const idAlumno = document.getElementById('idAlumno')
-  idAlumno.style.display ='none'
-  idAlumno.textContent = a.id
-  alumnoEvaluado.textContent = a.nombre
-  nivelSelect.value = nivelActual
+  const alumnoEvaluado = document.getElementById("alumnoEvaluado");
+  const nivelSelect = document.getElementById("nivelSelect");
+  const observaciones = document.getElementById("observaciones");
+  const idAlumno = document.getElementById("idAlumno");
+  idAlumno.style.display = "none";
+  idAlumno.textContent = a.id;
+  alumnoEvaluado.textContent = `${a.nombre} ${a.apellidos}`;
+  nivelSelect.value = nivelActual;
 
   resultadosModal.style.display = "block";
 }
@@ -375,16 +386,16 @@ function mostrarClase(clase) {
     programas[clase.nivel]
   } minutos`;
 
-  if(clase.ultimaEv ==''){
-    ultimaEvElemento.innerHTML = 'No se ha evaluado'
-  } else{
-    ultimaEvElemento.innerHTML = clase.ultimaEv
+  if (clase.ultimaEv == "") {
+    ultimaEvElemento.innerHTML = "No se ha evaluado";
+  } else {
+    ultimaEvElemento.innerHTML = clase.ultimaEv;
   }
 
-  if(clase.siguienteEv == ''){
-    siguienteEvElemento.innerHTML = 'No se ha asignado'
-  } else{
-    siguienteEvElemento.innerHTML = clase.siguienteEv
+  if (clase.siguienteEv == "") {
+    siguienteEvElemento.innerHTML = "No se ha asignado";
+  } else {
+    siguienteEvElemento.innerHTML = clase.siguienteEv;
   }
 
   clase.horas.forEach((hora) => {
@@ -402,7 +413,7 @@ function mostrarClase(clase) {
       checkboxAlumno.type = "checkbox";
       checkboxAlumno.value = alumno.id;
       const labelAlumno = document.createElement("label");
-      labelAlumno.textContent = alumno.nombre;
+      labelAlumno.textContent = alumno.nombre + ' ' + alumno.apellidos;
 
       // TODO: Agregar info médica en un dialog
       const tdRestricciones = document.createElement("td");
@@ -449,22 +460,20 @@ function mostrarClase(clase) {
 
       alumnnosEvaluacionContainer.appendChild(alumnoCheck);
 
-      if(alumno.evaluar == true){
-        console.log("evaluar a ", alumno.nombre)
-        const tdEvaluar = document.createElement('td')
-        const btnEvaluar = document.createElement('button')
-        btnEvaluar.className = 'btn-texto'        
+      if (alumno.evaluar == true) {
+        const tdEvaluar = document.createElement("td");
+        const btnEvaluar = document.createElement("button");
+        btnEvaluar.className = "btn-texto";
         btnEvaluar.style.setProperty("--color", "#2e3192");
 
-        btnEvaluar.textContent = 'Añadir ev.'
-        tdEvaluar.appendChild(btnEvaluar)
+        btnEvaluar.textContent = "Añadir ev.";
+        tdEvaluar.appendChild(btnEvaluar);
 
-        trAlumno.appendChild(tdEvaluar)
+        trAlumno.appendChild(tdEvaluar);
 
-        btnEvaluar.onclick = () =>{
-          abrirModalResultados(alumno)
-        }
-
+        btnEvaluar.onclick = () => {
+          abrirModalResultados(alumno);
+        };
       }
     });
   }
@@ -472,9 +481,10 @@ function mostrarClase(clase) {
     const liAlumno = document.createElement("p");
     liAlumno.textContent = "No hay alumnos";
     tablaBorde.style.border = "none";
-    alumnos.replaceChildren(liAlumno)
+    alumnos.replaceChildren(liAlumno);
 
-    alumnnosEvaluacionContainer.innerHTML = '<p class="negro">No hay alumnos para evaluar</p>'
+    alumnnosEvaluacionContainer.innerHTML =
+      '<p class="negro">No hay alumnos para evaluar</p>';
   }
 
   btnAgregar.onclick = () => {
@@ -486,14 +496,16 @@ function mostrarClase(clase) {
     abrirModalEditar();
   };
   btnEvaluacion.onclick = () => {
-    grupo.innerHTML = `Grupo: <span class="negro">${niveles[clase.nivel]}</span>`;
+    grupo.innerHTML = `Grupo: <span class="negro">${
+      niveles[clase.nivel]
+    }</span>`;
 
     const mesEvaluacion = document.getElementById("mes-evaluacion");
     mesEvaluacion.onchange = () => {
       generarDiasEvaluacion(mesEvaluacion, clase.horas);
     };
     abrirModalEvaluacion();
-  }
+  };
 }
 
 btnEditarHorarios.addEventListener("click", async () => {
@@ -563,20 +575,20 @@ btnAsignarEvaluacion.onclick = async () => {
     }
   });
 
-  const fecha = select.value
+  const fecha = select.value;
 
   // Verificar que ambos valores estén seleccionados
   if (!fecha) {
     mostrarError("Por favor, selecciona la fecha");
-    return
+    return;
   }
 
-  console.log("Día seleccionado:", fecha)
   if (alumnosParaEvaluar.length === 0) {
     mostrarError("Seleccione al menos un alumno para evaluación.");
     return;
   }
 
+  loader.style.display = "block";
   try {
     const response = await fetch("/maestro/asignar-evaluacion", {
       method: "PUT",
@@ -592,13 +604,19 @@ btnAsignarEvaluacion.onclick = async () => {
 
     if (response.ok) {
       mostrarExito("Se asignó la evaluación");
+      
+  loader.style.display = "none";
       location.reload();
     } else {
       const errorData = await response.json();
       mostrarError("Error del servidor: " + errorData.message);
+      
+  loader.style.display = "none";
     }
   } catch {
     mostrarError("Hubo un error al asignar la evaluación. ");
+    
+  loader.style.display = "none";
   }
 };
 
@@ -627,11 +645,11 @@ closeResultadosModal.onclick = () => {
   cerrarModalResultados();
 };
 
-formResultados.onsubmit = async (e) =>{
-  e.preventDefault()
+formResultados.onsubmit = async (e) => {
+  e.preventDefault();
 
-  if(observaciones.value==''){
-    mostrarError('Por favor incluye las observaciones')
+  if (observaciones.value == "") {
+    mostrarError("Por favor incluye las observaciones");
     return;
   }
 
@@ -639,17 +657,16 @@ formResultados.onsubmit = async (e) =>{
     idAlumno: idAlumno.textContent,
     idClase: idClase,
     nivel: nivelSelect.value,
-    observaciones: observaciones.value
-  }
-  console.log(data)
+    observaciones: observaciones.value,
+  };
+  console.log(data);
   try {
     const response = await fetch("/maestro/publicar-evaluacion", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data
-      ),
+      body: JSON.stringify(data),
     });
 
     if (response.ok) {
@@ -662,6 +679,5 @@ formResultados.onsubmit = async (e) =>{
   } catch {
     mostrarError("Hubo un error al asignar la evaluación. ");
   }
-
-}
+};
 document.addEventListener("DOMContentLoaded", fetchClaseDetalles);
