@@ -21,6 +21,7 @@ const niveles = [
   "Pez vela",
   "Albatros",
   "Adulto",
+  'Iniciación deportiva'
 ];
 
 // ! mensaje de error
