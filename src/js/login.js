@@ -44,6 +44,7 @@ regresar.addEventListener("click", () => {
   window.location.href = "/";
 });
 
+
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/service_worker.js', {scope: '/'})
     .then((registration) => {
@@ -80,4 +81,3 @@ window.addEventListener('beforeinstallprompt', (e) => {
     });
   });
 });
-

@@ -705,4 +705,34 @@ router.delete("/eliminar-admin/:id", async (req, res) => {
   }
 });
 
+
+router.put("/reset-password/:id", async (req, res) => {
+  try {
+    const usuarioRef = firestore.collection("usuarios").doc(req.params.id);
+    
+    const usuarioSnapshot = await usuarioRef.get();
+    if (!usuarioSnapshot.exists) {
+      throw new Error("El usuario no existe.");
+    }
+
+    const usuarioData = usuarioSnapshot.data();
+
+    const nombreUsuario = usuarioData.usuario;
+
+    const nuevaPassword = await bcrypt.hash(nombreUsuario, saltRounds);
+
+    await usuarioRef.update({
+      password: nuevaPassword,
+    });
+
+    res.status(200).send({
+      message: "Contraseña restablecida exitosamente."   });
+  } catch (error) {
+    console.error("Error al resetear la contraseña:", error.message);
+    res.status(400).send({
+      message: "Error al resetear la contraseña.",
+      error: error.message,
+    });
+  }
+});
 module.exports = router;

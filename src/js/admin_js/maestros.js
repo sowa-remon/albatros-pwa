@@ -100,6 +100,30 @@ function mostrarMaestros(maestros) {
     const usuario = document.createElement("p");
     usuario.innerHTML = `<b>Usuario:</b> <span>${maestro.usuario}</span>`;
     fichaMaestro.appendChild(usuario);
+    
+    const btnResetPass = document.createElement('button')
+    btnResetPass.className = 'btn-texto'
+    btnResetPass.style.margin =  '1rem 0'
+    btnResetPass.style.setProperty("--color", "#EF8122");
+    btnResetPass.textContent = 'Restaurar contraseña'
+    btnResetPass.onclick = async () => {
+      if (confirm("¿Desea restaurar la contraseña de este usuario?")) {
+        const response = await fetch(`/admin/reset-password/${maestro.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: maestro.id }),
+        });
+        if (response.ok) {
+          mostrarExito("Contraseña restaurada");
+        } else {
+          mostrarError("Error al cambiar la contraseña");
+        }
+      }
+    };
+
+    fichaAlumno.appendChild(btnResetPass)
 
     const columna = document.createElement("div");
     columna.className = "columna-1-2";

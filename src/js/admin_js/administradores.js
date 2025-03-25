@@ -77,6 +77,30 @@ function mostrarAdmins(admins) {
     status.innerHTML = `<b><span>Status:</span></b>`;
     status.appendChild(estado);
     fichaAdmin.appendChild(status);
+  
+    const btnResetPass = document.createElement('button')
+    btnResetPass.className = 'btn-texto'
+    btnResetPass.style.margin =  '1rem 0'
+    btnResetPass.style.setProperty("--color", "#EF8122");
+    btnResetPass.textContent = 'Restaurar contraseña'
+    btnResetPass.onclick = async () => {
+      if (confirm("¿Desea restaurar la contraseña de este usuario?")) {
+        const response = await fetch(`/admin/reset-password/${admin.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: admin.id }),
+        });
+        if (response.ok) {
+          mostrarExito("Contraseña restaurada");
+        } else {
+          mostrarError("Error al cambiar la contraseña");
+        }
+      }
+    };
+
+    fichaAlumno.appendChild(btnResetPass)
 
     filaAdmin.appendChild(fichaAdmin);
 
