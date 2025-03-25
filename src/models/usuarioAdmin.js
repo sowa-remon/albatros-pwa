@@ -4,7 +4,7 @@ class usuarioAdmin {
         this.usuario = usuario;
         this.password = password;
         this.tipo = tipo;
-        this.activo = tipo;
+        this.activo = activo;
     }
     
     // Método para transformar un documento de Firestore en un objeto de la clase
