@@ -15,13 +15,14 @@ router.post("/login", upload.none(), async (req, res) => {
   }
 
   try{
+    
     const snapshot = await firestore.collection("usuarios").where("usuario", "==", usuario).get()
     if(snapshot.empty){
       return res.status(404).send({ message: "Usuario no encontrado" })
     }
 
     const usuarioEncontrado = snapshot.docs[0].data()
-    
+
     if(usuarioEncontrado.estado === false){
       return res.status(401).send({ message: "Este usuario está inactivo" })
     }

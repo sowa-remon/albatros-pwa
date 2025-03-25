@@ -21,6 +21,11 @@ self.addEventListener("install", (event) => {
 
 // Evento de solicitud de red (fetch)
 self.addEventListener("fetch", (event) => {
+  
+  // Solo manejar solicitudes GET
+  if (event.request.method !== 'GET') {
+    return;
+  }
   const url = new URL(event.request.url); // Crear el objeto URL correctamente
 
   // ** No almacenar en caché las rutas protegidas **
@@ -46,10 +51,6 @@ self.addEventListener("fetch", (event) => {
         }));
   }
 
-  // Solo manejar solicitudes GET
-  if (event.request.method !== 'GET') {
-    return;
-  }
 
   event.respondWith(
     caches.match(event.request).then((response) => {
@@ -81,3 +82,4 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+
