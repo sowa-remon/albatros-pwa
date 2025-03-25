@@ -29,6 +29,7 @@ const niveles = [
   "Pez vela",
   "Albatros",
   "Adulto",
+  'Iniciación deportiva'
 ];
 
 const programas = {
@@ -47,6 +48,7 @@ const programas = {
   13: 55,
   14: 55,
   15: 60,
+  16:0
 };
 
 // ! mensaje de error
