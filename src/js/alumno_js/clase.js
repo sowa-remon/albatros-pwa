@@ -28,6 +28,7 @@ const niveles = [
   "Pez vela",
   "Albatros",
   "Adulto",
+  "Iniciación deportiva",
 ];
 
 const programas = {
@@ -47,6 +48,7 @@ const programas = {
   13: 55,
   14: 55,
   15: 60,
+  16: 60
 };
 
 let idClase;
@@ -98,6 +100,7 @@ async function fetchPerfil() {
 
     nivel = data.usuario.nivel;
     if (Number(nivel) == 0) {
+      contenido.textContent = 'Cuando te asignen a una clase, aparecerán aquí los detalles.'
     } else {
       fetchContenido(Number(nivel));
     }
@@ -129,9 +132,18 @@ function capitalizeFirstLetter(str) {
 }
 
 function mostrarContenido(con) {
+  if(con.nivel == 0 ){
+    duracionClase.style.display = 'none'
+  }
   duracionClase.textContent = programas[nivel] + " minutos";
 
-  contenidoPedagogico.textContent = con.objetivos;
+  if(con.objetivos==''){
+    contenidoPedagogico.textContent = 'No se ha agregado'
+  }else{
+
+    contenidoPedagogico.textContent = con.objetivos;
+
+  }
   if (con.video == "") {
   } else {
     const videoContenido = document.createElement("video");

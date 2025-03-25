@@ -28,7 +28,16 @@ self.addEventListener("fetch", (event) => {
     url.pathname.includes("/admin") ||
     url.pathname.includes("/maestro-inicio") ||
     url.pathname.includes("/panel-administracion") || 
-    url.pathname.includes("/lista-anuncios")
+    url.pathname.includes("/lista-anuncios")|| 
+    url.pathname.includes("/maestro")|| 
+    url.pathname.includes("/alumno")|| 
+    url.pathname.includes("/alumno-panel")|| 
+    url.pathname.includes("/auth")|| 
+    url.pathname.includes("/anuncios")|| 
+    url.pathname.includes("/anuncio")|| 
+    url.pathname.includes("/todas-las-clases")|| 
+    url.pathname.includes("/auth")
+
   ) {
         // Hacer siempre la solicitud de red (no almacenar en caché)
         return event.respondWith(fetch(event.request).catch(() => {

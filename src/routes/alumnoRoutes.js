@@ -57,9 +57,11 @@ router.get("/contenido/:n", async (req, res) => {
     } else if (n >= 8 && n <= 14) {
         contenidoQuery = firestore.collection("contenidos").where("programa", "==", "5");
     } else if (n == 15) {
-        contenidoQuery = firestore.collection("contenidos").where("programa", "==", "6");
-    } else {
-        return res.status(400).send({ message: "El parámetro proporcionado no es válido." });
+      contenidoQuery = firestore.collection("contenidos").where("programa", "==", "6");
+  } else if (n == 16) {
+    contenidoQuery = firestore.collection("contenidos").where("programa", "==", "7");
+} else {
+        return res.status(400).send({ message: "El nivel proporcionado no es válido." });
     }
 
     try {

@@ -216,6 +216,7 @@ async function modalVideo(id) {
       mostrarExito("Video publicado");
 
       loader.style.display = "none";
+      
 
       guardarVideo.removeAttribute("disabled");
       fetchContenido();
