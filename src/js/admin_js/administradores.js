@@ -23,6 +23,30 @@ closeAdmin.onclick = () =>{
 } 
 
 
+const mensajeError = document.getElementById('mensajeError')
+const mensajeExito = document.getElementById('mensajeExito')
+
+
+// ! mensaje de error
+function mostrarError2(mensaje) {
+  meError.textContent = mensaje;
+  meError.style.display = "block";
+
+  setTimeout(() => {
+    meError.style.display = "none";
+  }, 4500);
+}
+
+// * mensaje de éxito
+function mostrarExito2(mensaje) {
+  meExito.textContent = mensaje;
+  meExito.style.display = "block";
+
+  setTimeout(() => {
+    meExito.style.display = "none";
+  }, 4500);
+}
+
 modalAdmin.onsubmit = async (e) =>{
 e.preventDefault()
 
@@ -50,26 +74,6 @@ e.preventDefault()
       }
 }
 
-// ! mensaje de error
-function mostrarError(mensaje) {
-  meError.textContent = mensaje;
-  meError.style.display = "block";
-
-  setTimeout(() => {
-    meError.style.display = "none";
-  }, 4500);
-}
-
-// * mensaje de éxito
-function mostrarExito(mensaje) {
-  meExito.textContent = mensaje;
-  meExito.style.display = "block";
-
-  setTimeout(() => {
-    meExito.style.display = "none";
-  }, 4500);
-}
-
 let miId;
 
 async function fetchAdmin() {
@@ -85,6 +89,7 @@ async function fetchAdmin() {
   }
 }
 fetchAdmin();
+
 async function fetchAdmins() {
   try {
     const response = await fetch("/admin/lista-admins");
@@ -190,6 +195,5 @@ function mostrarAdmins(admins) {
   });
 }
 
-modalAdmin.
 
 fetchAdmins();
