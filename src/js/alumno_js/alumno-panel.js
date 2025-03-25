@@ -132,24 +132,19 @@ function mostrarClase(clase) {
   }
   duracionClase.textContent = programas[nivel] + " minutos";
 
+  console.log(clase)
   const c = obtenerClaseMasProxima(clase.horas);
   proximaClase.textContent =
     capitalizeFirstLetter(c.dia) + " a las " + c.horaInicio;
-}
+}function obtenerClaseMasProxima(clases) {
+  if (!clases || clases.length === 0) {
+    return null; // No classes available
+  }
 
-function obtenerClaseMasProxima(clases) {
-  const diasSemana = [
-    "domingo",
-    "lunes",
-    "martes",
-    "miercoles",
-    "jueves",
-    "viernes",
-    "sabado",
-  ];
-  const hoy = new Date(); // Obtiene la fecha y hora actuales
+  const diasSemana = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
+  const hoy = new Date();
   const diaHoy = diasSemana[hoy.getDay()];
-  const horaActual = hoy.getHours() + ":" + hoy.getMinutes();
+  const horaActual = hoy.getHours() * 60 + hoy.getMinutes(); // Convert current time to minutes for comparison
 
   let claseMasProxima = null;
   let diferenciaMinima = Number.MAX_VALUE;
@@ -157,19 +152,27 @@ function obtenerClaseMasProxima(clases) {
   clases.forEach((clase) => {
     const { dia, horaInicio } = clase;
 
-    if (diasSemana.indexOf(dia) >= diasSemana.indexOf(diaHoy)) {
-      const [horaClase, minutoClase] = horaInicio.split(":").map(Number);
-      const diferencia =
-        (diasSemana.indexOf(dia) - diasSemana.indexOf(diaHoy)) * 1440 + // Diferencia en días convertida a minutos
-        (horaClase * 60 + minutoClase) -
-        (hoy.getHours() * 60 + hoy.getMinutes());
+    // Parse the horaInicio into minutes
+    const [horaClase, minutoClase] = horaInicio.split(":").map(Number);
+    const horaClaseEnMinutos = horaClase * 60 + minutoClase;
 
-      if (diferencia >= 0 && diferencia < diferenciaMinima) {
-        diferenciaMinima = diferencia;
-        claseMasProxima = clase;
-      }
+    // Calculate the difference in days between today and the class day
+    let diferenciaDias = diasSemana.indexOf(dia) - diasSemana.indexOf(diaHoy);
+
+    // If the class day is before today, consider it for the next week
+    if (diferenciaDias < 0 || (diferenciaDias === 0 && horaClaseEnMinutos < horaActual)) {
+      diferenciaDias += 7; // Wrap around to the next week
+    }
+
+    // Calculate the total difference in minutes (days to minutes + hour difference)
+    const diferenciaEnMinutos = diferenciaDias * 1440 + (horaClaseEnMinutos - horaActual);
+
+    if (diferenciaEnMinutos >= 0 && diferenciaEnMinutos < diferenciaMinima) {
+      diferenciaMinima = diferenciaEnMinutos;
+      claseMasProxima = clase;
     }
   });
+
   console.log(claseMasProxima);
   return claseMasProxima;
 }
