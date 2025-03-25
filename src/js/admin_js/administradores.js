@@ -145,9 +145,9 @@ function mostrarAdmins(admins) {
           body: JSON.stringify({ id: admin.id }),
         });
         if (response.ok) {
-          mostrarExito("Contraseña restaurada");
+          mostrarExito2("Contraseña restaurada");
         } else {
-          mostrarError("Error al cambiar la contraseña");
+          mostrarError2("Error al cambiar la contraseña");
         }
       }
     };
@@ -170,7 +170,7 @@ function mostrarAdmins(admins) {
       btnBaja.textContent = "Eliminar admin";
       btnBaja.onclick = async () => {
         if (admin.id == miId) {
-          mostrarError("No te puedes eliminar a ti mismo");
+          mostrarError2("No te puedes eliminar a ti mismo");
           return;
         }
         if (confirm("¿Eliminar definitivamente este administrador?")) {
@@ -181,10 +181,10 @@ function mostrarAdmins(admins) {
             },
           });
           if (response.ok) {
-            mostrarExito("Administrador eliminado definitivamente");
+            mostrarExito2("Administrador eliminado definitivamente");
             fetchAdmins();
           } else {
-            mostrarError("Ocurrió un error al eliminar");
+            mostrarError2("Ocurrió un error al eliminar");
           }
         }
       };
