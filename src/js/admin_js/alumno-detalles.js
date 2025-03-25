@@ -16,6 +16,30 @@ const maestro = document.getElementById("maestro");
 const observaciones = document.getElementById("observaciones");
 const aprobar = document.getElementById("aprobar");
 
+
+const meError = document.getElementById("mensajeError");
+const meExito = document.getElementById("mensajeExito");
+
+// ! mensaje de error
+function mostrarError(mensaje) {
+  meError.textContent = mensaje;
+  meError.style.display = "block";
+
+  setTimeout(() => {
+    meError.style.display = "none";
+  }, 4500);
+}
+
+// * mensaje de éxito
+function mostrarExito(mensaje) {
+  meExito.textContent = mensaje;
+  meExito.style.display = "block";
+
+  setTimeout(() => {
+    meExito.style.display = "none";
+  }, 4500);
+}
+
 async function fetchAlumnoDetails() {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
@@ -136,9 +160,9 @@ formDetalles.addEventListener("submit", async (event) => {
     });
 
     if (response.ok) {
-      alert("Cambios guardados exitosamente");
+      mostrarExito("Cambios guardados exitosamente");
     } else {
-      alert("Error al guardar los cambios en el if");
+      mostrarError("Error al guardar los cambios en el if");
     }
   } catch (error) {
     console.error("Error al guardar los cambios:", error);
@@ -150,8 +174,6 @@ formEvaluacion.addEventListener("submit", async (event) => {
 
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id")
-  console.log(id)
-
   try {
     const response = await fetch(`/admin/publicarEvaluacion/${id}`, {
       method: "PUT",
@@ -162,12 +184,12 @@ formEvaluacion.addEventListener("submit", async (event) => {
     });
 
     if (response.ok) {
-      alert("Se publicó la evaluación al alumno");
+      mostrarExito("Se publicó la evaluación al alumno");
       estadoEvaluacion.innerHTML = "Aprobado";
       observaciones.setAttribute("disabled", true);
       aprobar.setAttribute("disabled", true);
     } else {
-      alert("No se pudo publicar la evaluación");
+      mostrarError("No se pudo publicar la evaluación");
     }
   } catch (error) {
     console.error("Error al guardar los cambios:", error);

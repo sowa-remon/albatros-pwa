@@ -5,8 +5,11 @@ const proximaClase = document.getElementById("proximaClase");
 const duracionClase = document.getElementById("duracionClase");
 const nombreMaestro = document.getElementById("nombreMaestro");
 const curriculumMaestro = document.getElementById("curriculumMaestro");
-const contenidoPedagogico = document.getElementById('contenidoPedagogico')
-const diasHorario = document.getElementById('dias-horario')
+const contenidoPedagogico = document.getElementById("contenidoPedagogico");
+const diasHorario = document.getElementById("dias-horario");
+
+const divHorarios = document.getElementById('horarios')
+const divMaestro = document.getElementById('maestro')
 
 const niveles = [
   "Ninguno",
@@ -85,18 +88,19 @@ async function fetchPerfil() {
 
     idClase = data.usuario.clase;
     if (idClase == "") {
-    } else {
+        divHorarios.textContent =
+        "Tus horarios de clase aparecerán cuando seas asignado a una clase.";
+      divMaestro.textContent =
+        "Los datos de tu maestro aparecerán cuando seas asignado a una clase.";
+   } else {
       fetchClase(idClase);
     }
 
     nivel = data.usuario.nivel;
-    if(Number(nivel)==0){
-
-    }else{
-        console.log(Number(nivel))
-        fetchContenido(Number(nivel))
+    if (Number(nivel) == 0) {
+    } else {
+      fetchContenido(Number(nivel));
     }
-
   } catch (error) {
     console.error("Error al recuperar perfil:", error);
   }
@@ -110,35 +114,36 @@ function mostrarClase(clase) {
   if (clase.maestro.curriculum != "") {
     curriculumMaestro.textContent = clase.maestro.curriculum;
   }
-  duracionClase.textContent = programas[nivel] + ' minutos'
 
-  clase.horas.forEach(hora => {
-    const elementHora = document.createElement('div')
-    elementHora.className = 'dato'
-    let dia = capitalizeFirstLetter(hora.dia) 
-    elementHora.innerHTML = `<p><b>${dia}</b></p> <p>${hora.horaInicio}</p>`
+  clase.horas.forEach((hora) => {
+    const elementHora = document.createElement("div");
+    elementHora.className = "dato";
+    let dia = capitalizeFirstLetter(hora.dia);
+    elementHora.innerHTML = `<p><b>${dia}</b></p> <p>${hora.horaInicio}</p>`;
 
-    diasHorario.appendChild(elementHora)
+    diasHorario.appendChild(elementHora);
   });
 }
 function capitalizeFirstLetter(str) {
-    return str[0].toUpperCase() + str.slice(1);
-  }
+  return str[0].toUpperCase() + str.slice(1);
+}
 
-  function mostrarContenido(con){
-    contenidoPedagogico.textContent = con.objetivos
-    if(con.video==''){}
-    else{
-        const videoContenido = document.createElement('video')
-        const sourceVideo = document.createElement('source')
-        sourceVideo.src = con.video
-        videoContenido.appendChild(sourceVideo)
-        videoContenido.className = 'video-contenido'
-        videoContenido.autoplay = true
-        videoContenido.loop = true
-        videoContenido.muted = true; 
-        const contenido = document.getElementById('contenido')
-        contenido.appendChild(videoContenido)
-    }
+function mostrarContenido(con) {
+  duracionClase.textContent = programas[nivel] + " minutos";
+
+  contenidoPedagogico.textContent = con.objetivos;
+  if (con.video == "") {
+  } else {
+    const videoContenido = document.createElement("video");
+    const sourceVideo = document.createElement("source");
+    sourceVideo.src = con.video;
+    videoContenido.appendChild(sourceVideo);
+    videoContenido.className = "video-contenido";
+    videoContenido.autoplay = true;
+    videoContenido.loop = true;
+    videoContenido.muted = true;
+    const contenido = document.getElementById("contenido");
+    contenido.appendChild(videoContenido);
   }
+}
 fetchPerfil();

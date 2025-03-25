@@ -12,7 +12,7 @@ const nivel = document.getElementById("nivel");
 const totalAlumnos = document.getElementById("total-alumnos");
 const alumnoModal = document.getElementById("alumno-modal");
 const concentradoAlumnos = document.getElementById("concentrado-alumnos");
-const barraBusqueda = document.getElementById('barra-busqueda');
+const barraBusqueda = document.getElementById("barra-busqueda");
 
 const meError = document.getElementById("mensaje-error");
 const meExito = document.getElementById("mensaje-exito");
@@ -55,7 +55,6 @@ function mostrarExito(mensaje) {
   }, 4500);
 }
 
-
 async function fetchAlumnos() {
   try {
     const response = await fetch("/admin/lista-alumnos");
@@ -96,13 +95,18 @@ function mostrarAlumnos(alumnos) {
     fichaAlumno.appendChild(nombre);
 
     const evaluacion = document.createElement("p");
-    if(alumno.evaluacion.fechaEv == '' && alumno.evaluacion.maestro == '' && alumno.evaluacion.observaciones == ''){
+    if (
+      alumno.evaluacion.fechaEv == "" &&
+      alumno.evaluacion.maestro == "" &&
+      alumno.evaluacion.observaciones == ""
+    ) {
       evaluacion.innerHTML = `<b>Evaluación:</b> <span>Pendiente</span>`;
       fichaAlumno.appendChild(evaluacion);
-    }
-    else{
-      evaluacion.innerHTML = `<b>Evaluación:</b> <span>${alumno.evaluacion.aprobado ? "Aprobado" : "Por aprobar"}</span>`;
-      fichaAlumno.appendChild(evaluacion);  
+    } else {
+      evaluacion.innerHTML = `<b>Evaluación:</b> <span>${
+        alumno.evaluacion.aprobado ? "Aprobado" : "Por aprobar"
+      }</span>`;
+      fichaAlumno.appendChild(evaluacion);
     }
 
     const status = document.createElement("p");
@@ -124,7 +128,7 @@ function mostrarAlumnos(alumnos) {
     btnVistaDetallada.style.setProperty("--color", "#EF8122");
     btnVistaDetallada.textContent = "Abrir vista detallada";
     if (alumno.estado == false) {
-      btnVistaDetallada.setAttribute('disabled', true)
+      btnVistaDetallada.setAttribute("disabled", true);
     }
     btnVistaDetallada.onclick = () => {
       window.location.href = `/admin/detalle-alumno?id=${alumno.id}`;
@@ -218,14 +222,14 @@ window.onclick = function (event) {
   }
 };
 
-function limpiarCampos(){
+function limpiarCampos() {
   nombre.value = "";
   apellidos.value = "";
   fechaN.value = "";
   antecedentes.value = "";
   restricciones.value = "";
   direccion.value = "";
-  telefono.value = ""
+  telefono.value = "";
   contactoNombre.value = "";
   contactoTelefono.value = "";
   nivel.value = "";
@@ -234,7 +238,7 @@ function limpiarCampos(){
 // Cancela el registro de un alumno
 cancelarRegistro.addEventListener("click", () => {
   if (confirm("¿Está seguro de que quiere cancelar el registro?")) {
-    limpiarCampos()
+    limpiarCampos();
     closeModal();
   }
 });
@@ -243,18 +247,24 @@ document
   .getElementById("registrarAlumno")
   .addEventListener("submit", async (event) => {
     event.preventDefault();
+    const btnRegistrarAlumno = document.getElementById("btnRegistrarAlumno");
+    btnRegistrarAlumno.setAttribute("disabled", true);
     if (
       !nombre.value ||
       !apellidos.value ||
       !fechaN.value ||
+      !restricciones  ||
       !direccion.value ||
       !telefono.value ||
-      !nivel.value
+      !nivel.value ||
+      !contactoTelefono ||
+      !contactoNombre
     ) {
       mostrarError("Por favor, ingrese todos los campos");
+
+      btnRegistrarAlumno.removeAttribute("disabled");
       return;
     } else {
-
       data = {
         nombre: nombre.value,
         apellidos: apellidos.value,
@@ -265,8 +275,8 @@ document
         telefono: telefono.value,
         contactoNombre: contactoNombre.value,
         contactoTelefono: contactoTelefono.value,
-        nivel: nivel.value
-      }
+        nivel: nivel.value,
+      };
 
       const response = await fetch("/admin/crearUsuarioAlumno/", {
         method: "POST",
@@ -278,11 +288,15 @@ document
 
       if (response.ok) {
         mostrarExito("Alumno registrado exitosamente");
-        limpiarCampos()
-        fetchAlumnos()
-        closeModal()
+        limpiarCampos();
+
+        btnRegistrarAlumno.removeAttribute("disabled");
+        fetchAlumnos();
+        closeModal();
       } else {
         mostrarError("Error al registrar el alumno ?");
+        
+    btnRegistrarAlumno.removeAttribute('disabled')
       }
     }
   });

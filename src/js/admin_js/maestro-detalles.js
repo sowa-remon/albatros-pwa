@@ -7,6 +7,35 @@ const direccion = document.getElementById("direccion");
 const telefono = document.getElementById("telefono");
 const horario = document.getElementById("horario");
 
+
+const meError = document.getElementById("mensajeError");
+const meExito = document.getElementById("mensajeExito");
+
+
+// ! mensaje de error
+function mostrarError(mensaje) {
+  meError.textContent = mensaje;
+  meError.style.display = "block";
+
+  setTimeout(() => {
+    meError.style.display = "none";
+  }, 4500);
+}
+
+// * mensaje de éxito
+function mostrarExito(mensaje) {
+  meExito.textContent = mensaje;
+  meExito.style.display = "block";
+
+  setTimeout(() => {
+    meExito.style.display = "none";
+  }, 4500);
+}
+
+function capitalizeFirstLetter(str) {
+  return str[0].toUpperCase() + str.slice(1);
+}
+
 async function fetchMaestroDetalles() {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
@@ -25,20 +54,18 @@ async function fetchMaestroDetalles() {
     direccion.value = maestro.direccion;
     telefono.value = maestro.telefono;
 
-    console.log(maestro.horario);
     const horarios = maestro.horario 
-
-    // Mostrar los días con horarios definidos
     for (const dia in horarios) {
+
       const { horaInicio, horaFin } = horarios[dia];
       if (horaInicio && horaFin) {
         const diaHorario = document.createElement('li')
-        diaHorario.textContent =`${dia}: De ${horaInicio} a ${horaFin}`
+        diaHorario.textContent =`${capitalizeFirstLetter(dia)}:   de ${horaInicio} a ${horaFin}`
 
         horario.appendChild(diaHorario)
-      }
+      } 
     }
-
+        
     const originalValues = {
       nombre: maestro.nombre,
       apellidos: maestro.apellidos,
@@ -98,9 +125,9 @@ formDetalles.addEventListener("submit", async (event) => {
     });
 
     if (response.ok) {
-      alert("Cambios guardados exitosamente");
+      mostrarExito("Cambios guardados exitosamente");
     } else {
-      alert("Error al guardar los cambios en el if");
+      mostrarError("Error al guardar los cambios");
     }
   } catch (error) {
     console.error("Error al guardar los cambios:", error);

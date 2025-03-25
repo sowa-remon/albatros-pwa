@@ -74,7 +74,7 @@ function mostrarClases(clases){
     
     clases.forEach(clase => {
       const trClase = document.createElement('tr')
-      trClase.innerHTML = `<td>${niveles[clase.nivel]}</td> <td>${clase.maestro.nombre} ${clase.maestro.apellidos}</td>`
+      trClase.innerHTML = `<td>${niveles[clase.nivel]}</td> <td>${clase.maestro.nombre}</td>`
 
       if(clase.alumnos == ''){
         const li = document.createElement('td')

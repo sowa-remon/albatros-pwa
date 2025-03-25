@@ -29,6 +29,30 @@ const horaFinSabado = document.getElementById("hora-final-sabado");
 
 let dataUsuarioOriginal;
 
+const meError = document.getElementById("mensajeError");
+const meExito = document.getElementById("mensajeExito");
+
+
+// ! mensaje de error
+function mostrarError(mensaje) {
+  meError.textContent = mensaje;
+  meError.style.display = "block";
+
+  setTimeout(() => {
+    meError.style.display = "none";
+  }, 4500);
+}
+
+// * mensaje de éxito
+function mostrarExito(mensaje) {
+  meExito.textContent = mensaje;
+  meExito.style.display = "block";
+
+  setTimeout(() => {
+    meExito.style.display = "none";
+  }, 4500);
+}
+
 async function fetchPerfil() {
   try {
     const response = await fetch("/auth/perfil");
@@ -101,13 +125,13 @@ guardarCurriculum.addEventListener("click", async () => {
     body: JSON.stringify({ curriculum: curriculum.value }),
   });
   if (response.ok) {
-    alert("Currículum actualizado exitosamente");
+    mostrarExito("Currículum actualizado exitosamente");
     editarCurriculum.style.display = "block";
     guardarCurriculum.style.display = "none";
     cancelarCurriculum.style.display = "none";
     fetchPerfil();
   } else {
-    alert("Error al actualizar el currículum");
+    mostrarError("Error al actualizar el currículum");
   }
 })
 
@@ -144,65 +168,64 @@ function desactivaChecks(){
 function validarHorario(h){
   if(lunes.checked == true ){
     if(h.lunes.horaInicio == "" || h.lunes.horaFin == ""){
-      alert("Por favor, ingrese la hora de inicio y final del lunes")
+      mostrarError("Por favor, ingrese la hora de inicio y final del lunes")
       return false
     }
     if(h.lunes.horaInicio >= h.lunes.horaFin){
-      alert("La hora de término debe ser mayor a la hora de inicio de la jornada del día lunes")
+      mostrarError("La hora de término debe ser mayor a la hora de inicio de la jornada del día lunes")
       return false
     }
   }
   if(martes.checked == true ){
     if(h.martes.horaInicio == "" || h.martes.horaFin == ""){
-      alert("Por favor, ingrese la hora de inicio y final del martes")
+      mostrarError("Por favor, ingrese la hora de inicio y final del martes")
       return false
     }
     if(h.martes.horaInicio >= h.martes.horaFin){
-      alert("La hora de término debe ser mayor a la hora de inicio de la jornada del día martes")
+      mostrarError("La hora de término debe ser mayor a la hora de inicio de la jornada del día martes")
       return false
     }
   }
   if(miercoles.checked == true ){
     if(h.miercoles.horaInicio == "" || h.miercoles.horaFin == ""){
-      alert("Por favor, ingrese la hora de inicio y final del miércoles")
+      mostrarError("Por favor, ingrese la hora de inicio y final del miércoles")
       return false
     }
     if(h.miercoles.horaInicio >= h.miercoles.horaFin){
-      alert("La hora de término debe ser mayor a la hora de inicio de la jornada del día miércoles")
+      mostrarError("La hora de término debe ser mayor a la hora de inicio de la jornada del día miércoles")
       return false
     }
   }
   if(jueves.checked == true){
     if(h.jueves.horaInicio == "" || h.jueves.horaFin == ""){
-      alert("Por favor, ingrese la hora de inicio y final del jueves")
+      mostrarError("Por favor, ingrese la hora de inicio y final del jueves")
       return false
     }
     if(h.jueves.horaInicio >= h.jueves.horaFin){
-      alert("La hora de término debe ser mayor a la hora de inicio de la jornada del día jueves")
+      mostrarError("La hora de término debe ser mayor a la hora de inicio de la jornada del día jueves")
       return false
     }
   }
   if(viernes.checked == true){
     if(h.viernes.horaInicio == "" || h.viernes.horaFin == ""){
-      alert("Por favor, ingrese la hora de inicio y final del viernes")
+      mostrarError("Por favor, ingrese la hora de inicio y final del viernes")
       return false
     }
     if(h.viernes.horaInicio >= h.viernes.horaFin){
-      alert("La hora de término debe ser mayor a la hora de inicio de la jornada del día viernes")
+      mostrarError("La hora de término debe ser mayor a la hora de inicio de la jornada del día viernes")
       return false
     }
   }
   if(sabado.checked == true){
     if(h.sabado.horaInicio == "" || h.sabado.horaFin == ""){
-      alert("Por favor, ingrese la hora de inicio y final del sábado")
+      mostrarError("Por favor, ingrese la hora de inicio y final del sábado")
       return false
     }
     if(h.sabado.horaInicio >= h.sabado.horaFin){
-      alert("La hora de término debe ser mayor a la hora de inicio de la jornada del día sábado")
+      mostrarError("La hora de término debe ser mayor a la hora de inicio de la jornada del día sábado")
       return false
     }
   }
-  console.log("todo bien")
   return true
 }
 
@@ -322,7 +345,6 @@ guardarHorario.addEventListener("click", async (e) => {
 
 
   if (!validarHorario(horario)) {
-    console.log("entra a validar")
     return false;
   }
   
@@ -334,13 +356,12 @@ guardarHorario.addEventListener("click", async (e) => {
     body: JSON.stringify({horario: horario}),
   });
   if (response.ok) {
-    alert("Horario actualizado exitosamente");
+    mostrarExito("Horario actualizado exitosamente");
     btnsHorario.style.display = "none";
     editarHorario.style.display = "block";
     fetchPerfil();
   } else {
-    console.log(horario)
-    alert("Error al actualizar el horario");
+    mostrarError("Error al actualizar el horario");
   }
 });
 

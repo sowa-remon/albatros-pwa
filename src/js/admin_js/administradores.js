@@ -1,5 +1,5 @@
 const concentradoAdmins = document.getElementById("concentrado-admins");
-const totalAdmins = document.getElementById('total-admins')
+const totalAdmins = document.getElementById("total-admins");
 const meError = document.getElementById("mensajeError");
 const meExito = document.getElementById("mensajeExito");
 
@@ -23,7 +23,21 @@ function mostrarExito(mensaje) {
   }, 4500);
 }
 
+let miId;
 
+async function fetchAdmin() {
+  try {
+    const response = await fetch("/auth/perfil");
+    if (!response.ok) {
+      throw new Error("Error en la solicitud: " + response.status);
+    }
+    let admin = await response.json();
+    miId = admin.usuario.id;
+  } catch (error) {
+    console.error("Error al recuperar los datos edl admin:", error);
+  }
+}
+fetchAdmin();
 async function fetchAdmins() {
   try {
     const response = await fetch("/admin/lista-admins");
@@ -31,7 +45,6 @@ async function fetchAdmins() {
       throw new Error("Error en la solicitud: " + response.status);
     }
     let todosAdmins = await response.json();
-    console.log(todosAdmins)
     mostrarAdmins(todosAdmins);
   } catch (error) {
     console.error("Error al recuperar los administradores:", error);
@@ -74,35 +87,36 @@ function mostrarAdmins(admins) {
     const columna = document.createElement("div");
     columna.className = "columna-1-2";
 
-
     if (admin.activo == true) {
       const btnBaja = document.createElement("button");
       btnBaja.className = "btn-texto";
       btnBaja.style.setProperty("--color", "#2E3192");
       btnBaja.textContent = "Eliminar admin";
       btnBaja.onclick = async () => {
+        if (admin.id == miId) {
+          mostrarError("No te puedes eliminar a ti mismo");
+          return;
+        }
         if (confirm("¿Eliminar definitivamente este administrador?")) {
           const response = await fetch(`/admin/eliminar-admin/${admin.id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
-            }
+            },
           });
           if (response.ok) {
             mostrarExito("Administrador eliminado definitivamente");
-            fetchAdmins()
+            fetchAdmins();
           } else {
             mostrarError("Ocurrió un error al eliminar");
           }
         }
       };
       columna.appendChild(btnBaja);
-    
     }
     filaAdmin.appendChild(columna);
     concentradoAdmins.appendChild(filaAdmin);
   });
 }
-
 
 fetchAdmins();

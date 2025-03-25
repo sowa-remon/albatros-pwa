@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Albatros: Mis datos</title>
+    <title>Albatros: Niveles</title>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/app.css">
     <link rel="shortcut icon" href="./images/icons/albatros-icon.svg" type="image/x-icon">
@@ -18,7 +18,7 @@
             </button>
             </li>
             <li class="navbar-item">
-                <span class="titulo-app marino">Mis datos</span>
+                <span class="titulo-app marino">Estructura de niveles técnicos</span>
             </li>
             <li class="navbar-item"><button class="btn-icon btn-naranja" id="logout">
                 <svg width="25" viewBox="2 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,91 +74,12 @@
     <div id="mensajeError" class="mensaje-error"></div>
     
     <div id="mensajeExito" class="mensaje-exito"></div>
-
     
     <section class="seccion-app">
-        <div class="titulo-seccion">
-            <div style="display:flex;justify-content: baseline;">
-                <div id="icon-horario"></div><p>Horarios</p>
-            </div>
-        </div>
-        <div id="horario" class="rectangulo" style="--color: #ef8122; margin-bottom: 1rem;">   
-            <div class="dato">
-                <p><b>Próxima clase:</b> </p>
-                <p id="proximaClase"></p>
-            </div>  
-            <div class="dato">
-                <p><b>Duración:</b> </p>
-                <p id="duracionClase"></p>
-            </div>  
-        </div>
-
-        <div class="titulo-seccion">
-            <div style="display:flex;justify-content: baseline;">
-                <div id="icon-maestro"></div><p>Sobre el maestro</p>
-            </div>
-        </div>
-        <div id="maestro" class="rectangulo" style="--color: #00aae2; margin-bottom: 1rem">  
-            <div class="dato">
-                <p><b>Nombre:</b> </p>
-                <p id="nombreMaestro"></p>
-            </div>  
-                <p><b>Currículum:</b> </p>
-                <p id="curriculumMaestro"></p> 
-        </div>
-
-        <div class="titulo-seccion">
-            <div style="display:flex;justify-content: baseline;">
-                <div id="icon-detalles"></div><p>Detalles del alumno</p>
-            </div>
-        </div>
-        <div id="alumno" class="rectangulo" style="--color: #2e3192; margin-bottom: 7rem;"> 
-            <div class="dato">
-                <p><b>Nombre:</b> </p>
-                <p id="nombreAlumno"></p>
-            </div> 
-            <div class="dato">
-                <p><b>Nivel:</b> </p>
-                <p id="nivelAlumno"></p>
-            </div> 
-            <div class="dato">
-                <p><b>Siguiente Evaluación:</b> </p>
-                <p id="fechaEvaluacion"></p>
-            </div> 
-            <div class="btns-doble">
-                <button class="btn btn-marino" id="abrirPasswordModal" style="margin-top: 1rem;">Cambiar contraseña</button>
-                <button class="btn btn-naranja" id="btnVerNivel"  style="margin-top: 1rem;">Nivel técnico</button>
-            </div>   
-        </div>
-  
-     <!-- Cambiar contraseña -->
-     <div id="password-modal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <span class="close" id="closepass">&times;</span>
-            <h2>Cambiar contraseña</h2>
-          </div>
-          <form id="cambiarPassword">
-            <label for="pass1">Nueva contraseña:</label>
-            <input type="password" id="pass1" name="pass1" />
-  
-            <label for="pass2">Repite la contraseña:</label>
-            <input type="password" id="pass2" name="pass2" />
-  
-            <div class="btns-doble">
-              <button class="btn btn-naranja-2" id="cancelarPassword" type="reset">
-                Cancelar
-              </button>
-              <button type="submit" class="btn btn-marino">Guardar</button>
-            </div>
-          </form>
-        </div>
-       </div>
-  
+        <img src="../../images/Albatros PWA - Frame 1.jpg" alt="Estructura de niveles de Albatros"
+        width="100%">
     </section>
     <script src="/js/script.js"></script>
-    <script src="/js/cambioPass.js"></script>
-    <script src="/js/alumno_js/alumno-panel.js"></script>
 </body>
 </body>
 </html>
