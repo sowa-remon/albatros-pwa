@@ -9,10 +9,6 @@ const usuarioAdmin = document.getElementById('usuario')
 const cancelarAdmin = document.getElementById('cancelarAdmin')
 const closeAdmin = document.getElementById('closeAdmin')
 
-btnAgregarAdmin.onclick=()=>{
-  modalAdmin.style.display = 'block'
-}
-
 
 abrirAdminModal.onclick = () =>{
   modalAdmin.style.display = 'block'
