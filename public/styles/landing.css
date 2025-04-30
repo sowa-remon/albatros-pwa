@@ -239,6 +239,7 @@ input[type=number] {
   transform: rotatey(-90deg);
 }
 
+#carousel__slide0,
 #carousel__slide1,
 #carousel__slide2,
 #carousel__slide3,
@@ -429,6 +430,7 @@ input[type=number] {
   .pregunta-wsp {
     width: 90%;
   }
+  #carousel__slide0,
   #carousel__slide1,
   #carousel__slide2,
   #carousel__slide3,
